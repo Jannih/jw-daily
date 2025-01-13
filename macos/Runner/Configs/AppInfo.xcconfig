@@ -8,7 +8,7 @@
 PRODUCT_NAME = NWT Reading
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = org.searchwork.nwtreading
+PRODUCT_BUNDLE_IDENTIFIER = com.jannihares.jwdaily
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 Searchwork.org. All rights reserved.

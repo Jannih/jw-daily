@@ -8,6 +8,7 @@ import 'package:nwt_reading/src/theme.dart';
 
 import 'schedules/presentations/schedule_page.dart';
 import 'plans/presentations/plans_page.dart';
+import 'profile/character_profile_page.dart';
 import 'settings/presentations/settings_page.dart';
 
 class App extends ConsumerWidget {
@@ -41,6 +42,10 @@ class App extends ConsumerWidget {
                     return const SettingsPage();
                   case SchedulePage.routeName:
                     return const SchedulePage();
+                  case CharacterProfilePage.routeName:
+                    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+                    final planId = args?['planId'] as String? ?? 'fallback_plan_id'; 
+                    return CharacterProfilePage(planId: planId);
                   case PlansPage.routeName:
                   default:
                     return const PlansPage();
