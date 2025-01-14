@@ -27,6 +27,10 @@ class PlansGrid extends ConsumerWidget {
           );
   }
 
-  List<PlanCard> buildPlansGrid(Plans plans) =>
-      plans.plans.map((plan) => PlanCard(plan.id)).toList();
+  List<PlanCard> buildPlansGrid(Plans plans) {
+    if (plans.plans.length > 1) {
+      return [PlanCard(plans.plans.first.id)];
+    }
+    return plans.plans.map((plan) => PlanCard(plan.id)).toList();
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'dart:math';
 import 'package:nwt_reading/src/plans/entities/plan.dart';
 import 'package:nwt_reading/src/schedules/entities/schedule.dart';
 
@@ -13,6 +14,23 @@ final availableRewardsProvider = Provider<int>((ref) {
   final achievements = ref.watch(achievementsListProvider);
   return achievements.where((a) => a.isCompleted && !a.isRewardClaimed).length;
 });
+
+final Map<String, int> achievementXP = {
+  'Erste Bibellesung': 50,
+  '3 Tage hintereinander gelesen': 75,
+  '7 Tage hintereinander gelesen': 150,
+  '10 Tage hintereinander gelesen': 250,
+  'Erstes Kapitel abgeschlossen': 50,
+  '5 Kapitel abgeschlossen': 150,
+  'Erstes Buch abgeschlossen': 200,
+  '5 Bücher abgeschlossen': 300,
+  'Erster Monat abgeschlossen': 250,
+  '3 Monate abgeschlossen': 400
+};
+
+int getRequiredXPForLevel(int level) {
+  return (100 * pow(1.2, level - 1)).round();
+}
 
 class AchievementsListWidget extends ConsumerStatefulWidget {
   final String planId;
@@ -60,6 +78,8 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
           itemCount: achievements.length,
           itemBuilder: (context, index) {
             final achievement = achievements[index];
+            final xpReward = achievementXP[achievement.title] ?? 50;
+
             return Card(
               color: achievement.isCompleted 
                   ? (achievement.isRewardClaimed ? Colors.grey[300] : Colors.white) 
@@ -96,7 +116,7 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                           onPressed: () {
                             ref.read(achievementsListProvider.notifier)
                                 .claimReward(achievement.title);
-                            widget.onRewardClaimed(10);
+                            widget.onRewardClaimed(xpReward);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,

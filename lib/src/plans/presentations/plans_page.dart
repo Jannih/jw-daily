@@ -26,6 +26,7 @@ class PlansPageState extends ConsumerState<PlansPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((duration) {
       callWhatsNewDialog(context);
+      ref.read(achievementsListProvider.notifier).loadAchievements();
     });
   }
 

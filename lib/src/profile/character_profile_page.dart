@@ -41,13 +41,17 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
     int newXP = state.xp + amount;
     int newLevel = state.level;
     
-    while (newXP >= 100) {
-      newXP -= 100;
+    while (newXP >= getRequiredXPForLevel(newLevel)) {
+      newXP -= getRequiredXPForLevel(newLevel);
       newLevel++;
     }
 
     state = CharacterStats(xp: newXP, level: newLevel);
     _saveStats();
+  }
+
+  int getCurrentLevelXP() {
+    return getRequiredXPForLevel(state.level);
   }
 }
 
@@ -93,6 +97,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   @override
   Widget build(BuildContext context) {
     final characterStats = ref.watch(characterStatsProvider);
+    final currentLevelXP = ref.read(characterStatsProvider.notifier).getCurrentLevelXP();
 
     return Scaffold(
       appBar: AppBar(
@@ -178,7 +183,8 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                     alignment: Alignment.centerLeft,
                     child: AnimatedContainer(
                       duration: Duration(seconds: 1),
-                      width: (characterStats.xp / 100) * MediaQuery.of(context).size.width,
+                      width: (characterStats.xp / currentLevelXP) * 
+                          MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue,
@@ -189,7 +195,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                 Positioned.fill(
                   child: Center(
                     child: Text(
-                      'XP: ${characterStats.xp} / 100',
+                      'Level ${characterStats.level} - XP: ${characterStats.xp} / $currentLevelXP',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
