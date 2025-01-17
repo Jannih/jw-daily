@@ -31,6 +31,14 @@ class ScheduleDeserializer {
     final events = List<String>.from(sectionMap['events'] as List<dynamic>);
     final locations =
         List<String>.from(sectionMap['locations'] as List<dynamic>);
+    final versesMap = sectionMap['verses'] as Map<String, dynamic>?;
+    final bibleVerses = versesMap != null 
+        ? List<String>.from(versesMap.keys)
+        : <String>[];
+    final videosMap = sectionMap['videos'] as Map<String, dynamic>?;
+    final videos = videosMap != null 
+        ? List<String>.from(videosMap.keys)
+        : <String>[];
 
     return Section(
       bookIndex: bookIndex,
@@ -42,6 +50,8 @@ class ScheduleDeserializer {
       url: url,
       events: events,
       locations: locations,
+      bibleVerses: bibleVerses,
+      videos: videos,
     );
   }
 }

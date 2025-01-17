@@ -59,6 +59,8 @@ class PlansRepository {
           final withTargetDate = legacyExport['withEndDate'] as bool? ?? true;
           final showEvents = legacyExport['showEvents'] as bool? ?? true;
           final showLocations = legacyExport['showLocations'] as bool? ?? false;
+          final showBibleVerses = legacyExport['showBibleVerses'] as bool? ?? true;
+          final showVideos = legacyExport['showVideos'] as bool? ?? true;
 
           final schedule =
               (schedules ?? {})[currentSchedule] as Map<String, dynamic>? ?? {};
@@ -99,6 +101,8 @@ class PlansRepository {
               withTargetDate: withTargetDate,
               showEvents: showEvents,
               showLocations: showLocations,
+              showBibleVerses: showBibleVerses, 
+              showVideos: showVideos
             )
           ]);
         }

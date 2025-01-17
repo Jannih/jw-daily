@@ -24,7 +24,8 @@ final Plans testPlans = Plans([
       bookmark: Bookmark(dayIndex: 75, sectionIndex: 0),
       withTargetDate: true,
       showEvents: true,
-      showLocations: true),
+      showLocations: true,
+      showBibleVerses: true),
   Plan(
       id: '0da6b8a7-ccd4-4270-8058-9e30a3f55ceb',
       name: 'Written',
@@ -36,7 +37,8 @@ final Plans testPlans = Plans([
       bookmark: Bookmark(dayIndex: 0, sectionIndex: -1),
       withTargetDate: false,
       showEvents: false,
-      showLocations: false),
+      showLocations: false,
+      showBibleVerses: true),
   Plan(
       id: '2dab49f3-aecf-4aba-9e91-d75c297d4b7e',
       name: 'Canonical',
@@ -49,7 +51,8 @@ final Plans testPlans = Plans([
       lastDate: DateTime(2024, 11, 21),
       withTargetDate: true,
       showEvents: true,
-      showLocations: true),
+      showLocations: true,
+      showBibleVerses: true),
   Plan(
       id: 'e37bf9df-077a-49db-adcb-d56384906103',
       name: 'Chronological',
@@ -61,14 +64,15 @@ final Plans testPlans = Plans([
       bookmark: Bookmark(dayIndex: 182, sectionIndex: 1),
       withTargetDate: true,
       showEvents: true,
-      showLocations: true)
+      showLocations: true,
+      showBibleVerses: true)
 ]);
 
 const List<String> testPlansSerialized = [
-  '{"id":"5aa4de9e-036b-42cd-8bcb-a92cae46db27","scheduleKey":{"type":0,"duration":2,"version":"1.0"},"language":"en","bookmark":{"dayIndex":75,"sectionIndex":0},"withTargetDate":true,"showEvents":true,"showLocations":true}',
+  '{"id":"5aa4de9e-036b-42cd-8bcb-a92cae46db27","scheduleKey":{"type":0,"duration":2,"version":"1.0"},"language":"en","bookmark":{"dayIndex":75,"sectionIndex":0},"withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true}',
   '{"id":"0da6b8a7-ccd4-4270-8058-9e30a3f55ceb","name":"Written","scheduleKey":{"type":2,"duration":2,"version":"1.0"},"language":"de","bookmark":{"dayIndex":0,"sectionIndex":-1},"withTargetDate":false,"showEvents":false,"showLocations":false}',
-  '{"id":"2dab49f3-aecf-4aba-9e91-d75c297d4b7e","name":"Canonical","scheduleKey":{"type":1,"duration":2,"version":"1.0"},"language":"ro","bookmark":{"dayIndex":364,"sectionIndex":1},"lastDate":"2024-11-21T00:00:00.000","withTargetDate":true,"showEvents":true,"showLocations":true}',
-  '{"id":"e37bf9df-077a-49db-adcb-d56384906103","name":"Chronological","scheduleKey":{"type":0,"duration":1,"version":"1.0"},"language":"en","bookmark":{"dayIndex":182,"sectionIndex":1},"withTargetDate":true,"showEvents":true,"showLocations":true}'
+  '{"id":"2dab49f3-aecf-4aba-9e91-d75c297d4b7e","name":"Canonical","scheduleKey":{"type":1,"duration":2,"version":"1.0"},"language":"ro","bookmark":{"dayIndex":364,"sectionIndex":1},"lastDate":"2024-11-21T00:00:00.000","withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true}',
+  '{"id":"e37bf9df-077a-49db-adcb-d56384906103","name":"Chronological","scheduleKey":{"type":0,"duration":1,"version":"1.0"},"language":"en","bookmark":{"dayIndex":182,"sectionIndex":1},"withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true}'
 ];
 
 final testPlansPreferences = {
@@ -107,7 +111,8 @@ final List<LegacyExport> testLegacyExports = [
             bookmark: Bookmark(dayIndex: 0, sectionIndex: -1),
             withTargetDate: true,
             showEvents: true,
-            showLocations: false),
+            showLocations: false,
+            showBibleVerses: true),
       ])),
   LegacyExport(
       preferences: {
@@ -126,12 +131,13 @@ final List<LegacyExport> testLegacyExports = [
             targetDate: DateTime.utc(2024, 1, 27),
             withTargetDate: true,
             showEvents: true,
-            showLocations: false),
+            showLocations: false,
+            showBibleVerses: true),
       ])),
   LegacyExport(
       preferences: {
         legacyExportPreferenceKey:
-            '{ "version": 7, "schedules": { "sequential": {}, "written": {}, "chronological": { "duration": "1y", "readIndex": "26", "endDate": "2025-04-16T00:00:00.000Z" } }, "currentSchedule": "chronological", "language": "ro", "readingLanguage": "de", "withEndDate": true, "showEvents": true, "showLocations": true }'
+            '{ "version": 7, "schedules": { "sequential": {}, "written": {}, "chronological": { "duration": "1y", "readIndex": "26", "endDate": "2025-04-16T00:00:00.000Z" } }, "currentSchedule": "chronological", "language": "ro", "readingLanguage": "de", "withEndDate": true, "showEvents": true, "showLocations": true, "showBibleVerses": true }'
       },
       plans: Plans([
         Plan(
@@ -145,6 +151,7 @@ final List<LegacyExport> testLegacyExports = [
             targetDate: DateTime.utc(2025, 4, 16),
             withTargetDate: true,
             showEvents: true,
-            showLocations: true),
+            showLocations: true,
+            showBibleVerses: true),
       ])),
 ];

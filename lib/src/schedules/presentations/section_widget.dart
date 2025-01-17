@@ -5,9 +5,13 @@ import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/entities/plan.dart';
 import 'package:nwt_reading/src/schedules/entities/events.dart';
 import 'package:nwt_reading/src/schedules/entities/locations.dart';
+import 'package:nwt_reading/src/schedules/entities/bible_verses.dart';
+import 'package:nwt_reading/src/schedules/entities/videos.dart';
 import 'package:nwt_reading/src/schedules/entities/schedule.dart';
 import 'package:nwt_reading/src/schedules/presentations/event_widget.dart';
 import 'package:nwt_reading/src/schedules/presentations/locations_widget.dart';
+import 'package:nwt_reading/src/schedules/presentations/bible_verse_widget.dart';
+import 'package:nwt_reading/src/schedules/presentations/videos_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SectionWidget extends ConsumerWidget {
@@ -26,6 +30,8 @@ class SectionWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final events = ref.watch(eventsProvider).valueOrNull;
     final locations = ref.watch(locationsProvider).valueOrNull;
+    final bibleVerses = ref.watch(bibleVersesProvider).valueOrNull;
+    final videos = ref.watch(videosProvider).valueOrNull;
     final plan = ref.watch(planProviderFamily(planId));
     final planNotifier = ref.read(planProviderFamily(planId).notifier);
     final isRead =
@@ -132,7 +138,39 @@ class SectionWidget extends ConsumerWidget {
                   .map((locationKey) => locations?.locations[locationKey])
                   .whereType<Location>()
                   .toList()),
-            ])
+            ]),
+          if (plan.showBibleVerses && section.bibleVerses.isNotEmpty)
+            Stack(clipBehavior: Clip.none, children: [
+              Positioned(
+                left: -16,
+                top: 2,
+                child: Icon(
+                  Icons.diamond,
+                  size: 14,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              BibleVersesWidget(section.bibleVerses
+                  .map((bibleVerseKey) => bibleVerses?.verses[bibleVerseKey])
+                  .whereType<BibleVerse>()
+                  .toList()),
+            ]),
+          if (plan.showVideos && section.videos.isNotEmpty)
+            Stack(clipBehavior: Clip.none, children: [
+              Positioned(
+                left: -16,
+                top: 2,
+                child: Icon(
+                  Icons.play_circle_outline,
+                  size: 14,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              VideosWidget(section.videos
+                  .map((videoKey) => videos?.videos[videoKey])
+                  .whereType<Video>()
+                  .toList()),
+            ]),
         ])),
       ],
     );

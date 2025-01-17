@@ -43,6 +43,8 @@ class PlansDeserializer {
     final withTargetDate = planMap['withTargetDate'] as bool;
     final showEvents = planMap['showEvents'] as bool;
     final showLocations = planMap['showLocations'] as bool;
+    final showBibleVerses = planMap['showBibleVerses'] as bool;
+    final showVideos = planMap['showVideos'] as bool;
 
     return Plan(
         id: id,
@@ -55,7 +57,9 @@ class PlansDeserializer {
         targetDate: targetDate,
         withTargetDate: withTargetDate,
         showEvents: showEvents,
-        showLocations: showLocations);
+        showLocations: showLocations,
+        showBibleVerses: showBibleVerses,
+        showVideos: showVideos);
   }
 
   Bookmark _convertMapToBookmark(Map<String, dynamic> bookmarkMap) {

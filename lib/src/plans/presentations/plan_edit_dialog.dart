@@ -7,6 +7,8 @@ import 'package:nwt_reading/src/plans/presentations/plan_name_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_reset_target_date_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_show_events_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_show_locations_tile.dart';
+import 'package:nwt_reading/src/plans/presentations/plan_show_bible_verses_tile.dart';
+import 'package:nwt_reading/src/plans/presentations/plan_show_videos_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_type_segmented_button.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_with_target_date_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plans_page.dart';
@@ -65,6 +67,8 @@ class PlanEditDialog extends ConsumerWidget {
               PlanResetTargetDateTile(planId, adjustedTargetDate),
             PlanShowEventsTile(planId),
             PlanShowLocationsTile(planId),
+            PlanShowBibleVersesTile(planId), 
+            PlanShowVideosTile(planId), 
             const SizedBox(height: 20),
             if (!isNewPlan)
               ElevatedButton.icon(

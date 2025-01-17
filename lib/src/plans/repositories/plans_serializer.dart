@@ -22,6 +22,8 @@ class PlansSerializer {
         'withTargetDate': plan.withTargetDate,
         'showEvents': plan.showEvents,
         'showLocations': plan.showLocations,
+        'showBibleVerses': plan.showBibleVerses,
+        'showVideos': plan.showVideos,
       };
 
   Map<String, dynamic> _convertBookmarkToMap(Bookmark bookmark) => {

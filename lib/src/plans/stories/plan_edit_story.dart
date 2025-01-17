@@ -96,6 +96,18 @@ class PlanEdit extends AutoDisposeFamilyNotifier<Plan, String?> {
     }
   }
 
+  void updateShowBibleVerses(bool showBibleVerses) {
+    if (showBibleVerses != state.showBibleVerses) {
+      state = state.copyWith(showBibleVerses: showBibleVerses);
+    }
+  }
+
+  void updateShowVideos(bool showVideos) {
+    if (showVideos != state.showVideos) {
+      state = state.copyWith(showVideos: showVideos);
+    }
+  }
+
   void reset() => state = build(state.id);
 
   void save() {

@@ -213,6 +213,8 @@ class Plan extends Equatable {
     required this.withTargetDate,
     required this.showEvents,
     required this.showLocations,
+    required this.showBibleVerses,
+    required this.showVideos
   });
 
   final String id;
@@ -226,6 +228,8 @@ class Plan extends Equatable {
   final bool withTargetDate;
   final bool showEvents;
   final bool showLocations;
+  final bool showBibleVerses;
+  final bool showVideos;
 
   Plan copyWith({
     String? id,
@@ -239,6 +243,8 @@ class Plan extends Equatable {
     bool? withTargetDate,
     bool? showEvents,
     bool? showLocations,
+    bool? showBibleVerses, 
+    bool? showVideos,
     bool? nullStartDate,
     bool? nullLastDate,
     bool? nullTargetDate,
@@ -256,6 +262,8 @@ class Plan extends Equatable {
         withTargetDate: withTargetDate ?? this.withTargetDate,
         showEvents: showEvents ?? this.showEvents,
         showLocations: showLocations ?? this.showLocations,
+        showBibleVerses: showBibleVerses ?? this.showBibleVerses,
+        showVideos: showVideos ?? this.showVideos
       );
 
   @override
@@ -269,7 +277,9 @@ class Plan extends Equatable {
         targetDate,
         withTargetDate,
         showEvents,
-        showLocations
+        showLocations,
+        showBibleVerses,
+        showVideos
       ];
 }
 

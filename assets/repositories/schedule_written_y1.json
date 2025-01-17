@@ -16,7 +16,29 @@
       "ref": "1-3",
       "startIndex": 1001001,
       "endIndex": 1003024,
-      "url": "01001001-01003024"
+      "url": "01001001-01003024",
+      "verses": {
+        "1. Mose 1:1": {
+          "verse": "Am Anfang erschuf Gott Himmel und Erde",
+          "question": "Welche zwei wichtigen Details werden in diesem Bibelvers erwähnt?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300101&srcid=share"
+        },
+        "1. Mose 1:26": {
+          "verse": "Wir wollen Menschen machen in unserem Bild",
+          "question": "Mit wem hat Gott gesprochen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300129&srcid=share"
+        }
+      },
+      "videos": {
+        "Einführung": {
+          "title": "Einführung in die Bibel",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_1_VIDEO"
+        },
+        "1. Mose": {
+          "title": "Einführung in 1. Mose",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_10_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -498,7 +520,13 @@
       "ref": "1-4",
       "startIndex": 2001001,
       "endIndex": 2004031,
-      "url": "02001001-02004031"
+      "url": "02001001-02004031",
+      "videos": {
+        "2. Mose": {
+          "title": "Einführung in 2. Mose",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_20_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -619,7 +647,14 @@
       "ref": "19-21",
       "startIndex": 2019001,
       "endIndex": 2021036,
-      "url": "02019001-02021036"
+      "url": "02019001-02021036",
+      "verses": {
+        "2. Mose 20:12": {
+          "verse": "Ehre deinen Vater und deine Mutter",
+          "question": "Gott verband mit diesem Gebot ein Versprechen, das einen zusätzlichen Ansporn lieferte, es zu befolgen.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300107&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -754,7 +789,13 @@
       "ref": "1-4",
       "startIndex": 3001001,
       "endIndex": 3004035,
-      "url": "03001001-03004035"
+      "url": "03001001-03004035",
+      "videos": {
+        "3. Mose": {
+          "title": "Einführung in 3. Mose",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_30_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -899,7 +940,13 @@
       "ref": "1-5",
       "startIndex": 18001001,
       "endIndex": 18005027,
-      "url": "18001001-18005027"
+      "url": "18001001-18005027",
+      "videos": {
+        "Hiob": {
+          "title": "Einführung in Hiob",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_180_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -1066,7 +1113,13 @@
       "ref": "1-3",
       "startIndex": 4001001,
       "endIndex": 4003051,
-      "url": "04001001-04003051"
+      "url": "04001001-04003051",
+      "videos": {
+        "4. Mose": {
+          "title": "Einführung in 4. Mose",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_40_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -1079,7 +1132,14 @@
       "ref": "4-6",
       "startIndex": 4004001,
       "endIndex": 4006027,
-      "url": "04004001-04006027"
+      "url": "04004001-04006027",
+      "verses": {
+        "4. Mose 6:24-26": {
+          "verse": "Der HERR segne dich und behüte dich",
+          "question": "Woher stammt der Aaronitische Segen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300146&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -1473,7 +1533,13 @@
       "ref": "1-2",
       "startIndex": 5001001,
       "endIndex": 5002037,
-      "url": "05001001-05002037"
+      "url": "05001001-05002037",
+      "videos": {
+        "5. Mose": {
+          "title": "Einführung in 5. Mose",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_50_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -1783,7 +1849,20 @@
       "ref": "1-4",
       "startIndex": 6001001,
       "endIndex": 6004024,
-      "url": "06001001-06004024"
+      "url": "06001001-06004024",
+      "verses": {
+        "Josua 1:9": {
+          "verse": "Sei mutig und stark!",
+          "question": "Wie kann man trotz schwieriger Umstände oder scheinbar unüberwindbarer Hindernisse mutig und stark sein?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300111&srcid=share"
+        }
+      },
+      "videos": {
+        "Josua": {
+          "title": "Einführung in Josua",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_60_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -2404,7 +2483,13 @@
       "ref": "1-2",
       "startIndex": 7001001,
       "endIndex": 7002023,
-      "url": "07001001-07002023"
+      "url": "07001001-07002023",
+      "videos": {
+        "Richter": {
+          "title": "Einführung in Richter",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_70_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -2705,7 +2790,13 @@
       "ref": "1-4",
       "startIndex": 8001001,
       "endIndex": 8004022,
-      "url": "08001001-08004022"
+      "url": "08001001-08004022",
+      "videos": {
+        "Ruth": {
+          "title": "Einführung in Ruth",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_80_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -2728,7 +2819,13 @@
       "ref": "1-2",
       "startIndex": 9001001,
       "endIndex": 9002036,
-      "url": "09001001-09002036"
+      "url": "09001001-09002036",
+      "videos": {
+        "1. Samuel": {
+          "title": "Einführung in 1. Samuel",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_90_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3060,7 +3157,13 @@
       "ref": "1-2",
       "startIndex": 10001001,
       "endIndex": 10002032,
-      "url": "10001001-10002032"
+      "url": "10001001-10002032",
+      "videos": {
+        "2. Samuel": {
+          "title": "Einführung in 2. Samuel",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_100_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3316,7 +3419,13 @@
       "ref": "1-8",
       "startIndex": 22001001,
       "endIndex": 22008014,
-      "url": "22001001-22008014"
+      "url": "22001001-22008014",
+      "videos": {
+        "Hohes Lied": {
+          "title": "Einführung in Hohes Lied",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_220_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3331,7 +3440,20 @@
       "ref": "1-4",
       "startIndex": 21001001,
       "endIndex": 21004016,
-      "url": "21001001-21004016"
+      "url": "21001001-21004016",
+      "verses": {
+        "Prediger 3:11": {
+          "verse": "Alles hat er schön gemacht zur passenden Zeit",
+          "question": "Zu dem, was Gott schön gemacht hat, gehört mehr als nur seine Schöpfung. Was könnte das sein und wie wirkt sich das auf uns persönlich aus?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300143&srcid=share"
+        }
+      },
+      "videos": {
+        "Prediger": {
+          "title": "Einführung in Prediger",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_210_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3376,7 +3498,13 @@
       "ref": "1-4",
       "startIndex": 32001001,
       "endIndex": 32004011,
-      "url": "32001001-32004011"
+      "url": "32001001-32004011",
+      "videos": {
+        "Jona": {
+          "title": "Einführung in Jona",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_320_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3400,7 +3528,13 @@
       "ref": "1-3",
       "startIndex": 29001001,
       "endIndex": 29003021,
-      "url": "29001001-29003021"
+      "url": "29001001-29003021",
+      "videos": {
+        "Joel": {
+          "title": "Einführung in Joel",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_290_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3440,7 +3574,13 @@
       "ref": "1-5",
       "startIndex": 30001001,
       "endIndex": 30005027,
-      "url": "30001001-30005027"
+      "url": "30001001-30005027",
+      "videos": {
+        "Amos": {
+          "title": "Einführung in Amos",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_300_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3507,7 +3647,13 @@
       "ref": "1-7",
       "startIndex": 28001001,
       "endIndex": 28007016,
-      "url": "28001001-28007016"
+      "url": "28001001-28007016",
+      "videos": {
+        "Hosea": {
+          "title": "Einführung in Hosea",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_280_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3558,7 +3704,13 @@
       "ref": "1-4",
       "startIndex": 23001001,
       "endIndex": 23004006,
-      "url": "23001001-23004006"
+      "url": "23001001-23004006",
+      "videos": {
+        "Jesaja": {
+          "title": "Einführung in Jesaja",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_230_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3737,7 +3889,14 @@
       "ref": "25-28",
       "startIndex": 23025001,
       "endIndex": 23028029,
-      "url": "23025001-23028029"
+      "url": "23025001-23028029",
+      "verses": {
+        "Jesaja 26:3": {
+          "verse": "Wer festen Herzens ist, dem bewahrst du Frieden",
+          "question": "Ist es wirklich möglich, vollkommenen Frieden zu haben? Was heißt es, festen Herzens zu sein?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300152&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -3825,7 +3984,14 @@
       "ref": "38-40",
       "startIndex": 23038001,
       "endIndex": 23040031,
-      "url": "23038001-23040031"
+      "url": "23038001-23040031",
+      "verses": {
+        "Jesaja 40:31": {
+          "verse": "Die auf Jehova hoffen, gewinnen neue Kraft",
+          "question": "Warum vergleicht die Bibel jemanden, der Kraft von Gott bekommt, mit einem fliegenden Adler?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300123&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -3842,7 +4008,19 @@
       "ref": "41-43",
       "startIndex": 23041001,
       "endIndex": 23043028,
-      "url": "23041001-23043028"
+      "url": "23041001-23043028",
+      "verses": {
+        "Jesaja 41:10": {
+          "verse": "Schau nicht ängstlich nach Hilfe aus, denn ... ich stehe dir bei!",
+          "question": "Durch drei Aussagen bestärkt Jehova seine treuen Anbeter darin, dass er ihnen beisteht.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300105&srcid=share"
+        },
+        "Jesaja 42:8": {
+          "verse": "Ich, der HERR, das ist mein Name",
+          "question": "Welchen Eigennamen hat Gott für sich gewählt?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300110&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -3983,7 +4161,20 @@
       "ref": "1-7",
       "startIndex": 33001001,
       "endIndex": 33007020,
-      "url": "33001001-33007020"
+      "url": "33001001-33007020",
+      "verses": {
+        "Micha 6:8": {
+          "verse": "Demütig wandeln mit deinem Gott",
+          "question": "Dieser Vers fasst mit drei Schlüsselbegriffen zusammen, was Gott von uns erwartet.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300127&srcid=share"
+        }
+      },
+      "videos": {
+        "Micha": {
+          "title": "Einführung in Micha",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_330_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -3998,7 +4189,20 @@
       "ref": "1-4",
       "startIndex": 20001001,
       "endIndex": 20004027,
-      "url": "20001001-20004027"
+      "url": "20001001-20004027",
+      "verses": {
+        "Sprüche 3:5, 6": {
+          "verse": "Verlass dich nicht auf deinen Verstand",
+          "question": "Wie zeigt sich, dass wir eher auf Gott als auf uns selbst vertrauen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300115&srcid=share"
+        }
+      },
+      "videos": {
+        "Sprüche": {
+          "title": "Einführung in Sprüche",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_200_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -4037,7 +4241,14 @@
       "ref": "13-16",
       "startIndex": 20013001,
       "endIndex": 20016033,
-      "url": "20013001-20016033"
+      "url": "20013001-20016033",
+      "verses": {
+        "Sprüche 16:3": {
+          "verse": "Vertraue dem HERRN deine Werke an",
+          "question": "Aus welchen zwei Gründen sollte man vor Entscheidungen bei Gott Anleitung suchen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300142&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -4050,7 +4261,14 @@
       "ref": "17-19",
       "startIndex": 20017001,
       "endIndex": 20019029,
-      "url": "20017001-20019029"
+      "url": "20017001-20019029",
+      "verses": {
+        "Sprüche 17:17": {
+          "verse": "Ein guter Freund steht immer zu dir",
+          "question": "Dieses Sprichwort bringt sehr schön auf den Punkt, was eine echte Freundschaft ausmacht.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300162&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -4063,7 +4281,14 @@
       "ref": "20-22",
       "startIndex": 20020001,
       "endIndex": 20022029,
-      "url": "20020001-20022029"
+      "url": "20020001-20022029",
+      "verses": {
+        "Sprüche 22:6": {
+          "verse": "Bring einem Kind bei, welchen Weg es gehen soll",
+          "question": "Welchen Weg sollte ein Kind gehen? Ist dieser Weg für jedes Kind ein anderer?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300149&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -4117,7 +4342,13 @@
       "ref": "1-3",
       "startIndex": 36001001,
       "endIndex": 36003020,
-      "url": "36001001-36003020"
+      "url": "36001001-36003020",
+      "videos": {
+        "Zephanja": {
+          "title": "Einführung in Zephanja",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_360_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -4142,7 +4373,13 @@
       "ref": "1-3",
       "startIndex": 34001001,
       "endIndex": 34003019,
-      "url": "34001001-34003019"
+      "url": "34001001-34003019",
+      "videos": {
+        "Nahum": {
+          "title": "Einführung in Nahum",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_340_VIDEO"
+        }
+      }
     },
     {
       "events": [
@@ -4159,7 +4396,13 @@
       "ref": "1-3",
       "startIndex": 35001001,
       "endIndex": 35003019,
-      "url": "35001001-35003019"
+      "url": "35001001-35003019",
+      "videos": {
+        "Habakuk": {
+          "title": "Einführung in Habakuk",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_350_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -4176,7 +4419,13 @@
       "ref": "1-2",
       "startIndex": 25001001,
       "endIndex": 25002022,
-      "url": "25001001-25002022"
+      "url": "25001001-25002022",
+      "videos": {
+        "Klagelieder": {
+          "title": "Einführung in Klagelieder",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_250_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -4220,7 +4469,13 @@
       "ref": "",
       "startIndex": 31001001,
       "endIndex": 31001021,
-      "url": "31001001-31001021"
+      "url": "31001001-31001021",
+      "videos": {
+        "Obadja": {
+          "title": "Einführung in Obadja",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_310_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -4235,7 +4490,13 @@
       "ref": "1-3",
       "startIndex": 26001001,
       "endIndex": 26003027,
-      "url": "26001001-26003027"
+      "url": "26001001-26003027",
+      "videos": {
+        "Hesekiel": {
+          "title": "Einführung in Hesekiel",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_260_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -4597,7 +4858,13 @@
       "ref": "1-2",
       "startIndex": 11001001,
       "endIndex": 11002046,
-      "url": "11001001-11002046"
+      "url": "11001001-11002046",
+      "videos": {
+        "1. Könige": {
+          "title": "Einführung in 1. Könige",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_110_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -4914,7 +5181,13 @@
       "ref": "1-3",
       "startIndex": 12001001,
       "endIndex": 12003027,
-      "url": "12001001-12003027"
+      "url": "12001001-12003027",
+      "videos": {
+        "2. Könige": {
+          "title": "Einführung in 2. Könige",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_120_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -5208,7 +5481,13 @@
       "ref": "1-3",
       "startIndex": 24001001,
       "endIndex": 24003025,
-      "url": "24001001-24003025"
+      "url": "24001001-24003025",
+      "videos": {
+        "Jeremia": {
+          "title": "Einführung in Jeremia",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_240_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -5291,7 +5570,14 @@
       "ref": "11-13",
       "startIndex": 24011001,
       "endIndex": 24013027,
-      "url": "24011001-24013027"
+      "url": "24011001-24013027",
+      "verses": {
+        "Jeremia 11:11": {
+          "verse": "Ich bringe Unheil über sie",
+          "question": "Hat Gott Unheil über sein Volk gebracht oder hat er es lediglich zugelassen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300161&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -5399,7 +5685,14 @@
       "ref": "27-29",
       "startIndex": 24027001,
       "endIndex": 24029032,
-      "url": "24027001-24029032"
+      "url": "24027001-24029032",
+      "verses": {
+        "Jeremia 29:11": {
+          "verse": "Mein Plan mit euch steht fest",
+          "question": "Hat Gott einen Plan für jeden Einzelnen von uns?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300106&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -5442,7 +5735,14 @@
       "ref": "32-33",
       "startIndex": 24032001,
       "endIndex": 24033026,
-      "url": "24032001-24033026"
+      "url": "24032001-24033026",
+      "verses": {
+        "Jeremia 33:3": {
+          "verse": "Ruf nach mir und ich werde dir antworten",
+          "question": "Gott hat versprochen, denen, die seine Einladung annehmen, unbegreifliche Dinge zu offenbaren. Um welche Dinge handelt es sich? Gilt dieses Versprechen auch für uns heute?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300157&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -5652,7 +5952,13 @@
       "ref": "1-2",
       "startIndex": 27001001,
       "endIndex": 27002049,
-      "url": "27001001-27002049"
+      "url": "27001001-27002049",
+      "videos": {
+        "Daniel": {
+          "title": "Einführung in Daniel",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_270_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -5736,7 +6042,13 @@
       "ref": "1-2",
       "startIndex": 37001001,
       "endIndex": 37002023,
-      "url": "37001001-37002023"
+      "url": "37001001-37002023",
+      "videos": {
+        "Haggai": {
+          "title": "Einführung in Haggai",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_370_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -5757,7 +6069,13 @@
       "ref": "1-7",
       "startIndex": 38001001,
       "endIndex": 38007014,
-      "url": "38001001-38007014"
+      "url": "38001001-38007014",
+      "videos": {
+        "Sacharja": {
+          "title": "Einführung in Sacharja",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_380_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -5833,7 +6151,13 @@
       "ref": "1-4",
       "startIndex": 17001001,
       "endIndex": 17004017,
-      "url": "17001001-17004017"
+      "url": "17001001-17004017",
+      "videos": {
+        "Esther": {
+          "title": "Einführung in Esther",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_170_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -5917,7 +6241,13 @@
       "ref": "1-2",
       "startIndex": 13001001,
       "endIndex": 13002055,
-      "url": "13001001-13002055"
+      "url": "13001001-13002055",
+      "videos": {
+        "1. Chronika": {
+          "title": "Einführung in 1. Chronika",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_130_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -6298,7 +6628,13 @@
       "ref": "1-3",
       "startIndex": 14001001,
       "endIndex": 14003017,
-      "url": "14001001-14003017"
+      "url": "14001001-14003017",
+      "videos": {
+        "2. Chronika": {
+          "title": "Einführung in 2. Chronika",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_140_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -6651,7 +6987,13 @@
       "ref": "1-3",
       "startIndex": 15001001,
       "endIndex": 15003013,
-      "url": "15001001-15003013"
+      "url": "15001001-15003013",
+      "videos": {
+        "Esra": {
+          "title": "Einführung in Esra",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_150_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -6719,7 +7061,13 @@
       "ref": "1-8",
       "startIndex": 19001001,
       "endIndex": 19008009,
-      "url": "19001001-19008009"
+      "url": "19001001-19008009",
+      "videos": {
+        "Psalm": {
+          "title": "Einführung in Psalm",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_190_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -6763,7 +7111,14 @@
       "ref": "20-25",
       "startIndex": 19020001,
       "endIndex": 19025022,
-      "url": "19020001-19025022"
+      "url": "19020001-19025022",
+      "verses": {
+        "Psalm 23:4": {
+          "verse": "Auch wenn ich durch das dunkle Tal des Todes gehe",
+          "question": "Auch Anbeter Gottes erleben dunkle Tage in ihrem Leben. Wie können sie auch dann Gottes Schutz und Fürsorge verspüren?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300112&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -6805,7 +7160,14 @@
       "ref": "36-38",
       "startIndex": 19036001,
       "endIndex": 19038022,
-      "url": "19036001-19038022"
+      "url": "19036001-19038022",
+      "verses": {
+        "Psalm 37:4": {
+          "verse": "Habe deine Lust am HERRN!",
+          "question": "Wie hilft uns dieser Psalm, weise Entscheidungen zu treffen und Menschen zu sein, über die sich Gott freut?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300147&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -6836,7 +7198,14 @@
       "ref": "43-47",
       "startIndex": 19043001,
       "endIndex": 19047009,
-      "url": "19043001-19047009"
+      "url": "19043001-19047009",
+      "verses": {
+        "Psalm 46:11": {
+          "verse": "Seid still und erkennt, dass ich Gott bin",
+          "question": "Fordert dieser Vers auf, andächtig zu schweigen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300128&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7236,7 +7605,13 @@
       "ref": "1-3",
       "startIndex": 16001001,
       "endIndex": 16003032,
-      "url": "16001001-16003032"
+      "url": "16001001-16003032",
+      "videos": {
+        "Nehemia": {
+          "title": "Einführung in Nehemia",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_160_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7391,7 +7766,13 @@
       "ref": "1-4",
       "startIndex": 39001001,
       "endIndex": 39004006,
-      "url": "39001001-39004006"
+      "url": "39001001-39004006",
+      "videos": {
+        "Maleachi": {
+          "title": "Einführung in Maleachi",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_390_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7424,7 +7805,13 @@
       "ref": "1-4",
       "startIndex": 40001001,
       "endIndex": 40004025,
-      "url": "40001001-40004025"
+      "url": "40001001-40004025",
+      "videos": {
+        "Matthäus": {
+          "title": "Einführung in Matthäus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_400_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7439,7 +7826,19 @@
       "ref": "5-7",
       "startIndex": 40005001,
       "endIndex": 40007029,
-      "url": "40005001-40007029"
+      "url": "40005001-40007029",
+      "verses": {
+        "Matthäus 6:33": {
+          "verse": "Setzt also das Königreich ... an die erste Stelle",
+          "question": "Meinte Jesus damit, dass Christen für ihren Lebensunterhalt nicht arbeiten müssen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300117&srcid=share"
+        },
+        "Matthäus 6:34": {
+          "verse": "Macht euch keine Sorgen um den nächsten Tag!",
+          "question": "Jesus wollte damit nicht sagen, es wäre verkehrt, für die Zukunft zu planen.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300104&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7477,7 +7876,14 @@
       "ref": "11-13",
       "startIndex": 40011001,
       "endIndex": 40013058,
-      "url": "40011001-40013058"
+      "url": "40011001-40013058",
+      "verses": {
+        "Matthäus 11:28-30": {
+          "verse": "Kommt her zu mir …! Und ich werde euch Ruhe geben",
+          "question": "Versprach Jesus, die Menschen sofort von Unterdrückung und Ungerechtigkeit zu befreien?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300130&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7609,7 +8015,13 @@
       "ref": "1-5",
       "startIndex": 52001001,
       "endIndex": 52005028,
-      "url": "52001001-52005028"
+      "url": "52001001-52005028",
+      "videos": {
+        "1. Thessalonicher": {
+          "title": "Einführung in 1. Thessalonicher",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_520_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7624,7 +8036,13 @@
       "ref": "1-3",
       "startIndex": 53001001,
       "endIndex": 53003018,
-      "url": "53001001-53003018"
+      "url": "53001001-53003018",
+      "videos": {
+        "2. Thessalonicher": {
+          "title": "Einführung in 2. Thessalonicher",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_530_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7648,7 +8066,20 @@
       "ref": "1-6",
       "startIndex": 48001001,
       "endIndex": 48006018,
-      "url": "48001001-48006018"
+      "url": "48001001-48006018",
+      "verses": {
+        "Galater 6:9": {
+          "verse": "Lasst uns also nicht müde werden, Gutes zu tun",
+          "question": "Wie wirkt es sich aus, wenn Christen nicht aufhören, Gutes zu tun?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300158&srcid=share"
+        }
+      },
+      "videos": {
+        "Galater": {
+          "title": "Einführung in Galater",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_480_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7665,7 +8096,13 @@
       "ref": "1-6",
       "startIndex": 46001001,
       "endIndex": 46006020,
-      "url": "46001001-46006020"
+      "url": "46001001-46006020",
+      "videos": {
+        "1. Korinther": {
+          "title": "Einführung in 1. Korinther",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_460_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7678,7 +8115,14 @@
       "ref": "7-10",
       "startIndex": 46007001,
       "endIndex": 46010033,
-      "url": "46007001-46010033"
+      "url": "46007001-46010033",
+      "verses": {
+        "1. Korinther 10:13": {
+          "verse": "Gott aber ist treu",
+          "question": "Wie hilft uns Gottes Treue besonders in Versuchungen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300148&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7731,7 +8175,13 @@
       "ref": "1-6",
       "startIndex": 47001001,
       "endIndex": 47006018,
-      "url": "47001001-47006018"
+      "url": "47001001-47006018",
+      "videos": {
+        "2. Korinther": {
+          "title": "Einführung in 2. Korinther",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_470_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7764,7 +8214,14 @@
       "ref": "11-13",
       "startIndex": 47011001,
       "endIndex": 47013014,
-      "url": "47011001-47013014"
+      "url": "47011001-47013014",
+      "verses": {
+        "2. Korinther 12:9": {
+          "verse": "Meine Gnade genügt dir",
+          "question": "Wie hat Gottes unverdiente Güte den Apostel Paulus gestärkt? Wie kann sie uns stärken?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300151&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7781,7 +8238,13 @@
       "ref": "1-3",
       "startIndex": 45001001,
       "endIndex": 45003031,
-      "url": "45001001-45003031"
+      "url": "45001001-45003031",
+      "videos": {
+        "Römer": {
+          "title": "Einführung in Römer",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_450_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -7794,7 +8257,19 @@
       "ref": "4-7",
       "startIndex": 45004001,
       "endIndex": 45007025,
-      "url": "45004001-45007025"
+      "url": "45004001-45007025",
+      "verses": {
+        "Römer 5:8": {
+          "verse": "Christus [starb] für uns ..., als wir noch Sünder waren",
+          "question": "Menschen neigen zu Denk- und Handlungsweisen, die Gottes Maßstäben widersprechen. Wie kann man Gottes Freund werden und die Aussicht auf ewiges Leben haben?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300120&srcid=share"
+        },
+        "Römer 6:23": {
+          "verse": "Der Lohn, den die Sünde zahlt, ist der Tod, doch das Geschenk, das Gott gibt, ist ewiges Leben",
+          "question": "Kein sündhafter Mensch kann sich die Rettung verdienen, doch Gott bietet uns ewiges Leben an. Wie können wir dieses Geschenk erhalten?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300144&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7812,7 +8287,14 @@
       "ref": "8-11",
       "startIndex": 45008001,
       "endIndex": 45011036,
-      "url": "45008001-45011036"
+      "url": "45008001-45011036",
+      "verses": {
+        "Römer 10:13": {
+          "verse": "Jeder, der den Namen des Herrn anruft",
+          "question": "Gott gibt allen Menschen die Möglichkeit, gerettet zu werden und ewiges Leben zu bekommen, unabhängig von Nationalität, Herkunft oder sozialem Status.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300102&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7831,7 +8313,24 @@
       "ref": "12-16",
       "startIndex": 45012001,
       "endIndex": 45016027,
-      "url": "45012001-45016027"
+      "url": "45012001-45016027",
+      "verses": {
+        "Römer 12:2": {
+          "verse": "Lernt, in einer neuen Weise zu denken, damit ihr verändert werdet",
+          "question": "Zwingt Gott Menschen dazu, sich zu ändern?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300118&srcid=share"
+        },
+        "Römer 12:12": {
+          "verse": "Freut euch in der Hoffnung, seid geduldig in der Bedrängnis, beharrlich im Gebet!",
+          "question": "Wie können Christen trotz Verfolgung und anderer Schwierigkeiten treu bleiben?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300132&srcid=share"
+        },
+        "Römer 15:13": {
+          "verse": "Der Gott der Hoffnung erfülle euch mit aller Freude und mit Frieden",
+          "question": "Wie hängen Freude und Frieden mit Hoffnung und der Kraft des heiligen Geistes zusammen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300125&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -7854,7 +8353,25 @@
       "ref": "1-2",
       "startIndex": 42001001,
       "endIndex": 42002052,
-      "url": "42001001-42002052"
+      "url": "42001001-42002052",
+      "verses": {
+        "Lukas 1:37": {
+          "verse": "Für Gott ist nichts unmöglich",
+          "question": "Nichts kann den allmächtigen Gott davon abhalten, seine Versprechen zu erfüllen. Was bedeutet das für uns?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300155&srcid=share"
+        },
+        "Lukas 2:14": {
+          "verse": "Friede auf Erden den Menschen seines Wohlgefallens",
+          "question": "Was bedeuten diese Worte für uns heute?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300139&srcid=share"
+        }
+      },
+      "videos": {
+        "Lukas": {
+          "title": "Einführung in Lukas",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_420_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8038,7 +8555,20 @@
       "ref": "1-6",
       "startIndex": 49001001,
       "endIndex": 49006024,
-      "url": "49001001-49006024"
+      "url": "49001001-49006024",
+      "verses": {
+        "Epheser 3:20": {
+          "verse": "Gott kann unendlich viel mehr an uns tun, als wir jemals von ihm erbitten oder uns ausdenken können",
+          "question": "Wie erhört Gott die Gebete seiner Diener und erfüllt ihre Bitten?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300138&srcid=share"
+        }
+      },
+      "videos": {
+        "Epheser": {
+          "title": "Einführung in Epheser",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_490_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8056,7 +8586,20 @@
       "ref": "1-4",
       "startIndex": 51001001,
       "endIndex": 51004018,
-      "url": "51001001-51004018"
+      "url": "51001001-51004018",
+      "verses": {
+        "Kolosser 3:23": {
+          "verse": "Alles, was ihr tut, das tut von Herzen",
+          "question": "Wie berührt die Arbeitsmoral eines Christen sein Verhältnis zu Gott?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300136&srcid=share"
+        }
+      },
+      "videos": {
+        "Kolosser": {
+          "title": "Einführung in Kolosser",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_510_VIDEO"
+        }
+      }
     },
     {
       "events": [
@@ -8069,7 +8612,13 @@
       "ref": "",
       "startIndex": 57001001,
       "endIndex": 57001025,
-      "url": "57001001-57001025"
+      "url": "57001001-57001025",
+      "videos": {
+        "Philemon": {
+          "title": "Einführung in Philemon",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_570_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8089,7 +8638,30 @@
       "ref": "1-4",
       "startIndex": 50001001,
       "endIndex": 50004023,
-      "url": "50001001-50004023"
+      "url": "50001001-50004023",
+      "verses": {
+        "Philipper 4:6, 7": {
+          "verse": "Macht euch um nichts Sorgen",
+          "question": "Welche Arten des Gebets können dabei helfen, mit Sorgen besser umzugehen und inneren Frieden zu finden?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300114&srcid=share"
+        },
+        "Philipper 4:8": {
+          "verse": "Denkt weiter über alles nach, was wahr ist",
+          "question": "Worüber sollten Christen immer wieder nachdenken?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300133&srcid=share"
+        },
+        "Philipper 4:13": {
+          "verse": "Alles kann ich durch Christus, der mir Kraft und Stärke gibt",
+          "question": "Was meinte der Apostel Paulus, als er schrieb, dass er für alles stark gemacht werden würde?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300122&srcid=share"
+        }
+      },
+      "videos": {
+        "Philipper": {
+          "title": "Einführung in Philipper",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_500_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8104,7 +8676,20 @@
       "ref": "1-6",
       "startIndex": 58001001,
       "endIndex": 58006020,
-      "url": "58001001-58006020"
+      "url": "58001001-58006020",
+      "verses": {
+        "Hebräer 4:12": {
+          "verse": "Das Wort Gottes ist lebendig und wirksam",
+          "question": "Lasse ich Gottes Wort in meinem Leben wirken? Was verrät das über mich?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300156&srcid=share"
+        }
+      },
+      "videos": {
+        "Hebräer": {
+          "title": "Einführung in Hebräer",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_580_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8136,7 +8721,14 @@
       "ref": "11-13",
       "startIndex": 58011001,
       "endIndex": 58013025,
-      "url": "58011001-58013025"
+      "url": "58011001-58013025",
+      "verses": {
+        "Hebräer 11:1": {
+          "verse": "Der Glaube [ist] eine feste Zuversicht auf das, was man hofft",
+          "question": "Wie stark ist echter Glaube und wie wichtig ist er?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300121&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -8165,7 +8757,20 @@
       "ref": "1-3",
       "startIndex": 44001001,
       "endIndex": 44003026,
-      "url": "44001001-44003026"
+      "url": "44001001-44003026",
+      "verses": {
+        "Apostelgeschichte 1:8": {
+          "verse": "Ihr werdet Kraft empfangen",
+          "question": "Von welcher Kraft sprach Jesus hier und wozu wären seine Jünger durch sie imstande?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300153&srcid=share"
+        }
+      },
+      "videos": {
+        "Apostelgeschichte": {
+          "title": "Einführung in Apostelgeschichte",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_440_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8474,7 +9079,13 @@
       "ref": "1-5",
       "startIndex": 59001001,
       "endIndex": 59005020,
-      "url": "59001001-59005020"
+      "url": "59001001-59005020",
+      "videos": {
+        "Jakobus": {
+          "title": "Einführung in Jakobus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_590_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8497,7 +9108,20 @@
       "ref": "1-3",
       "startIndex": 41001001,
       "endIndex": 41003035,
-      "url": "41001001-41003035"
+      "url": "41001001-41003035",
+      "verses": {
+        "Markus 1:15": {
+          "verse": "Gottes Reich ist nahe",
+          "question": "Meinte Jesus, dass das Königreich bereits zu regieren begonnen hatte?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300100&srcid=share"
+        }
+      },
+      "videos": {
+        "Markus": {
+          "title": "Einführung in Markus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_410_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8569,7 +9193,14 @@
       "ref": "11-13",
       "startIndex": 41011001,
       "endIndex": 41013037,
-      "url": "41011001-41013037"
+      "url": "41011001-41013037",
+      "verses": {
+        "Markus 11:24": {
+          "verse": "Worum ihr im Gebet auch bittet, glaubt, dass ihr es empfangen habt",
+          "question": "Wie können uns Jesu Hinweise zum Glauben und zum Gebet bei Heraus­forderungen helfen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300137&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -8609,7 +9240,13 @@
       "ref": "1-6",
       "startIndex": 54001001,
       "endIndex": 54006021,
-      "url": "54001001-54006021"
+      "url": "54001001-54006021",
+      "videos": {
+        "1. Timotheus": {
+          "title": "Einführung in 1. Timotheus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_540_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8626,7 +9263,13 @@
       "ref": "1-3",
       "startIndex": 56001001,
       "endIndex": 56003015,
-      "url": "56001001-56003015"
+      "url": "56001001-56003015",
+      "videos": {
+        "Titus": {
+          "title": "Einführung in Titus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_560_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8649,7 +9292,20 @@
       "ref": "1-5",
       "startIndex": 60001001,
       "endIndex": 60005014,
-      "url": "60001001-60005014"
+      "url": "60001001-60005014",
+      "verses": {
+        "1. Petrus 5:6, 7": {
+          "verse": "Beugt euch also in Demut …! Werft alle eure Sorge auf ihn",
+          "question": "Was bedeutet es, seine Sorgen auf Gott zu werfen? Und wie kann uns das Erleichterung bringen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300141&srcid=share"
+        }
+      },
+      "videos": {
+        "1. Petrus": {
+          "title": "Einführung in 1. Petrus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_600_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8666,7 +9322,13 @@
       "ref": "1-3",
       "startIndex": 61001001,
       "endIndex": 61003018,
-      "url": "61001001-61003018"
+      "url": "61001001-61003018",
+      "videos": {
+        "2. Petrus": {
+          "title": "Einführung in 2. Petrus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_610_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8694,7 +9356,20 @@
       "ref": "1-4",
       "startIndex": 55001001,
       "endIndex": 55004022,
-      "url": "55001001-55004022"
+      "url": "55001001-55004022",
+      "verses": {
+        "2. Timotheus 1:7": {
+          "verse": "Gott hat uns nicht einen Geist der Ängstlichkeit gegeben",
+          "question": "Wie kann Gott uns Menschen helfen, Angst zu überwinden und mutig das zu tun, was richtig ist?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300126&srcid=share"
+        }
+      },
+      "videos": {
+        "2. Timotheus": {
+          "title": "Einführung in 2. Timotheus",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_550_VIDEO"
+        }
+      }
     },
     {
       "events": [
@@ -8709,7 +9384,13 @@
       "ref": "",
       "startIndex": 65001001,
       "endIndex": 65001025,
-      "url": "65001001-65001025"
+      "url": "65001001-65001025",
+      "videos": {
+        "Judas": {
+          "title": "Einführung in Judas",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_650_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8735,7 +9416,13 @@
       "ref": "1-4",
       "startIndex": 66001001,
       "endIndex": 66004011,
-      "url": "66001001-66004011"
+      "url": "66001001-66004011",
+      "videos": {
+        "Offenbarung": {
+          "title": "Einführung in Offenbarung",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_660_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8805,7 +9492,19 @@
       "ref": "19-22",
       "startIndex": 66019001,
       "endIndex": 66022021,
-      "url": "66019001-66022021"
+      "url": "66019001-66022021",
+      "verses": {
+        "Offenbarung 21:1": {
+          "verse": "Ein neuer Himmel und eine neue Erde",
+          "question": "Wie hilft uns die Bibel, die Bedeutung dieses Verses zu verstehen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300135&srcid=share"
+        },
+        "Offenbarung 21:4": {
+          "verse": "Gott wird abwischen alle Tränen",
+          "question": "Dieser Vers enthält ein wunderbares Versprechen für die Zukunft.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300154&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -8831,7 +9530,25 @@
       "ref": "1-3",
       "startIndex": 43001001,
       "endIndex": 43003036,
-      "url": "43001001-43003036"
+      "url": "43001001-43003036",
+      "verses": {
+        "Johannes 1:1": {
+          "verse": "Am Anfang war das Wort",
+          "question": "Dieser Bibelvers offenbart Einzelheiten über Jesus Christus aus der Zeit, bevor er als Mensch auf die Erde kam.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300113&srcid=share"
+        },
+        "Johannes 3:16": {
+          "verse": "Denn Gott hat die Menschen so sehr geliebt",
+          "question": "Jehova liebt jeden Einzelnen von uns und möchte, dass wir für immer leben.",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300109&srcid=share"
+        }
+      },
+      "videos": {
+        "Johannes": {
+          "title": "Einführung in Johannes",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_430_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8922,7 +9639,24 @@
       "ref": "13-15",
       "startIndex": 43013001,
       "endIndex": 43015027,
-      "url": "43013001-43015027"
+      "url": "43013001-43015027",
+      "verses": {
+        "Johannes 14:6": {
+          "verse": "Ich bin der Weg und die Wahrheit und das Leben",
+          "question": "Warum muss man die wichtige Rolle von Jesus anerkennen, wenn man Gott anbeten möchte?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300119&srcid=share"
+        },
+        "Johannes 14:27": {
+          "verse": "Frieden lasse ich euch zurück",
+          "question": "Was war das für ein Frieden, den Jesus seinen Nachfolgern zurückließ oder gab? Wie können wir ihn bekommen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300131&srcid=share"
+        },
+        "Johannes 15:13": {
+          "verse": "Niemand hat größere Liebe",
+          "question": "Wie können Jesu Nachfolger seine Liebe nachahmen?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300134&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -8937,7 +9671,14 @@
       "ref": "16-18",
       "startIndex": 43016001,
       "endIndex": 43018040,
-      "url": "43016001-43018040"
+      "url": "43016001-43018040",
+      "verses": {
+        "Johannes 16:33": {
+          "verse": "Ich habe die Welt überwunden",
+          "question": "Wie zeigen Jesu Worte seinen Nachfolgern, dass es ihnen möglich ist, Gott treu zu bleiben?",
+          "url": "https://www.jw.org/finder?wtlocale=X&docid=502300124&srcid=share"
+        }
+      }
     }
   ],
   [
@@ -8971,7 +9712,13 @@
       "ref": "1-5",
       "startIndex": 62001001,
       "endIndex": 62005021,
-      "url": "62001001-62005021"
+      "url": "62001001-62005021",
+      "videos": {
+        "1. Johannes": {
+          "title": "Einführung in 1. Johannes",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_620_VIDEO"
+        }
+      }
     }
   ],
   [
@@ -8986,7 +9733,13 @@
       "ref": "",
       "startIndex": 63001001,
       "endIndex": 63001013,
-      "url": "63001001-63001013"
+      "url": "63001001-63001013",
+      "videos": {
+        "2. Johannes": {
+          "title": "Einführung in 2. Johannes",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_630_VIDEO"
+        }
+      }
     },
     {
       "events": [
@@ -8999,7 +9752,13 @@
       "ref": "",
       "startIndex": 64001001,
       "endIndex": 64001014,
-      "url": "64001001-64001014"
+      "url": "64001001-64001014",
+      "videos": {
+        "3. Johannes": {
+          "title": "Einführung in 3. Johannes",
+          "url": "https://www.jw.org/finder?srcid=share&wtlocale=X&lank=pub-nwtsv_640_VIDEO"
+        }
+      }
     }
   ]
 ]

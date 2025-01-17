@@ -96,7 +96,10 @@ class Section extends Equatable {
       required this.endIndex,
       required this.url,
       required this.events,
-      required this.locations});
+      required this.locations,
+      required this.bibleVerses,
+      required this.videos,
+      });
 
   final int bookIndex;
   final int chapter;
@@ -107,6 +110,8 @@ class Section extends Equatable {
   final String url;
   final List<String> events;
   final List<String> locations;
+  final List<String> bibleVerses;
+  final List<String> videos;
 
   @override
   List<Object> get props => [
@@ -118,6 +123,8 @@ class Section extends Equatable {
         endIndex,
         url,
         events,
-        locations
+        locations,
+        bibleVerses,
+        videos
       ];
 }
