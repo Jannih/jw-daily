@@ -69,6 +69,8 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
   Widget build(BuildContext context) {
     final plan = ref.watch(planProviderFamily(widget.planId));
     final scheduleAsyncValue = ref.watch(scheduleProviderFamily(plan.scheduleKey));
+    final planNotifier = ref.read(planProviderFamily(widget.planId).notifier);
+    final currentDeviationDays = planNotifier.getDeviationDays();
 
     return scheduleAsyncValue.when(
       data: (schedule) {
@@ -78,7 +80,6 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
           itemCount: achievements.length,
           itemBuilder: (context, index) {
             final achievement = achievements[index];
-            final xpReward = achievementXP[achievement.title] ?? 50;
 
             return Card(
               color: achievement.isCompleted 
@@ -100,7 +101,7 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                   ),
                 ),
                 trailing: (achievement.isCompleted && !achievement.isRewardClaimed) ||
-                          achievement.canClaimDailyReward
+                          achievement.canClaimDailyReward(currentDeviationDays)
                     ? Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -407,12 +408,14 @@ class Achievement {
 
   Achievement(this.title, this.icon, this.isCompleted, {this.isRewardClaimed = false, this.lastRewardClaimed});
 
-  bool get canClaimDailyReward {
+  bool canClaimDailyReward(int deviationDays) {
     if (title != 'Tägliche Bibellesung') return false;
-    if (lastRewardClaimed == null) return true;
+    if (lastRewardClaimed == null) {
+      return deviationDays <= 0;
+    }
     
     final now = DateTime.now();
     final lastClaim = lastRewardClaimed!;
-    return !DateUtils.isSameDay(now, lastClaim);
+    return !DateUtils.isSameDay(now, lastClaim) && deviationDays <= 0;
   }
 }
