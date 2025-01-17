@@ -1,6 +1,6 @@
 {
-    "name": "NWT Reading",
-    "short_name": "NWT Reading",
+    "name": "JW Daily",
+    "short_name": "JW Daily",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#4D70A4",

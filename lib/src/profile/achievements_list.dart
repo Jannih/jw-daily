@@ -34,7 +34,7 @@ int getRequiredXPForLevel(int level) {
 
 class AchievementsListWidget extends ConsumerStatefulWidget {
   final String planId;
-  final void Function(int) onRewardClaimed;
+  final void Function(int, BuildContext) onRewardClaimed; 
 
   const AchievementsListWidget({
     required this.planId,
@@ -99,7 +99,8 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                     color: achievement.isRewardClaimed ? Colors.grey : Colors.black,
                   ),
                 ),
-                trailing: achievement.isCompleted && !achievement.isRewardClaimed
+                trailing: (achievement.isCompleted && !achievement.isRewardClaimed) ||
+                          achievement.canClaimDailyReward
                     ? Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -114,9 +115,18 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                         ),
                         child: ElevatedButton(
                           onPressed: () {
-                            ref.read(achievementsListProvider.notifier)
-                                .claimReward(achievement.title);
-                            widget.onRewardClaimed(xpReward);
+                            if (achievement.title == 'Tägliche Bibellesung') {
+                              ref.read(achievementsListProvider.notifier)
+                                  .claimDailyReward(achievement.title);
+                              widget.onRewardClaimed(10, context);
+                            } else {
+                              ref.read(achievementsListProvider.notifier)
+                                  .claimReward(achievement.title);
+                              widget.onRewardClaimed(
+                                achievementXP[achievement.title] ?? 0,
+                                context
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
@@ -214,6 +224,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
   AchievementsListNotifier()
       : super([
           Achievement('Erste Bibellesung', Icons.book, false),
+          Achievement('Tägliche Bibellesung', Icons.auto_stories, true, isRewardClaimed: false),
           Achievement('3 Tage hintereinander gelesen', Icons.calendar_today, false),
           Achievement('7 Tage hintereinander gelesen', Icons.calendar_view_week, false),
           Achievement('10 Tage hintereinander gelesen', Icons.calendar_view_month, false),
@@ -320,6 +331,23 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
     _saveAchievements();
   }
 
+  void claimDailyReward(String achievementTitle) {
+    state = [
+      for (final achievement in state)
+        if (achievement.title == achievementTitle)
+          Achievement(
+            achievement.title,
+            achievement.icon,
+            achievement.isCompleted,
+            isRewardClaimed: false,
+            lastRewardClaimed: DateTime.now(),
+          )
+        else
+          achievement,
+    ];
+    _saveAchievements();
+  }
+
   Future<void> _saveAchievements() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -327,6 +355,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
         'title': achievement.title,
         'isCompleted': achievement.isCompleted,
         'isRewardClaimed': achievement.isRewardClaimed,
+        'lastRewardClaimed': achievement.lastRewardClaimed?.toIso8601String(),
       }).toList();
       
       await prefs.setString('achievements', jsonEncode(achievementsData));
@@ -344,6 +373,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
         final achievementsData = jsonDecode(achievementsString) as List;
         final loadedAchievements = achievementsData.map((data) {
           final title = data['title'] as String;
+          final lastRewardClaimedStr = data['lastRewardClaimed'] as String?;
           final existingAchievement = state.firstWhere(
             (a) => a.title == title,
             orElse: () => Achievement(title, Icons.star, false),
@@ -354,6 +384,9 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
             existingAchievement.icon,
             data['isCompleted'] as bool,
             isRewardClaimed: data['isRewardClaimed'] as bool,
+            lastRewardClaimed: lastRewardClaimedStr != null 
+                ? DateTime.parse(lastRewardClaimedStr)
+                : null,
           );
         }).toList();
 
@@ -370,6 +403,16 @@ class Achievement {
   final IconData icon;
   final bool isCompleted;
   final bool isRewardClaimed;
+  final DateTime? lastRewardClaimed;
 
-  Achievement(this.title, this.icon, this.isCompleted, {this.isRewardClaimed = false});
+  Achievement(this.title, this.icon, this.isCompleted, {this.isRewardClaimed = false, this.lastRewardClaimed});
+
+  bool get canClaimDailyReward {
+    if (title != 'Tägliche Bibellesung') return false;
+    if (lastRewardClaimed == null) return true;
+    
+    final now = DateTime.now();
+    final lastClaim = lastRewardClaimed!;
+    return !DateUtils.isSameDay(now, lastClaim);
+  }
 }

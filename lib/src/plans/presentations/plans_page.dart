@@ -7,6 +7,7 @@ import 'package:nwt_reading/src/plans/presentations/plan_edit_dialog.dart';
 import 'package:nwt_reading/src/plans/presentations/plans_grid.dart';
 import 'package:nwt_reading/src/settings/stories/settings_story.dart';
 import 'package:nwt_reading/src/whats_new/presentations/whats_new_dialog.dart';
+import 'package:nwt_reading/src/profile/profile_utils.dart';
 
 import '../../settings/presentations/settings_page.dart';
 import '../../profile/character_profile_page.dart'; 
@@ -47,22 +48,27 @@ Widget build(BuildContext context) => Scaffold(
             Stack(
               clipBehavior: Clip.none, // Erlaubt dem Badge über den Stack hinauszuragen
               children: [
-                IconButton(
-                  icon: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/sheep.jpg'),
-                    radius: 16,
-                  ),
-                  onPressed: () {
-                    final plans = ref.read(plansProvider);
-                    final selectedPlanId = plans.plans.isNotEmpty ? plans.plans.first.id : null;
-                    
-                    if (selectedPlanId != null) {
-                      Navigator.restorablePushNamed(
-                        context, 
-                        CharacterProfilePage.routeName,
-                        arguments: {'planId': selectedPlanId},
-                      );
-                    }
+                Consumer(
+                  builder: (context, ref, _) {
+                    final characterStats = ref.watch(characterStatsProvider);
+                    return IconButton(
+                      icon: CircleAvatar(
+                        backgroundImage: AssetImage(getSheepImageForLevel(characterStats.level)),
+                        radius: 16,
+                      ),
+                      onPressed: () {
+                        final plans = ref.read(plansProvider);
+                        final selectedPlanId = plans.plans.isNotEmpty ? plans.plans.first.id : null;
+                        
+                        if (selectedPlanId != null) {
+                          Navigator.restorablePushNamed(
+                            context, 
+                            CharacterProfilePage.routeName,
+                            arguments: {'planId': selectedPlanId},
+                          );
+                        }
+                      },
+                    );
                   },
                 ),
                 Consumer(
@@ -126,9 +132,16 @@ Widget build(BuildContext context) => Scaffold(
               ),
             ),
             // Bild unterhalb des Grids hinzufügen
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Image.asset('assets/images/sheep.jpg'),
+            Consumer(
+              builder: (context, ref, _) {
+                final characterStats = ref.watch(characterStatsProvider);
+                return Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Image.asset(
+                    getSheepImageForLevel(characterStats.level),
+                  ),
+                );
+              },
             ),
           ],
         ),

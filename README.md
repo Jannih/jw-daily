@@ -1,4 +1,4 @@
-# NWT Reading
+# JW Daily
 
 A Bible reading schedule app for the New World Translation of the Holy Scriptures
 for Jehovah's Witnesses.

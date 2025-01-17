@@ -148,4 +148,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: macOS
-          path: build/macos/Build/Products/Release/NWT Reading.app
+          path: build/macos/Build/Products/Release/JW Daily.app

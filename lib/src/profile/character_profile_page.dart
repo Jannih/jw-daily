@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/profile/achievements_list.dart';
+import 'package:nwt_reading/src/profile/level_up_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nwt_reading/src/profile/profile_utils.dart';
 
 // Datenklasse für Character Stats
 class CharacterStats {
@@ -37,7 +39,8 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
     await prefs.setInt('character_level', state.level);
   }
 
-  void increaseXP(int amount) {
+  void increaseXP(int amount, BuildContext context) {
+    int oldLevel = state.level;
     int newXP = state.xp + amount;
     int newLevel = state.level;
     
@@ -48,6 +51,14 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
 
     state = CharacterStats(xp: newXP, level: newLevel);
     _saveStats();
+
+    if (newLevel > oldLevel) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => LevelUpDialog(newLevel: newLevel),
+      );
+    }
   }
 
   int getCurrentLevelXP() {
@@ -111,7 +122,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
             Stack(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/sheep.jpg'),
+                  backgroundImage: AssetImage(getSheepImageForLevel(characterStats.level)),
                   radius: 50,
                 ),
                 Positioned(
@@ -195,17 +206,10 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                 Positioned.fill(
                   child: Center(
                     child: Text(
-                      'Level ${characterStats.level} - XP: ${characterStats.xp} / $currentLevelXP',
+                      'XP: ${characterStats.xp} / $currentLevelXP',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(1, 1),
-                            blurRadius: 2,
-                            color: Color.fromRGBO(0, 0, 0, 0.5),
-                          ),
-                        ],
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
@@ -216,8 +220,9 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
             Expanded(
               child: AchievementsListWidget(
                 planId: widget.planId,
-                onRewardClaimed: (amount) {
-                  ref.read(characterStatsProvider.notifier).increaseXP(amount);
+                onRewardClaimed: (amount, context) {
+                  ref.read(characterStatsProvider.notifier)
+                      .increaseXP(amount, context);
                 },
               ),
             ),
