@@ -15,7 +15,8 @@ class PlanShowBibleVersesTile extends ConsumerWidget {
 
     return ListTile(
       title: const Text('Bibelverse erklärt'),
-      subtitle: const Text('Zeige in den Abschnitten die Bibelvers Erklärung an.'),
+      subtitle:
+          const Text('Zeige in den Abschnitten die Bibelvers Erklärung an.'),
       trailing: Switch(
         key: const Key('show-bible-verses'),
         value: plan.showBibleVerses,

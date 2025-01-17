@@ -87,19 +87,19 @@ class Day {
 
 @immutable
 class Section extends Equatable {
-  const Section(
-      {required this.bookIndex,
-      required this.chapter,
-      required this.endChapter,
-      required this.ref,
-      required this.startIndex,
-      required this.endIndex,
-      required this.url,
-      required this.events,
-      required this.locations,
-      required this.bibleVerses,
-      required this.videos,
-      });
+  const Section({
+    required this.bookIndex,
+    required this.chapter,
+    required this.endChapter,
+    required this.ref,
+    required this.startIndex,
+    required this.endIndex,
+    required this.url,
+    required this.events,
+    required this.locations,
+    required this.bibleVerses,
+    required this.videos,
+  });
 
   final int bookIndex;
   final int chapter;

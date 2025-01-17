@@ -43,8 +43,10 @@ class App extends ConsumerWidget {
                   case SchedulePage.routeName:
                     return const SchedulePage();
                   case CharacterProfilePage.routeName:
-                    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-                    final planId = args?['planId'] as String? ?? 'fallback_plan_id'; 
+                    final args = ModalRoute.of(context)!.settings.arguments
+                        as Map<String, dynamic>?;
+                    final planId =
+                        args?['planId'] as String? ?? 'fallback_plan_id';
                     return CharacterProfilePage(planId: planId);
                   case PlansPage.routeName:
                   default:

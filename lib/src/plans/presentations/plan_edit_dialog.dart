@@ -67,8 +67,8 @@ class PlanEditDialog extends ConsumerWidget {
               PlanResetTargetDateTile(planId, adjustedTargetDate),
             PlanShowEventsTile(planId),
             PlanShowLocationsTile(planId),
-            PlanShowBibleVersesTile(planId), 
-            PlanShowVideosTile(planId), 
+            PlanShowBibleVersesTile(planId),
+            PlanShowVideosTile(planId),
             const SizedBox(height: 20),
             if (!isNewPlan)
               ElevatedButton.icon(

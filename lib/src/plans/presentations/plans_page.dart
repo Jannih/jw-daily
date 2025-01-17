@@ -10,7 +10,7 @@ import 'package:nwt_reading/src/whats_new/presentations/whats_new_dialog.dart';
 import 'package:nwt_reading/src/profile/profile_utils.dart';
 
 import '../../settings/presentations/settings_page.dart';
-import '../../profile/character_profile_page.dart'; 
+import '../../profile/character_profile_page.dart';
 
 class PlansPage extends ConsumerStatefulWidget {
   const PlansPage({super.key});
@@ -40,29 +40,33 @@ class PlansPageState extends ConsumerState<PlansPage> {
     }
   }
 
-@override
-Widget build(BuildContext context) => Scaffold(
+  @override
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(context.loc.plansPageTitle),
           actions: [
             Stack(
-              clipBehavior: Clip.none, // Erlaubt dem Badge über den Stack hinauszuragen
+              clipBehavior:
+                  Clip.none, // Erlaubt dem Badge über den Stack hinauszuragen
               children: [
                 Consumer(
                   builder: (context, ref, _) {
                     final characterStats = ref.watch(characterStatsProvider);
                     return IconButton(
                       icon: CircleAvatar(
-                        backgroundImage: AssetImage(getSheepImageForLevel(characterStats.level)),
+                        backgroundImage: AssetImage(
+                            getSheepImageForLevel(characterStats.level)),
                         radius: 16,
                       ),
                       onPressed: () {
                         final plans = ref.read(plansProvider);
-                        final selectedPlanId = plans.plans.isNotEmpty ? plans.plans.first.id : null;
-                        
+                        final selectedPlanId = plans.plans.isNotEmpty
+                            ? plans.plans.first.id
+                            : null;
+
                         if (selectedPlanId != null) {
                           Navigator.restorablePushNamed(
-                            context, 
+                            context,
                             CharacterProfilePage.routeName,
                             arguments: {'planId': selectedPlanId},
                           );
@@ -73,7 +77,8 @@ Widget build(BuildContext context) => Scaffold(
                 ),
                 Consumer(
                   builder: (context, ref, _) {
-                    final availableRewards = ref.watch(availableRewardsProvider);
+                    final availableRewards =
+                        ref.watch(availableRewardsProvider);
                     if (availableRewards > 0) {
                       return Positioned(
                         right: 8,
@@ -113,10 +118,11 @@ Widget build(BuildContext context) => Scaffold(
               icon: const Icon(Icons.settings),
               onPressed: () {
                 final plans = ref.read(plansProvider);
-                final selectedPlanId = plans.plans.isNotEmpty ? plans.plans.first.id : null;
-                
+                final selectedPlanId =
+                    plans.plans.isNotEmpty ? plans.plans.first.id : null;
+
                 Navigator.restorablePushNamed(
-                  context, 
+                  context,
                   SettingsPage.routeName,
                   arguments: {'planId': selectedPlanId},
                 );

@@ -36,7 +36,7 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
       state.bookmark.compareTo(
           Bookmark(dayIndex: dayIndex, sectionIndex: sectionIndex)) >=
       0;
-    
+
   void checkAndUnlockAchievements() {
     final plan = state;
     final bookmark = plan.bookmark;
@@ -66,7 +66,10 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
     }
 
     // Kapitel abgeschlossen
-    int completedChapters = bookmark.dayIndex * schedule!.days[0].sections.length + bookmark.sectionIndex + 1;
+    int completedChapters =
+        bookmark.dayIndex * schedule!.days[0].sections.length +
+            bookmark.sectionIndex +
+            1;
     if (completedChapters >= 1) {
       unlockAchievement('Erstes Kapitel abgeschlossen');
     }
@@ -97,17 +100,11 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
 
   void unlockAchievement(String achievementTitle) {
     ref.read(achievementsListProvider.notifier).updateAchievement(
-      ref.read(achievementsListProvider),
-      achievementTitle,
-      true
-    );
+        ref.read(achievementsListProvider), achievementTitle, true);
   }
 
-  void toggleRead({
-    required int dayIndex,
-    required int sectionIndex, 
-    bool force = false
-  }) {
+  void toggleRead(
+      {required int dayIndex, required int sectionIndex, bool force = false}) {
     if (isRead(dayIndex: dayIndex, sectionIndex: sectionIndex)) {
       setUnread(dayIndex: dayIndex, sectionIndex: sectionIndex, force: force);
     } else {
@@ -201,21 +198,20 @@ class TogglingTooManyDaysException implements Exception {}
 
 // @immutable
 class Plan extends Equatable {
-  const Plan({
-    required this.id,
-    this.name,
-    required this.scheduleKey,
-    this.language,
-    required this.bookmark,
-    this.startDate,
-    this.lastDate,
-    this.targetDate,
-    required this.withTargetDate,
-    required this.showEvents,
-    required this.showLocations,
-    required this.showBibleVerses,
-    required this.showVideos
-  });
+  const Plan(
+      {required this.id,
+      this.name,
+      required this.scheduleKey,
+      this.language,
+      required this.bookmark,
+      this.startDate,
+      this.lastDate,
+      this.targetDate,
+      required this.withTargetDate,
+      required this.showEvents,
+      required this.showLocations,
+      required this.showBibleVerses,
+      required this.showVideos});
 
   final String id;
   final String? name;
@@ -243,28 +239,27 @@ class Plan extends Equatable {
     bool? withTargetDate,
     bool? showEvents,
     bool? showLocations,
-    bool? showBibleVerses, 
+    bool? showBibleVerses,
     bool? showVideos,
     bool? nullStartDate,
     bool? nullLastDate,
     bool? nullTargetDate,
   }) =>
       Plan(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        scheduleKey: scheduleKey ?? this.scheduleKey,
-        language: language ?? this.language,
-        bookmark: bookmark ?? this.bookmark,
-        startDate: nullStartDate == true ? null : startDate ?? this.startDate,
-        lastDate: nullLastDate == true ? null : lastDate ?? this.lastDate,
-        targetDate:
-            nullTargetDate == true ? null : targetDate ?? this.targetDate,
-        withTargetDate: withTargetDate ?? this.withTargetDate,
-        showEvents: showEvents ?? this.showEvents,
-        showLocations: showLocations ?? this.showLocations,
-        showBibleVerses: showBibleVerses ?? this.showBibleVerses,
-        showVideos: showVideos ?? this.showVideos
-      );
+          id: id ?? this.id,
+          name: name ?? this.name,
+          scheduleKey: scheduleKey ?? this.scheduleKey,
+          language: language ?? this.language,
+          bookmark: bookmark ?? this.bookmark,
+          startDate: nullStartDate == true ? null : startDate ?? this.startDate,
+          lastDate: nullLastDate == true ? null : lastDate ?? this.lastDate,
+          targetDate:
+              nullTargetDate == true ? null : targetDate ?? this.targetDate,
+          withTargetDate: withTargetDate ?? this.withTargetDate,
+          showEvents: showEvents ?? this.showEvents,
+          showLocations: showLocations ?? this.showLocations,
+          showBibleVerses: showBibleVerses ?? this.showBibleVerses,
+          showVideos: showVideos ?? this.showVideos);
 
   @override
   List<Object?> get props => [

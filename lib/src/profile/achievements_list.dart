@@ -39,8 +39,8 @@ class AchievementsListWidget extends ConsumerStatefulWidget {
   const AchievementsListWidget({
     required this.planId,
     required this.onRewardClaimed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _AchievementsListWidgetState createState() => _AchievementsListWidgetState();

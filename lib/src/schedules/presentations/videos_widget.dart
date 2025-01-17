@@ -30,10 +30,12 @@ class VideosWidget extends ConsumerWidget {
 
     return Text.rich(
       TextSpan(
-        children: videosText.expand((span) => [
-          span,
-          if (videosText.last != span) const TextSpan(text: ' — '),
-        ]).toList(),
+        children: videosText
+            .expand((span) => [
+                  span,
+                  if (videosText.last != span) const TextSpan(text: ' — '),
+                ])
+            .toList(),
       ),
       style: Theme.of(context).textTheme.bodySmall,
     );

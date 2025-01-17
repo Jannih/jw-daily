@@ -59,7 +59,8 @@ class PlansRepository {
           final withTargetDate = legacyExport['withEndDate'] as bool? ?? true;
           final showEvents = legacyExport['showEvents'] as bool? ?? true;
           final showLocations = legacyExport['showLocations'] as bool? ?? false;
-          final showBibleVerses = legacyExport['showBibleVerses'] as bool? ?? true;
+          final showBibleVerses =
+              legacyExport['showBibleVerses'] as bool? ?? true;
           final showVideos = legacyExport['showVideos'] as bool? ?? true;
 
           final schedule =
@@ -93,17 +94,16 @@ class PlansRepository {
 
           plans = Plans([
             Plan(
-              id: _uuid.v4(),
-              scheduleKey: scheduleKey,
-              language: readingLanguage ?? language ?? 'en',
-              bookmark: bookmark,
-              targetDate: targetDate,
-              withTargetDate: withTargetDate,
-              showEvents: showEvents,
-              showLocations: showLocations,
-              showBibleVerses: showBibleVerses, 
-              showVideos: showVideos
-            )
+                id: _uuid.v4(),
+                scheduleKey: scheduleKey,
+                language: readingLanguage ?? language ?? 'en',
+                bookmark: bookmark,
+                targetDate: targetDate,
+                withTargetDate: withTargetDate,
+                showEvents: showEvents,
+                showLocations: showLocations,
+                showBibleVerses: showBibleVerses,
+                showVideos: showVideos)
           ]);
         }
       }

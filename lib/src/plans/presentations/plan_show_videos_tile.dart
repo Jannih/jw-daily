@@ -15,7 +15,8 @@ class PlanShowVideosTile extends ConsumerWidget {
 
     return ListTile(
       title: const Text('Einführungsvideos'),
-      subtitle: const Text('Zeige in den Abschnitten die Einführungsvideos an.'),
+      subtitle:
+          const Text('Zeige in den Abschnitten die Einführungsvideos an.'),
       trailing: Switch(
         key: const Key('show-videos'),
         value: plan.showVideos,
