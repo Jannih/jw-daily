@@ -6,15 +6,14 @@ class LevelUpDialog extends StatefulWidget {
 
   const LevelUpDialog({
     required this.newLevel,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<LevelUpDialog> createState() => _LevelUpDialogState();
 }
 
-class _LevelUpDialogState extends State<LevelUpDialog>
-    with SingleTickerProviderStateMixin {
+class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _rotateAnimation;
@@ -175,8 +174,7 @@ class _LevelUpDialogState extends State<LevelUpDialog>
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
                 style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),

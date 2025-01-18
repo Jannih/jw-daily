@@ -17,8 +17,7 @@ class CharacterStats {
 }
 
 // Provider für Character Stats
-final characterStatsProvider =
-    StateNotifierProvider<CharacterStatsNotifier, CharacterStats>((ref) {
+final characterStatsProvider = StateNotifierProvider<CharacterStatsNotifier, CharacterStats>((ref) {
   return CharacterStatsNotifier();
 });
 
@@ -44,7 +43,7 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
     int oldLevel = state.level;
     int newXP = state.xp + amount;
     int newLevel = state.level;
-
+    
     while (newXP >= getRequiredXPForLevel(newLevel)) {
       newXP -= getRequiredXPForLevel(newLevel);
       newLevel++;
@@ -74,19 +73,18 @@ class CharacterProfilePage extends ConsumerStatefulWidget {
 
   const CharacterProfilePage({
     required this.planId,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  ConsumerState<CharacterProfilePage> createState() =>
-      _CharacterProfilePageState();
+  ConsumerState<CharacterProfilePage> createState() => _CharacterProfilePageState(); 
 }
 
 class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   String _name = 'Dein Name';
   bool _isEditingName = false;
 
-  @override
+    @override
   void initState() {
     super.initState();
     _loadName();
@@ -110,8 +108,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   @override
   Widget build(BuildContext context) {
     final characterStats = ref.watch(characterStatsProvider);
-    final currentLevelXP =
-        ref.read(characterStatsProvider.notifier).getCurrentLevelXP();
+    final currentLevelXP = ref.read(characterStatsProvider.notifier).getCurrentLevelXP();
 
     return Scaffold(
       appBar: AppBar(
@@ -125,8 +122,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
             Stack(
               children: [
                 CircleAvatar(
-                  backgroundImage:
-                      AssetImage(getSheepImageForLevel(characterStats.level)),
+                  backgroundImage: AssetImage(getSheepImageForLevel(characterStats.level)),
                   radius: 50,
                 ),
                 Positioned(
@@ -198,9 +194,8 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                     alignment: Alignment.centerLeft,
                     child: AnimatedContainer(
                       duration: Duration(seconds: 1),
-                      width: (characterStats.xp / currentLevelXP) *
-                          MediaQuery.of(context).size.width *
-                          0.9,
+                      width: (characterStats.xp / currentLevelXP) * 
+                          MediaQuery.of(context).size.width * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue,
@@ -213,7 +208,9 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                     child: Text(
                       'XP: ${characterStats.xp} / $currentLevelXP',
                       style: TextStyle(
-                          color: Colors.black87, fontWeight: FontWeight.bold),
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
                   ),
                 ),
@@ -224,8 +221,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
               child: AchievementsListWidget(
                 planId: widget.planId,
                 onRewardClaimed: (amount, context) {
-                  ref
-                      .read(characterStatsProvider.notifier)
+                  ref.read(characterStatsProvider.notifier)
                       .increaseXP(amount, context);
                 },
               ),

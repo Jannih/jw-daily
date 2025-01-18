@@ -4,10 +4,43 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'package:nwt_reading/src/plans/entities/plan.dart';
+import 'package:nwt_reading/src/plans/entities/plans.dart';
 import 'package:nwt_reading/src/schedules/entities/schedule.dart';
 
 final achievementsListProvider = StateNotifierProvider<AchievementsListNotifier, List<Achievement>>((ref) {
   return AchievementsListNotifier();
+});
+
+final dailyReadingStatusProvider = Provider<bool>((ref) {
+  final Plans plans = ref.watch(plansProvider);
+  final Plan? firstPlan = plans.plans.firstOrNull;
+  final String? planId = firstPlan?.id;
+
+  if (planId == null) return false;
+
+  final planNotifier = ref.read(planProviderFamily(planId).notifier);
+  final deviationDays = planNotifier.getDeviationDays();
+
+  // Wenn wir hinterher sind, ist keine Lesung gemacht
+  if (deviationDays > 0) return false;
+
+  // Prüfe den aktuellen Tag
+  final plan = ref.watch(planProviderFamily(planId));
+
+  final currentDayIndex = plan.bookmark.dayIndex;
+  final currentSectionIndex = plan.bookmark.sectionIndex;
+
+  // Prüfe ob alle Sections des heutigen Tages gelesen wurden
+  bool allSectionsRead = true;
+  for (int sectionIndex = 0; sectionIndex <= currentSectionIndex; sectionIndex++) {
+    if (!planNotifier.isRead(dayIndex: currentDayIndex, sectionIndex: sectionIndex)) {
+      allSectionsRead = false;
+      break;
+    }
+  }
+
+  // Nur true wenn wir nicht hinterher sind UND alle Sections gelesen wurden
+  return deviationDays <= 0 && allSectionsRead;
 });
 
 final availableRewardsProvider = Provider<int>((ref) {
@@ -69,8 +102,7 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
   Widget build(BuildContext context) {
     final plan = ref.watch(planProviderFamily(widget.planId));
     final scheduleAsyncValue = ref.watch(scheduleProviderFamily(plan.scheduleKey));
-    final planNotifier = ref.read(planProviderFamily(widget.planId).notifier);
-    final currentDeviationDays = planNotifier.getDeviationDays();
+    final hasReadToday = ref.watch(dailyReadingStatusProvider);
 
     return scheduleAsyncValue.when(
       data: (schedule) {
@@ -82,26 +114,32 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
             final achievement = achievements[index];
 
             return Card(
-              color: achievement.isCompleted 
-                  ? (achievement.isRewardClaimed ? Colors.grey[300] : Colors.white) 
-                  : Colors.grey[300],
-              child: ListTile(
-                leading: Icon(
-                  achievement.isRewardClaimed 
-                      ? Icons.check_circle 
-                      : achievement.icon,
-                  color: achievement.isCompleted 
-                      ? (achievement.isRewardClaimed ? Colors.grey : Colors.blue)
-                      : Colors.grey,
+                color: achievement.title == 'Tägliche Bibellesung'
+                    ? (achievement.canClaimDailyReward(hasReadToday) ? Colors.white : Colors.grey[300])
+                    : (achievement.isCompleted 
+                        ? (achievement.isRewardClaimed ? Colors.grey[300] : Colors.white) 
+                        : Colors.grey[300]),
+                child: ListTile(
+                  leading: Icon(
+                    achievement.isRewardClaimed 
+                        ? Icons.check_circle 
+                        : achievement.icon,
+                    color: achievement.title == 'Tägliche Bibellesung'
+                        ? (achievement.canClaimDailyReward(hasReadToday) ? Colors.blue : Colors.grey)
+                        : (achievement.isCompleted 
+                            ? (achievement.isRewardClaimed ? Colors.grey : Colors.blue)
+                            : Colors.grey),
                 ),
                 title: Text(
                   achievement.title,
                   style: TextStyle(
-                    color: achievement.isRewardClaimed ? Colors.grey : Colors.black,
+                    color: achievement.title == 'Tägliche Bibellesung'
+                        ? (achievement.canClaimDailyReward(hasReadToday) ? Colors.black : Colors.grey)
+                        : (achievement.isRewardClaimed ? Colors.grey : Colors.black),
                   ),
                 ),
                 trailing: (achievement.isCompleted && !achievement.isRewardClaimed) ||
-                          achievement.canClaimDailyReward(currentDeviationDays)
+                          achievement.canClaimDailyReward(hasReadToday)
                     ? Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -225,7 +263,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
   AchievementsListNotifier()
       : super([
           Achievement('Erste Bibellesung', Icons.book, false),
-          Achievement('Tägliche Bibellesung', Icons.auto_stories, true, isRewardClaimed: false),
+          Achievement('Tägliche Bibellesung', Icons.auto_stories, false, isRewardClaimed: false),
           Achievement('3 Tage hintereinander gelesen', Icons.calendar_today, false),
           Achievement('7 Tage hintereinander gelesen', Icons.calendar_view_week, false),
           Achievement('10 Tage hintereinander gelesen', Icons.calendar_view_month, false),
@@ -237,6 +275,22 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
           Achievement('3 Monate abgeschlossen', Icons.event, false),
         ]) {
     loadAchievements();
+  }
+
+  void updateDailyReadingStatus(int deviationDays) {
+    state = [
+      for (final achievement in state)
+        if (achievement.title == 'Tägliche Bibellesung')
+          Achievement(
+            achievement.title,
+            achievement.icon,
+            deviationDays <= 0, 
+            isRewardClaimed: achievement.isRewardClaimed,
+            lastRewardClaimed: achievement.lastRewardClaimed,
+          )
+        else
+          achievement,
+    ];
   }
 
   void updateAchievementsBasedOnReading(Plan plan, Schedule schedule) {
@@ -408,14 +462,20 @@ class Achievement {
 
   Achievement(this.title, this.icon, this.isCompleted, {this.isRewardClaimed = false, this.lastRewardClaimed});
 
-  bool canClaimDailyReward(int deviationDays) {
+  bool canClaimDailyReward(bool hasReadToday) {
     if (title != 'Tägliche Bibellesung') return false;
-    if (lastRewardClaimed == null) {
-      return deviationDays <= 0;
+    
+    // Nur wenn heute wirklich gelesen wurde
+    if (!hasReadToday) return false;
+    
+    // Prüfe ob heute schon eine Belohnung geholt wurde
+    if (lastRewardClaimed != null) {
+      final now = DateTime.now();
+      if (DateUtils.isSameDay(now, lastRewardClaimed!)) {
+        return false;
+      }
     }
     
-    final now = DateTime.now();
-    final lastClaim = lastRewardClaimed!;
-    return !DateUtils.isSameDay(now, lastClaim) && deviationDays <= 0;
+    return true; 
   }
 }
