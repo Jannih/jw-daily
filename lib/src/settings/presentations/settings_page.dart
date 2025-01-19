@@ -13,6 +13,8 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode =
         ref.watch(settingsProvider).value?.themeMode ?? ThemeMode.system;
+    final pushNotificationsEnabled = ref.watch(settingsProvider).value?.pushNotificationsEnabled ?? false;
+    final notificationTime = ref.watch(settingsProvider).value?.notificationTime ?? const TimeOfDay(hour: 20, minute: 0);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,6 +44,36 @@ class SettingsPage extends ConsumerWidget {
                 .updateThemeMode(newSelection.single),
           ),
         ),
+
+        const Divider(),
+        
+        SwitchListTile(
+          title: const Text('Tägliche Erinnerungen'),
+          subtitle: const Text('Erinnere mich an meine tägliche Lesung'),
+          value: pushNotificationsEnabled,
+          onChanged: (bool value) {
+            ref.read(settingsProvider.notifier).updatePushNotifications(value);
+          },
+        ),
+
+        if (pushNotificationsEnabled)
+          ListTile(
+            title: const Text('Erinnerungszeit'),
+            subtitle: Text(notificationTime.format(context)),
+            trailing: const Icon(Icons.access_time),
+            onTap: () async {
+              final TimeOfDay? newTime = await showTimePicker(
+                context: context,
+                initialTime: notificationTime,
+              );
+              if (newTime != null) {
+                ref.read(settingsProvider.notifier).updateNotificationTime(newTime);
+              }
+            },
+          ),
+
+        const Divider(),
+
         ListTile(
             subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
