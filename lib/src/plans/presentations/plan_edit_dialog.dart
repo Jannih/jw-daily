@@ -4,6 +4,7 @@ import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_duration_segmented_button.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_language_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_name_tile.dart';
+import 'package:nwt_reading/src/plans/presentations/plan_start_book_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_reset_target_date_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_show_events_tile.dart';
 import 'package:nwt_reading/src/plans/presentations/plan_show_locations_tile.dart';
@@ -60,6 +61,7 @@ class PlanEditDialog extends ConsumerWidget {
             PlanDurationSegmentedButton(planId),
             const SizedBox(height: 20),
             PlanLanguageTile(planId),
+            if (isNewPlan) PlanStartBookTile(planId),
             PlanWithTargetDateTile(planId),
             if (plan.withTargetDate &&
                 adjustedTargetDate != null &&
