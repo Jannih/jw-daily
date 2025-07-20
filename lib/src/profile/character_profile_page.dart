@@ -206,7 +206,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                 Positioned.fill(
                   child: Center(
                     child: Text(
-                      'XP: ${characterStats.xp} / $currentLevelXP',
+                      'Glaubensfortschritt: ${characterStats.xp} / $currentLevelXP',
                       style: TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.bold

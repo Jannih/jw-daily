@@ -19,6 +19,8 @@ enum ScheduleType {
   chronological,
   canonical,
   written,
+  gospels,
+  greek_scriptures,
 }
 
 enum ScheduleDuration { m3, m6, y1, y2, y4 }
