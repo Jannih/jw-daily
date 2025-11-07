@@ -19,6 +19,7 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: [
+          // Erste Reihe
           SegmentedButton<ScheduleType>(
             showSelectedIcon: false,
             segments: <ButtonSegment<ScheduleType>>[
@@ -41,6 +42,25 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 10),
+          // Zweite Reihe
+          SegmentedButton<ScheduleType>(
+            showSelectedIcon: false,
+            segments: <ButtonSegment<ScheduleType>>[
+              ButtonSegment<ScheduleType>(
+                  value: ScheduleType.gospels,
+                  label: Text(context.loc.planEditPageGospelsLabel),
+                  icon: Icon(Icons.auto_stories)),
+              ButtonSegment<ScheduleType>(
+                  value: ScheduleType.greek_scriptures,
+                  label: Text(context.loc.planEditPageGreekScripturesLabel),
+                  icon: Icon(Icons.language)),
+            ],
+            selected: {plan.scheduleKey.type},
+            onSelectionChanged: (Set<ScheduleType> newSelection) {
+              planEdit.updateScheduleType(newSelection.single);
+            },
+          ),
+          const SizedBox(height: 10),
           Text(
             switch (plan.scheduleKey.type) {
               ScheduleType.chronological =>
@@ -49,6 +69,10 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
                 context.loc.planEditPageCanonicalDescription,
               ScheduleType.written =>
                 context.loc.planEditPageAsWrittenDescription,
+              ScheduleType.gospels =>
+                context.loc.planEditPageGospelsDescription,
+              ScheduleType.greek_scriptures =>
+                context.loc.planEditPageGreekScripturesDescription,
             },
             style: TextStyle(fontSize: 12),
             textAlign: TextAlign.left,
