@@ -118,6 +118,22 @@
   "@planEditPageAsWrittenDescription": {
     "description": "As written segment description on the plan edit page"
   },
+  "planEditPageGospelsLabel": "Gospels",
+  "@planEditPageGospelsLabel": {
+    "description": "Gospels segment label on the plan edit page"
+  },
+  "planEditPageGospelsDescription": "Read the four Gospels in parallel.",
+  "@planEditPageGospelsDescription": {
+    "description": "Gospels segment description on the plan edit page"
+  },
+  "planEditPageGreekScripturesLabel": "Greek Scriptures",
+  "@planEditPageGreekScripturesLabel": {
+    "description": "Greek Scriptures segment label on the plan edit page"
+  },
+  "planEditPageGreekScripturesDescription": "Read the Christian Greek Scriptures in chronological order.",
+  "@planEditPageGreekScripturesDescription": {
+    "description": "Greek Scriptures segment description on the plan edit page"
+  },
   "planEditPageMonthsLabel": "{count, plural, one{1 mo.} other{{count} mos.}}",
   "@planEditPageMonthsLabel": {
     "description": "Segment label on the plan edit page",

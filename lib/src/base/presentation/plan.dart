@@ -12,6 +12,9 @@ String getPlanName(BuildContext context, Plan plan) =>
           context.loc.planEditPageChronologicalLabel,
         ScheduleType.canonical => context.loc.planEditPageCanonicalLabel,
         ScheduleType.written => context.loc.planEditPageAsWrittenLabel,
+        ScheduleType.gospels => context.loc.planEditPageGospelsLabel,
+        ScheduleType.greek_scriptures =>
+          context.loc.planEditPageGreekScripturesLabel,
       },
     )} ${switch (plan.scheduleKey.duration) {
       ScheduleDuration.m3 => context.loc.planEditPageMonthsLabel(3),

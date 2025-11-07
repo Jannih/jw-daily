@@ -23,6 +23,8 @@ class PlanCard extends ConsumerWidget {
       ScheduleType.chronological: Icons.hourglass_empty,
       ScheduleType.canonical: Icons.menu_book,
       ScheduleType.written: Icons.edit_note,
+      ScheduleType.gospels: Icons.book_online,
+      ScheduleType.greek_scriptures: Icons.auto_stories,
     };
 
     buildNameTitle() => Row(children: [

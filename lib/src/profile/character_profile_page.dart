@@ -4,6 +4,10 @@ import 'package:nwt_reading/src/profile/achievements_list.dart';
 import 'package:nwt_reading/src/profile/level_up_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nwt_reading/src/profile/profile_utils.dart';
+import 'package:nwt_reading/src/plans/entities/plan.dart';
+import 'package:nwt_reading/src/utils/date_utils.dart' as my_date_utils;
+import 'package:flame/game.dart';
+import 'sheep_pasture_game.dart';
 
 // Datenklasse für Character Stats
 class CharacterStats {
@@ -61,6 +65,25 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
     }
   }
 
+  void decreaseXP(int daysInactive) {
+    if (daysInactive <= 0) return;
+
+    int newXP = state.xp - (daysInactive * 10);
+    int newLevel = state.level;
+
+    while (newXP < 0) {
+      if (newLevel <= 1) {
+        newXP = 0;
+        break;
+      }
+      newLevel--;
+      newXP += getRequiredXPForLevel(newLevel);
+    }
+    
+    state = CharacterStats(xp: newXP, level: newLevel);
+    _saveStats();
+  }
+
   int getCurrentLevelXP() {
     return getRequiredXPForLevel(state.level);
   }
@@ -88,6 +111,29 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   void initState() {
     super.initState();
     _loadName();
+    _applyDailyPenalty();
+  }
+
+  Future<void> _applyDailyPenalty() async {
+    final prefs = await SharedPreferences.getInstance();
+    final lastCheckString = prefs.getString('last_penalty_check');
+    final now = DateTime.now();
+
+    if (lastCheckString != null) {
+      final lastCheck = DateTime.parse(lastCheckString);
+      if (my_date_utils.DateUtils.isSameDay(lastCheck, now)) {
+        return;
+      }
+    }
+
+    final planNotifier = ref.read(planProviderFamily(widget.planId).notifier);
+    final deviationDays = planNotifier.getDeviationDays();
+
+    if (deviationDays > 0) {
+      ref.read(characterStatsProvider.notifier).decreaseXP(deviationDays);
+    }
+    
+    await prefs.setString('last_penalty_check', now.toIso8601String());
   }
 
   Future<void> _loadName() async {
@@ -119,34 +165,13 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage(getSheepImageForLevel(characterStats.level)),
-                  radius: 50,
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.blue, width: 2),
-                    ),
-                    child: Text(
-                      '${characterStats.level}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 200,
+              child: GameWidget(
+                game: SheepPastureGame(level: characterStats.level),
+              ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -206,7 +231,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                 Positioned.fill(
                   child: Center(
                     child: Text(
-                      'XP: ${characterStats.xp} / $currentLevelXP',
+                      'Glaubensfortschritt: ${characterStats.xp} / $currentLevelXP',
                       style: TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.bold
