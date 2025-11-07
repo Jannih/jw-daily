@@ -20,6 +20,7 @@ enum ScheduleType {
   canonical,
   written,
   gospels,
+  // ignore: constant_identifier_names
   greek_scriptures,
 }
 

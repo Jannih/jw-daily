@@ -38,7 +38,9 @@ void main() async {
         endIndex: 59003018,
         url: '59001001-59003018',
         events: [],
-        locations: ['Gehenna (Hinnom)'])
+        locations: ['Gehenna (Hinnom)'],
+        bibleVerses: [],
+        videos: [])
   ];
   final deepCollectionEquals = const DeepCollectionEquality().equals;
 

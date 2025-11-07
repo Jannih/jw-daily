@@ -76,10 +76,10 @@ class AchievementsListWidget extends ConsumerStatefulWidget {
   });
 
   @override
-  _AchievementsListWidgetState createState() => _AchievementsListWidgetState();
+  AchievementsListWidgetState createState() => AchievementsListWidgetState();
 }
 
-class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget> {
+class AchievementsListWidgetState extends ConsumerState<AchievementsListWidget> {
   @override
   void initState() {
     super.initState();
@@ -415,7 +415,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
       
       await prefs.setString('achievements', jsonEncode(achievementsData));
     } catch (e) {
-      print('Fehler beim Speichern der Achievements: $e');
+      debugPrint('Fehler beim Speichern der Achievements: $e');
     }
   }
 
@@ -425,8 +425,9 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
       final achievementsString = prefs.getString('achievements');
       
       if (achievementsString != null) {
-        final achievementsData = jsonDecode(achievementsString) as List;
-        final loadedAchievements = achievementsData.map((data) {
+        final achievementsJson = jsonDecode(achievementsString) as List<dynamic>;
+        final loadedAchievements = achievementsJson.map((dynamic raw) {
+          final data = raw as Map<String, dynamic>;
           final title = data['title'] as String;
           final lastRewardClaimedStr = data['lastRewardClaimed'] as String?;
           final existingAchievement = state.firstWhere(
@@ -448,7 +449,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
         state = loadedAchievements;
       }
     } catch (e) {
-      print('Fehler beim Laden der Achievements: $e');
+      debugPrint('Fehler beim Laden der Achievements: $e');
     }
   }
 }

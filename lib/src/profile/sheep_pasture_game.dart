@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
-import 'package:flutter/material.dart';
 
 class SheepPastureGame extends FlameGame {
   final int level;

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/profile/achievements_list.dart';
 import 'package:nwt_reading/src/profile/level_up_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nwt_reading/src/profile/profile_utils.dart';
 import 'package:nwt_reading/src/plans/entities/plan.dart';
 import 'package:nwt_reading/src/utils/date_utils.dart' as my_date_utils;
 import 'package:flame/game.dart';

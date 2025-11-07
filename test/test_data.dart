@@ -25,7 +25,8 @@ final Plans testPlans = Plans([
       withTargetDate: true,
       showEvents: true,
       showLocations: true,
-      showBibleVerses: true),
+      showBibleVerses: true,
+      showVideos: true),
   Plan(
       id: '0da6b8a7-ccd4-4270-8058-9e30a3f55ceb',
       name: 'Written',
@@ -38,7 +39,8 @@ final Plans testPlans = Plans([
       withTargetDate: false,
       showEvents: false,
       showLocations: false,
-      showBibleVerses: true),
+      showBibleVerses: true,
+      showVideos: true),
   Plan(
       id: '2dab49f3-aecf-4aba-9e91-d75c297d4b7e',
       name: 'Canonical',
@@ -52,7 +54,8 @@ final Plans testPlans = Plans([
       withTargetDate: true,
       showEvents: true,
       showLocations: true,
-      showBibleVerses: true),
+      showBibleVerses: true,
+      showVideos: true),
   Plan(
       id: 'e37bf9df-077a-49db-adcb-d56384906103',
       name: 'Chronological',
@@ -65,14 +68,15 @@ final Plans testPlans = Plans([
       withTargetDate: true,
       showEvents: true,
       showLocations: true,
-      showBibleVerses: true)
+      showBibleVerses: true,
+      showVideos: true)
 ]);
 
 const List<String> testPlansSerialized = [
-  '{"id":"5aa4de9e-036b-42cd-8bcb-a92cae46db27","scheduleKey":{"type":0,"duration":2,"version":"1.0"},"language":"en","bookmark":{"dayIndex":75,"sectionIndex":0},"withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true}',
-  '{"id":"0da6b8a7-ccd4-4270-8058-9e30a3f55ceb","name":"Written","scheduleKey":{"type":2,"duration":2,"version":"1.0"},"language":"de","bookmark":{"dayIndex":0,"sectionIndex":-1},"withTargetDate":false,"showEvents":false,"showLocations":false}',
-  '{"id":"2dab49f3-aecf-4aba-9e91-d75c297d4b7e","name":"Canonical","scheduleKey":{"type":1,"duration":2,"version":"1.0"},"language":"ro","bookmark":{"dayIndex":364,"sectionIndex":1},"lastDate":"2024-11-21T00:00:00.000","withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true}',
-  '{"id":"e37bf9df-077a-49db-adcb-d56384906103","name":"Chronological","scheduleKey":{"type":0,"duration":1,"version":"1.0"},"language":"en","bookmark":{"dayIndex":182,"sectionIndex":1},"withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true}'
+  '{"id":"5aa4de9e-036b-42cd-8bcb-a92cae46db27","scheduleKey":{"type":0,"duration":2,"version":"1.0"},"language":"en","bookmark":{"dayIndex":75,"sectionIndex":0},"withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true,"showVideos": true}',
+  '{"id":"0da6b8a7-ccd4-4270-8058-9e30a3f55ceb","name":"Written","scheduleKey":{"type":2,"duration":2,"version":"1.0"},"language":"de","bookmark":{"dayIndex":0,"sectionIndex":-1},"withTargetDate":false,"showEvents":false,"showLocations":false,"showBibleVerses": true,"showVideos": true}',
+  '{"id":"2dab49f3-aecf-4aba-9e91-d75c297d4b7e","name":"Canonical","scheduleKey":{"type":1,"duration":2,"version":"1.0"},"language":"ro","bookmark":{"dayIndex":364,"sectionIndex":1},"lastDate":"2024-11-21T00:00:00.000","withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true,"showVideos": true}',
+  '{"id":"e37bf9df-077a-49db-adcb-d56384906103","name":"Chronological","scheduleKey":{"type":0,"duration":1,"version":"1.0"},"language":"en","bookmark":{"dayIndex":182,"sectionIndex":1},"withTargetDate":true,"showEvents":true,"showLocations":true,"showBibleVerses": true,"showVideos": true}'
 ];
 
 final testPlansPreferences = {
@@ -112,7 +116,8 @@ final List<LegacyExport> testLegacyExports = [
             withTargetDate: true,
             showEvents: true,
             showLocations: false,
-            showBibleVerses: true),
+            showBibleVerses: true,
+            showVideos: true),
       ])),
   LegacyExport(
       preferences: {
@@ -132,7 +137,8 @@ final List<LegacyExport> testLegacyExports = [
             withTargetDate: true,
             showEvents: true,
             showLocations: false,
-            showBibleVerses: true),
+            showBibleVerses: true,
+            showVideos: true),
       ])),
   LegacyExport(
       preferences: {
@@ -152,6 +158,7 @@ final List<LegacyExport> testLegacyExports = [
             withTargetDate: true,
             showEvents: true,
             showLocations: true,
-            showBibleVerses: true),
+            showBibleVerses: true,
+            showVideos: true),
       ])),
 ];

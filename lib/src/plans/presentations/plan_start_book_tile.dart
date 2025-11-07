@@ -4,7 +4,7 @@ import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
 import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
 
 class PlanStartBookTile extends ConsumerWidget {
-  const PlanStartBookTile(this.planId, {Key? key}) : super(key: key);
+  const PlanStartBookTile(this.planId, {super.key});
 
   final String? planId;
 
