@@ -165,10 +165,14 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   Widget build(BuildContext context) {
     final characterStats = ref.watch(characterStatsProvider);
     final currentLevelXP = ref.read(characterStatsProvider.notifier).getCurrentLevelXP();
+    final theme = Theme.of(context);
+    final xpFraction = currentLevelXP > 0
+        ? (characterStats.xp / currentLevelXP).clamp(0.0, 1.0)
+        : 0.0;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Charakter Profil'),
+        title: const Text('Charakter Profil'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -181,7 +185,24 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                 game: SheepPastureGame(level: characterStats.level),
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 24),
+            // Level Badge
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                'Level ${characterStats.level}',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Name mit Edit-Hint
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -200,7 +221,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                         });
                         await _saveName(value);
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 16,
@@ -208,50 +229,63 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                         ),
                       ),
                     )
-                  : Text(
-                      _name,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _name,
+                          style: theme.textTheme.headlineSmall,
+                        ),
+                        const SizedBox(width: 8),
+                        Icon(
+                          Icons.edit,
+                          size: 18,
+                          color: theme.colorScheme.outline,
+                        ),
+                      ],
                     ),
             ),
-            SizedBox(height: 20),
-            Stack(
-              children: [
-                Container(
-                  height: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.blue),
-                    color: Colors.blue.shade50,
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: AnimatedContainer(
-                      duration: Duration(seconds: 1),
-                      width: (characterStats.xp / currentLevelXP) * 
-                          MediaQuery.of(context).size.width * 0.9,
+            const SizedBox(height: 20),
+            // XP Progress Bar - mit LayoutBuilder für sichere Breite
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Stack(
+                  children: [
+                    Container(
+                      height: 20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue,
+                        border: Border.all(color: theme.colorScheme.primary),
+                        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
                       ),
                     ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Center(
-                    child: Text(
-                      'Glaubensfortschritt: ${characterStats.xp} / $currentLevelXP',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold
+                    AnimatedContainer(
+                      duration: const Duration(seconds: 1),
+                      height: 20,
+                      width: xpFraction * constraints.maxWidth,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: theme.colorScheme.primary,
                       ),
                     ),
-                  ),
-                ),
-              ],
+                    SizedBox(
+                      height: 20,
+                      child: Center(
+                        child: Text(
+                          '${characterStats.xp} / $currentLevelXP XP',
+                          style: TextStyle(
+                            color: theme.colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: AchievementsListWidget(
                 planId: widget.planId,

@@ -45,6 +45,19 @@ class PlansPageState extends ConsumerState<PlansPage> {
         appBar: AppBar(
           title: Text(context.loc.plansPageTitle),
           actions: [
+            Consumer(
+              builder: (context, ref, _) {
+                final hasReadToday = ref.watch(dailyReadingStatusProvider);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Icon(
+                    hasReadToday ? Icons.local_fire_department : Icons.local_fire_department_outlined,
+                    color: hasReadToday ? Colors.orange : Theme.of(context).colorScheme.outline,
+                    size: 28,
+                  ),
+                );
+              },
+            ),
             Stack(
               clipBehavior:
                   Clip.none, // Erlaubt dem Badge über den Stack hinauszuragen
@@ -69,6 +82,13 @@ class PlansPageState extends ConsumerState<PlansPage> {
                             context,
                             CharacterProfilePage.routeName,
                             arguments: {'planId': selectedPlanId},
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Erstelle zuerst einen Leseplan.'),
+                              duration: Duration(seconds: 2),
+                            ),
                           );
                         }
                       },

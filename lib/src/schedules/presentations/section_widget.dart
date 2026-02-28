@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
 import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
@@ -43,6 +44,7 @@ class SectionWidget extends ConsumerWidget {
     void toggleRead() {
       try {
         planNotifier.toggleRead(dayIndex: dayIndex, sectionIndex: sectionIndex);
+        HapticFeedback.lightImpact();
       } on TogglingTooManyDaysException {
         showDialog<String>(
           context: context,
