@@ -9,6 +9,7 @@ import 'package:nwt_reading/src/schedules/repositories/locations_repository.dart
 import 'package:nwt_reading/src/schedules/repositories/bible_verses_repository.dart';
 import 'package:nwt_reading/src/schedules/repositories/videos_repository.dart';
 import 'package:nwt_reading/src/schedules/repositories/schedules_repository.dart';
+import 'package:nwt_reading/src/daily_text/repositories/daily_text_repository.dart';
 import 'package:nwt_reading/src/settings/repositories/settings_repository.dart';
 import 'package:nwt_reading/src/notifications/notifications_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,6 +34,7 @@ Future<UncontrolledProviderScope> main() async {
   container.read(bibleLanguagesRepositoryProvider);
   container.read(settingsRepositoryProvider);
   container.read(notificationsServiceProvider);
+  container.read(dailyTextRepositoryProvider).loadTodaysDailyText();
 
   final uncontrolledProviderScope = UncontrolledProviderScope(
     container: container,

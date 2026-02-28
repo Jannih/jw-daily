@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nwt_reading/src/daily_text/presentations/daily_text_card.dart';
 import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/entities/plans.dart';
 import 'package:nwt_reading/src/profile/achievements_list.dart';
@@ -152,6 +153,7 @@ class PlansPageState extends ConsumerState<PlansPage> {
         ),
         body: Column(
           children: [
+            const DailyTextCard(),
             Expanded(
               child: PlansGrid(
                 key: const Key('plans-grid'),
