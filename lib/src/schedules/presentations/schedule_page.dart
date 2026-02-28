@@ -96,7 +96,6 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
 
       return date != null && plan.withTargetDate && isBeginningOfMonth
           ? Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
                 Text(

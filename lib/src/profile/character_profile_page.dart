@@ -5,7 +5,6 @@ import 'package:nwt_reading/src/profile/level_up_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nwt_reading/src/profile/profile_utils.dart';
 import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/utils/date_utils.dart' as my_date_utils;
 import 'package:flame/game.dart';
 import 'sheep_pasture_game.dart';
 
@@ -121,7 +120,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
 
     if (lastCheckString != null) {
       final lastCheck = DateTime.parse(lastCheckString);
-      if (my_date_utils.DateUtils.isSameDay(lastCheck, now)) {
+      if (DateUtils.isSameDay(lastCheck, now)) {
         return;
       }
     }
@@ -129,8 +128,8 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
     final planNotifier = ref.read(planProviderFamily(widget.planId).notifier);
     final deviationDays = planNotifier.getDeviationDays();
 
-    if (deviationDays > 0) {
-      ref.read(characterStatsProvider.notifier).decreaseXP(deviationDays);
+    if (deviationDays < 0) {
+      ref.read(characterStatsProvider.notifier).decreaseXP(deviationDays.abs());
     }
     
     await prefs.setString('last_penalty_check', now.toIso8601String());
