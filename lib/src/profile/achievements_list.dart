@@ -84,6 +84,7 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       ref.read(achievementsListProvider.notifier).loadAchievements();
       _updateAchievements();
     });

@@ -25,15 +25,15 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.chronological,
                   label: Text(context.loc.planEditPageChronologicalLabel),
-                  icon: Icon(Icons.hourglass_empty)),
+                  icon: const Icon(Icons.hourglass_empty)),
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.canonical,
                   label: Text(context.loc.planEditPageCanonicalLabel),
-                  icon: Icon(Icons.menu_book)),
+                  icon: const Icon(Icons.menu_book)),
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.written,
                   label: Text(context.loc.planEditPageAsWrittenLabel),
-                  icon: Icon(Icons.edit_note)),
+                  icon: const Icon(Icons.edit_note)),
             ],
             selected: {plan.scheduleKey.type},
             onSelectionChanged: (Set<ScheduleType> newSelection) {
@@ -48,11 +48,11 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.gospels,
                   label: Text(context.loc.planEditPageGospelsLabel),
-                  icon: Icon(Icons.auto_stories)),
+                  icon: const Icon(Icons.auto_stories)),
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.greek_scriptures,
                   label: Text(context.loc.planEditPageGreekScripturesLabel),
-                  icon: Icon(Icons.language)),
+                  icon: const Icon(Icons.language)),
             ],
             selected: {plan.scheduleKey.type},
             onSelectionChanged: (Set<ScheduleType> newSelection) {
@@ -73,7 +73,7 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
               ScheduleType.greek_scriptures =>
                 context.loc.planEditPageGreekScripturesDescription,
             },
-            style: TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 12),
             textAlign: TextAlign.left,
           ),
         ],

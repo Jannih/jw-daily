@@ -127,6 +127,8 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
 
   Future<void> _applyDailyPenalty() async {
     final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+
     final lastCheckString = prefs.getString('last_penalty_check');
     final now = DateTime.now();
 
@@ -143,7 +145,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
     if (deviationDays < 0) {
       ref.read(characterStatsProvider.notifier).decreaseXP(deviationDays.abs());
     }
-    
+
     await prefs.setString('last_penalty_check', now.toIso8601String());
   }
 
