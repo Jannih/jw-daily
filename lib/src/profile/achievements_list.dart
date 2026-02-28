@@ -260,6 +260,8 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
 }
 
 class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
+  SharedPreferences? _prefs;
+
   AchievementsListNotifier()
       : super([
           Achievement('Erste Bibellesung', Icons.book, false),
@@ -338,6 +340,9 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
         isRewardClaimed: achievements[index].isRewardClaimed,
       );
     }
+  }
+
+  void applyAndSave(List<Achievement> achievements) {
     state = achievements;
     _saveAchievements();
   }
@@ -378,7 +383,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
 
   Future<void> _saveAchievements() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = _prefs ?? await SharedPreferences.getInstance();
       final achievementsData = state.map((achievement) => {
         'title': achievement.title,
         'isCompleted': achievement.isCompleted,
@@ -394,7 +399,8 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
 
   Future<void> loadAchievements() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      _prefs ??= await SharedPreferences.getInstance();
+      final prefs = _prefs!;
       final achievementsString = prefs.getString('achievements');
       
       if (achievementsString != null) {

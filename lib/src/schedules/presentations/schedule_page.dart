@@ -33,7 +33,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    final planId = ModalRoute.of(context)!.settings.arguments as String;
+    final planId = ModalRoute.of(context)?.settings.arguments as String? ?? '';
     final plan = ref.watch(planProviderFamily(planId));
     final planNotifier = ref.read(planProviderFamily(planId).notifier);
     final asyncSchedule = ref.watch(scheduleProviderFamily(plan.scheduleKey));
@@ -169,7 +169,8 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                 ),
               ],
             ),
-          AsyncValue(:final error?) => Text('Error: $error'),
+          AsyncValue(:final error?) => Center(
+              child: Text('Ein Fehler ist aufgetreten. Bitte versuche es erneut.')),
           _ => const Center(child: CircularProgressIndicator()),
         },
         floatingActionButton: FloatingActionButton(

@@ -9,6 +9,14 @@ import 'package:nwt_reading/src/schedules/presentations/schedule_page.dart';
 class PlanCard extends ConsumerWidget {
   const PlanCard(this.planId, {super.key});
 
+  static const _planTypeIcons = {
+    ScheduleType.chronological: Icons.hourglass_empty,
+    ScheduleType.canonical: Icons.menu_book,
+    ScheduleType.written: Icons.edit_note,
+    ScheduleType.gospels: Icons.book_online,
+    ScheduleType.greek_scriptures: Icons.auto_stories,
+  };
+
   final String planId;
 
   @override
@@ -19,17 +27,10 @@ class PlanCard extends ConsumerWidget {
     final remainingDays = planNotifier.getRemainingDays();
     final isFinished = planNotifier.isFinished();
     final progress = planNotifier.getProgress();
-    const planTypeIcons = {
-      ScheduleType.chronological: Icons.hourglass_empty,
-      ScheduleType.canonical: Icons.menu_book,
-      ScheduleType.written: Icons.edit_note,
-      ScheduleType.gospels: Icons.book_online,
-      ScheduleType.greek_scriptures: Icons.auto_stories,
-    };
 
     buildNameTitle() => Row(children: [
           Icon(
-            planTypeIcons[plan.scheduleKey.type],
+            _planTypeIcons[plan.scheduleKey.type],
             color: Theme.of(context).colorScheme.surface,
             size: 56,
             shadows: [

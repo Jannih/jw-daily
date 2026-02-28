@@ -26,36 +26,38 @@ final characterStatsProvider = StateNotifierProvider<CharacterStatsNotifier, Cha
 
 class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
   CharacterStatsNotifier() : super(CharacterStats(xp: 0, level: 1)) {
-    _loadStats();
+    _init();
   }
 
-  Future<void> _loadStats() async {
-    final prefs = await SharedPreferences.getInstance();
-    final xp = prefs.getInt('character_xp') ?? 0;
-    final level = prefs.getInt('character_level') ?? 1;
+  SharedPreferences? _prefs;
+
+  Future<void> _init() async {
+    _prefs = await SharedPreferences.getInstance();
+    final xp = _prefs!.getInt('character_xp') ?? 0;
+    final level = _prefs!.getInt('character_level') ?? 1;
     state = CharacterStats(xp: xp, level: level);
   }
 
   Future<void> _saveStats() async {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = _prefs ?? await SharedPreferences.getInstance();
     await prefs.setInt('character_xp', state.xp);
     await prefs.setInt('character_level', state.level);
   }
 
-  void increaseXP(int amount, BuildContext context) {
-    int oldLevel = state.level;
-    int newXP = state.xp + amount;
-    int newLevel = state.level;
-    
+  Future<void> increaseXP(int amount, BuildContext context) async {
+    final oldLevel = state.level;
+    var newXP = state.xp + amount;
+    var newLevel = state.level;
+
     while (newXP >= getRequiredXPForLevel(newLevel)) {
       newXP -= getRequiredXPForLevel(newLevel);
       newLevel++;
     }
 
     state = CharacterStats(xp: newXP, level: newLevel);
-    _saveStats();
+    await _saveStats();
 
-    if (newLevel > oldLevel) {
+    if (newLevel > oldLevel && context.mounted) {
       showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -64,11 +66,11 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
     }
   }
 
-  void decreaseXP(int daysInactive) {
+  Future<void> decreaseXP(int daysInactive) async {
     if (daysInactive <= 0) return;
 
-    int newXP = state.xp - (daysInactive * 10);
-    int newLevel = state.level;
+    var newXP = state.xp - (daysInactive * 10);
+    var newLevel = state.level;
 
     while (newXP < 0) {
       if (newLevel <= 1) {
@@ -78,9 +80,9 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
       newLevel--;
       newXP += getRequiredXPForLevel(newLevel);
     }
-    
+
     state = CharacterStats(xp: newXP, level: newLevel);
-    _saveStats();
+    await _saveStats();
   }
 
   int getCurrentLevelXP() {
@@ -105,12 +107,20 @@ class CharacterProfilePage extends ConsumerStatefulWidget {
 class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   String _name = 'Dein Name';
   bool _isEditingName = false;
+  late final TextEditingController _nameController;
 
-    @override
+  @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController(text: _name);
     _loadName();
     _applyDailyPenalty();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
   }
 
   Future<void> _applyDailyPenalty() async {
@@ -138,9 +148,10 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   Future<void> _loadName() async {
     final prefs = await SharedPreferences.getInstance();
     final savedName = prefs.getString('character_name');
-    if (savedName != null) {
+    if (savedName != null && mounted) {
       setState(() {
         _name = savedName;
+        _nameController.text = savedName;
       });
     }
   }
@@ -181,7 +192,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                   ? TextField(
                       autofocus: true,
                       textAlign: TextAlign.center,
-                      controller: TextEditingController(text: _name),
+                      controller: _nameController,
                       onSubmitted: (value) async {
                         setState(() {
                           _name = value;

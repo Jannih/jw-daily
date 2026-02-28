@@ -73,8 +73,10 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
   }
 
   void unlockAchievement(String achievementTitle) {
-    ref.read(achievementsListProvider.notifier).updateAchievement(
-        ref.read(achievementsListProvider), achievementTitle, true);
+    final notifier = ref.read(achievementsListProvider.notifier);
+    final achievements = [...ref.read(achievementsListProvider)];
+    notifier.updateAchievement(achievements, achievementTitle, true);
+    notifier.applyAndSave(achievements);
   }
 
   void toggleRead(
