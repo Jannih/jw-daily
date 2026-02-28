@@ -21,6 +21,13 @@ class SchedulePage extends ConsumerStatefulWidget {
 class _SchedulePageState extends ConsumerState<SchedulePage> {
   int topDayIndex = 0;
   ScheduleKey? scheduleKey;
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void resetTopDayIndex(Bookmark? bookmark) =>
       setState(() => topDayIndex = bookmark == null
@@ -39,7 +46,6 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
     final asyncSchedule = ref.watch(scheduleProviderFamily(plan.scheduleKey));
     final progress = planNotifier.getProgress();
     const Key centerKey = ValueKey<String>('today');
-    final controller = ScrollController();
     final deviationDays = planNotifier.getDeviationDays();
     final todayTargetIndex = planNotifier.todayTargetIndex();
     final badgeColor = deviationDays >= 0 ? Colors.green : Colors.red;
@@ -145,7 +151,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                   ),
                 Flexible(
                   child: CustomScrollView(
-                    controller: controller,
+                    controller: _scrollController,
                     center: centerKey,
                     slivers: <Widget>[
                       SliverList(
@@ -177,7 +183,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
           tooltip: context.loc.schedulePageJumpToBookmarkTooltip,
           onPressed: () {
             resetTopDayIndex(plan.bookmark);
-            controller.jumpTo(0.0);
+            _scrollController.jumpTo(0.0);
           },
           child: const Icon(Icons.bookmark),
         ));

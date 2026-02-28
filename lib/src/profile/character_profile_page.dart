@@ -108,6 +108,8 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   String _name = 'Dein Name';
   bool _isEditingName = false;
   late final TextEditingController _nameController;
+  SheepPastureGame? _game;
+  int _gameLevel = 1;
 
   @override
   void initState() {
@@ -170,6 +172,12 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
         ? (characterStats.xp / currentLevelXP).clamp(0.0, 1.0)
         : 0.0;
 
+    // Nur neues Game erstellen wenn sich das Level ändert
+    if (_game == null || _gameLevel != characterStats.level) {
+      _gameLevel = characterStats.level;
+      _game = SheepPastureGame(level: characterStats.level);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Charakter Profil'),
@@ -181,9 +189,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
           children: [
             SizedBox(
               height: 200,
-              child: GameWidget(
-                game: SheepPastureGame(level: characterStats.level),
-              ),
+              child: GameWidget(game: _game!),
             ),
             const SizedBox(height: 24),
             // Level Badge
