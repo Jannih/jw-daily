@@ -84,6 +84,7 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       ref.read(achievementsListProvider.notifier).loadAchievements();
       _updateAchievements();
     });
@@ -260,6 +261,8 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
 }
 
 class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
+  SharedPreferences? _prefs;
+
   AchievementsListNotifier()
       : super([
           Achievement('Erste Bibellesung', Icons.book, false),
@@ -303,14 +306,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
     }
 
     // Tage hintereinander gelesen
-    int consecutiveDays = 0;
-    for (int i = bookmark.dayIndex; i >= 0; i--) {
-      if (i <= bookmark.dayIndex) {
-        consecutiveDays++;
-      } else {
-        break;
-      }
-    }
+    final consecutiveDays = bookmark.dayIndex;
 
     if (consecutiveDays >= 3) {
       updateAchievement(updatedAchievements, '3 Tage hintereinander gelesen', true);
@@ -323,32 +319,12 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
     }
 
     // Kapitel abgeschlossen
-    int completedChapters = bookmark.dayIndex * schedule.days[0].sections.length + bookmark.sectionIndex + 1;
+    final completedChapters = bookmark.dayIndex * schedule.days[0].sections.length + bookmark.sectionIndex + 1;
     if (completedChapters >= 1) {
       updateAchievement(updatedAchievements, 'Erstes Kapitel abgeschlossen', true);
     }
     if (completedChapters >= 5) {
       updateAchievement(updatedAchievements, '5 Kapitel abgeschlossen', true);
-    }
-
-    // Bücher abgeschlossen
-    int completedBooks = 0;
-    // Logik für abgeschlossene Bücher
-    if (completedBooks >= 1) {
-      updateAchievement(updatedAchievements, 'Erstes Buch abgeschlossen', true);
-    }
-    if (completedBooks >= 5) {
-      updateAchievement(updatedAchievements, '5 Bücher abgeschlossen', true);
-    }
-
-    // Monate abgeschlossen
-    int completedMonths = 0;
-    // Logik für abgeschlossene Monate
-    if (completedMonths >= 1) {
-      updateAchievement(updatedAchievements, 'Erster Monat abgeschlossen', true);
-    }
-    if (completedMonths >= 3) {
-      updateAchievement(updatedAchievements, '3 Monate abgeschlossen', true);
     }
 
     state = updatedAchievements;
@@ -365,6 +341,9 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
         isRewardClaimed: achievements[index].isRewardClaimed,
       );
     }
+  }
+
+  void applyAndSave(List<Achievement> achievements) {
     state = achievements;
     _saveAchievements();
   }
@@ -405,7 +384,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
 
   Future<void> _saveAchievements() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = _prefs ?? await SharedPreferences.getInstance();
       final achievementsData = state.map((achievement) => {
         'title': achievement.title,
         'isCompleted': achievement.isCompleted,
@@ -415,13 +394,14 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
       
       await prefs.setString('achievements', jsonEncode(achievementsData));
     } catch (e) {
-      print('Fehler beim Speichern der Achievements: $e');
+      debugPrint('Fehler beim Speichern der Achievements: $e');
     }
   }
 
   Future<void> loadAchievements() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      _prefs ??= await SharedPreferences.getInstance();
+      final prefs = _prefs!;
       final achievementsString = prefs.getString('achievements');
       
       if (achievementsString != null) {
@@ -448,7 +428,7 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
         state = loadedAchievements;
       }
     } catch (e) {
-      print('Fehler beim Laden der Achievements: $e');
+      debugPrint('Fehler beim Laden der Achievements: $e');
     }
   }
 }

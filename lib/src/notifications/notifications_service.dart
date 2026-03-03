@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +15,6 @@ final notificationsServiceProvider = Provider<NotificationsService>((ref) {
 class NotificationsService {
   NotificationsService(this.ref) {
     _init();
-    // Höre auf Änderungen der Einstellungen
     ref.listen(settingsProvider, (previous, next) {
       next.whenData((settings) {
         if (settings.pushNotificationsEnabled) {
@@ -27,6 +29,11 @@ class NotificationsService {
   final Ref ref;
   final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
 
+  Future<AppLocalizations> _getLocalizations() async {
+    final locale = PlatformDispatcher.instance.locale;
+    return AppLocalizations.delegate.load(locale);
+  }
+
   Future<void> _init() async {
     tz.initializeTimeZones();
 
@@ -36,7 +43,7 @@ class NotificationsService {
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
-    
+
     const initializationSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
@@ -46,7 +53,9 @@ class NotificationsService {
   }
 
   Future<void> scheduleNotification(TimeOfDay time) async {
-    await cancelNotification(); // Lösche bestehende Benachrichtigung
+    await cancelNotification();
+
+    final loc = await _getLocalizations();
 
     final now = DateTime.now();
     var scheduledDate = DateTime(
@@ -57,7 +66,6 @@ class NotificationsService {
       time.minute,
     );
 
-    // Wenn die Zeit für heute bereits vorbei ist, plane für morgen
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
@@ -65,21 +73,20 @@ class NotificationsService {
     final location = tz.local;
     final scheduledTzDateTime = tz.TZDateTime.from(scheduledDate, location);
 
-
     await _notifications.zonedSchedule(
-      0, // Notification ID
-      'Tägliche Lesung', // Titel
-      'Vergiss nicht deine tägliche Bibellesung!', // Nachricht
+      0,
+      loc.notificationTitle,
+      loc.notificationBody,
       scheduledTzDateTime,
-      const NotificationDetails(
+      NotificationDetails(
         android: AndroidNotificationDetails(
           'daily_reading_reminder',
-          'Tägliche Lesung',
-          channelDescription: 'Erinnerungen an die tägliche Bibellesung',
+          loc.notificationTitle,
+          channelDescription: loc.notificationBody,
           importance: Importance.high,
           priority: Priority.high,
         ),
-        iOS: DarwinNotificationDetails(
+        iOS: const DarwinNotificationDetails(
           sound: 'default',
           presentAlert: true,
           presentBadge: true,
@@ -89,7 +96,7 @@ class NotificationsService {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time, // Wiederholt täglich zur gleichen Zeit
+      matchDateTimeComponents: DateTimeComponents.time,
     );
   }
 

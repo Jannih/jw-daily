@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nwt_reading/src/daily_text/presentations/daily_text_card.dart';
 import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/entities/plans.dart';
 import 'package:nwt_reading/src/profile/achievements_list.dart';
@@ -45,6 +46,19 @@ class PlansPageState extends ConsumerState<PlansPage> {
         appBar: AppBar(
           title: Text(context.loc.plansPageTitle),
           actions: [
+            Consumer(
+              builder: (context, ref, _) {
+                final hasReadToday = ref.watch(dailyReadingStatusProvider);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Icon(
+                    hasReadToday ? Icons.local_fire_department : Icons.local_fire_department_outlined,
+                    color: hasReadToday ? Colors.orange : Theme.of(context).colorScheme.outline,
+                    size: 28,
+                  ),
+                );
+              },
+            ),
             Stack(
               clipBehavior:
                   Clip.none, // Erlaubt dem Badge über den Stack hinauszuragen
@@ -69,6 +83,13 @@ class PlansPageState extends ConsumerState<PlansPage> {
                             context,
                             CharacterProfilePage.routeName,
                             arguments: {'planId': selectedPlanId},
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Erstelle zuerst einen Leseplan.'),
+                              duration: Duration(seconds: 2),
+                            ),
                           );
                         }
                       },
@@ -132,6 +153,7 @@ class PlansPageState extends ConsumerState<PlansPage> {
         ),
         body: Column(
           children: [
+            const DailyTextCard(),
             Expanded(
               child: PlansGrid(
                 key: const Key('plans-grid'),

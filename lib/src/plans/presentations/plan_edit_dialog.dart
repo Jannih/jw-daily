@@ -15,16 +15,22 @@ import 'package:nwt_reading/src/plans/presentations/plan_with_target_date_tile.d
 import 'package:nwt_reading/src/plans/presentations/plans_page.dart';
 import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
 
-class PlanEditDialog extends ConsumerWidget {
-  PlanEditDialog([this.planId, Key? key]) : super(key: key);
+class PlanEditDialog extends ConsumerStatefulWidget {
+  const PlanEditDialog([this.planId, Key? key]) : super(key: key);
 
   final String? planId;
+
+  @override
+  ConsumerState<PlanEditDialog> createState() => _PlanEditDialogState();
+}
+
+class _PlanEditDialogState extends ConsumerState<PlanEditDialog> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final planId = widget.planId;
     final plan = ref.watch(planEditProviderFamily(planId));
-    ref.watch(planEditProviderFamily(planId));
     final planEdit = ref.read(planEditProviderFamily(planId).notifier);
     final adjustedTargetDate = planEdit.calcTargetDate();
     final isNewPlan = planId == null;
@@ -41,7 +47,9 @@ class PlanEditDialog extends ConsumerWidget {
                   onPressed: () {
                     planEdit.reset();
                     WidgetsBinding.instance
-                        .addPostFrameCallback((_) => Navigator.pop(context));
+                        .addPostFrameCallback((_) {
+                      if (mounted) Navigator.pop(context);
+                    });
                   }),
               const Spacer(),
               IconButton(
@@ -50,7 +58,9 @@ class PlanEditDialog extends ConsumerWidget {
                     if (_formKey.currentState!.validate()) {
                       planEdit.save();
                       WidgetsBinding.instance
-                          .addPostFrameCallback((_) => Navigator.pop(context));
+                          .addPostFrameCallback((_) {
+                        if (mounted) Navigator.pop(context);
+                      });
                     }
                   })
             ]),

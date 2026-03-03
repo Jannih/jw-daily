@@ -39,11 +39,7 @@ class PlansNotifier extends Notifier<Plans> {
   }
 
   void addPlan(Plan plan) {
-    if (state.plans.isNotEmpty) {
-      state = Plans([plan]);
-      return;
-    }
-    state = Plans([plan]);
+    state = Plans([...state.plans, plan]);
   }
 
   void removePlan(String planId) {

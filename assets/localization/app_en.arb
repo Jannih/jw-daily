@@ -250,6 +250,26 @@
   "@settingsPageCopyrightLabel": {
     "description": "Copyright label on the settings page"
   },
+  "settingsPageDailyRemindersTitle": "Daily Reminders",
+  "@settingsPageDailyRemindersTitle": {
+    "description": "Title for the daily reminders toggle"
+  },
+  "settingsPageDailyRemindersSubtitle": "Remind me of my daily reading",
+  "@settingsPageDailyRemindersSubtitle": {
+    "description": "Subtitle for the daily reminders toggle"
+  },
+  "settingsPageReminderTimeTitle": "Reminder Time",
+  "@settingsPageReminderTimeTitle": {
+    "description": "Title for the reminder time picker"
+  },
+  "notificationTitle": "Daily Reading",
+  "@notificationTitle": {
+    "description": "Title for the daily reading notification"
+  },
+  "notificationBody": "Don't forget your daily Bible reading!",
+  "@notificationBody": {
+    "description": "Body text for the daily reading notification"
+  },
   "event_4026_BCE": "Adam’s creation",
   "event_a_4026_BCE": "Edenic covenant made, first prophecy",
   "event_b_3896_BCE": "Cain slays Abel",

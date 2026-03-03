@@ -21,6 +21,13 @@ class SchedulePage extends ConsumerStatefulWidget {
 class _SchedulePageState extends ConsumerState<SchedulePage> {
   int topDayIndex = 0;
   ScheduleKey? scheduleKey;
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void resetTopDayIndex(Bookmark? bookmark) =>
       setState(() => topDayIndex = bookmark == null
@@ -33,13 +40,12 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    final planId = ModalRoute.of(context)!.settings.arguments as String;
+    final planId = ModalRoute.of(context)?.settings.arguments as String? ?? '';
     final plan = ref.watch(planProviderFamily(planId));
     final planNotifier = ref.read(planProviderFamily(planId).notifier);
     final asyncSchedule = ref.watch(scheduleProviderFamily(plan.scheduleKey));
     final progress = planNotifier.getProgress();
     const Key centerKey = ValueKey<String>('today');
-    final controller = ScrollController();
     final deviationDays = planNotifier.getDeviationDays();
     final todayTargetIndex = planNotifier.todayTargetIndex();
     final badgeColor = deviationDays >= 0 ? Colors.green : Colors.red;
@@ -96,7 +102,6 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
 
       return date != null && plan.withTargetDate && isBeginningOfMonth
           ? Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
                 Text(
@@ -146,7 +151,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                   ),
                 Flexible(
                   child: CustomScrollView(
-                    controller: controller,
+                    controller: _scrollController,
                     center: centerKey,
                     slivers: <Widget>[
                       SliverList(
@@ -170,14 +175,15 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                 ),
               ],
             ),
-          AsyncValue(:final error?) => Text('Error: $error'),
+          AsyncValue(:final error?) => Center(
+              child: Text('Ein Fehler ist aufgetreten. Bitte versuche es erneut.')),
           _ => const Center(child: CircularProgressIndicator()),
         },
         floatingActionButton: FloatingActionButton(
           tooltip: context.loc.schedulePageJumpToBookmarkTooltip,
           onPressed: () {
             resetTopDayIndex(plan.bookmark);
-            controller.jumpTo(0.0);
+            _scrollController.jumpTo(0.0);
           },
           child: const Icon(Icons.bookmark),
         ));

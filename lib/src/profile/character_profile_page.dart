@@ -5,7 +5,6 @@ import 'package:nwt_reading/src/profile/level_up_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nwt_reading/src/profile/profile_utils.dart';
 import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/utils/date_utils.dart' as my_date_utils;
 import 'package:flame/game.dart';
 import 'sheep_pasture_game.dart';
 
@@ -27,36 +26,38 @@ final characterStatsProvider = StateNotifierProvider<CharacterStatsNotifier, Cha
 
 class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
   CharacterStatsNotifier() : super(CharacterStats(xp: 0, level: 1)) {
-    _loadStats();
+    _init();
   }
 
-  Future<void> _loadStats() async {
-    final prefs = await SharedPreferences.getInstance();
-    final xp = prefs.getInt('character_xp') ?? 0;
-    final level = prefs.getInt('character_level') ?? 1;
+  SharedPreferences? _prefs;
+
+  Future<void> _init() async {
+    _prefs = await SharedPreferences.getInstance();
+    final xp = _prefs!.getInt('character_xp') ?? 0;
+    final level = _prefs!.getInt('character_level') ?? 1;
     state = CharacterStats(xp: xp, level: level);
   }
 
   Future<void> _saveStats() async {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = _prefs ?? await SharedPreferences.getInstance();
     await prefs.setInt('character_xp', state.xp);
     await prefs.setInt('character_level', state.level);
   }
 
-  void increaseXP(int amount, BuildContext context) {
-    int oldLevel = state.level;
-    int newXP = state.xp + amount;
-    int newLevel = state.level;
-    
+  Future<void> increaseXP(int amount, BuildContext context) async {
+    final oldLevel = state.level;
+    var newXP = state.xp + amount;
+    var newLevel = state.level;
+
     while (newXP >= getRequiredXPForLevel(newLevel)) {
       newXP -= getRequiredXPForLevel(newLevel);
       newLevel++;
     }
 
     state = CharacterStats(xp: newXP, level: newLevel);
-    _saveStats();
+    await _saveStats();
 
-    if (newLevel > oldLevel) {
+    if (newLevel > oldLevel && context.mounted) {
       showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -65,11 +66,11 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
     }
   }
 
-  void decreaseXP(int daysInactive) {
+  Future<void> decreaseXP(int daysInactive) async {
     if (daysInactive <= 0) return;
 
-    int newXP = state.xp - (daysInactive * 10);
-    int newLevel = state.level;
+    var newXP = state.xp - (daysInactive * 10);
+    var newLevel = state.level;
 
     while (newXP < 0) {
       if (newLevel <= 1) {
@@ -79,9 +80,9 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
       newLevel--;
       newXP += getRequiredXPForLevel(newLevel);
     }
-    
+
     state = CharacterStats(xp: newXP, level: newLevel);
-    _saveStats();
+    await _saveStats();
   }
 
   int getCurrentLevelXP() {
@@ -106,22 +107,34 @@ class CharacterProfilePage extends ConsumerStatefulWidget {
 class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   String _name = 'Dein Name';
   bool _isEditingName = false;
+  late final TextEditingController _nameController;
+  SheepPastureGame? _game;
+  int _gameLevel = 1;
 
-    @override
+  @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController(text: _name);
     _loadName();
     _applyDailyPenalty();
   }
 
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
   Future<void> _applyDailyPenalty() async {
     final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+
     final lastCheckString = prefs.getString('last_penalty_check');
     final now = DateTime.now();
 
     if (lastCheckString != null) {
       final lastCheck = DateTime.parse(lastCheckString);
-      if (my_date_utils.DateUtils.isSameDay(lastCheck, now)) {
+      if (DateUtils.isSameDay(lastCheck, now)) {
         return;
       }
     }
@@ -129,19 +142,20 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
     final planNotifier = ref.read(planProviderFamily(widget.planId).notifier);
     final deviationDays = planNotifier.getDeviationDays();
 
-    if (deviationDays > 0) {
-      ref.read(characterStatsProvider.notifier).decreaseXP(deviationDays);
+    if (deviationDays < 0) {
+      ref.read(characterStatsProvider.notifier).decreaseXP(deviationDays.abs());
     }
-    
+
     await prefs.setString('last_penalty_check', now.toIso8601String());
   }
 
   Future<void> _loadName() async {
     final prefs = await SharedPreferences.getInstance();
     final savedName = prefs.getString('character_name');
-    if (savedName != null) {
+    if (savedName != null && mounted) {
       setState(() {
         _name = savedName;
+        _nameController.text = savedName;
       });
     }
   }
@@ -155,10 +169,20 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   Widget build(BuildContext context) {
     final characterStats = ref.watch(characterStatsProvider);
     final currentLevelXP = ref.read(characterStatsProvider.notifier).getCurrentLevelXP();
+    final theme = Theme.of(context);
+    final xpFraction = currentLevelXP > 0
+        ? (characterStats.xp / currentLevelXP).clamp(0.0, 1.0)
+        : 0.0;
+
+    // Nur neues Game erstellen wenn sich das Level ändert
+    if (_game == null || _gameLevel != characterStats.level) {
+      _gameLevel = characterStats.level;
+      _game = SheepPastureGame(level: characterStats.level);
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Charakter Profil'),
+        title: const Text('Charakter Profil'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -167,11 +191,26 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
           children: [
             SizedBox(
               height: 200,
-              child: GameWidget(
-                game: SheepPastureGame(level: characterStats.level),
+              child: GameWidget(game: _game!),
+            ),
+            const SizedBox(height: 24),
+            // Level Badge
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                'Level ${characterStats.level}',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 16),
+            // Name mit Edit-Hint
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -182,7 +221,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                   ? TextField(
                       autofocus: true,
                       textAlign: TextAlign.center,
-                      controller: TextEditingController(text: _name),
+                      controller: _nameController,
                       onSubmitted: (value) async {
                         setState(() {
                           _name = value;
@@ -190,7 +229,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                         });
                         await _saveName(value);
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 16,
@@ -198,50 +237,63 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                         ),
                       ),
                     )
-                  : Text(
-                      _name,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _name,
+                          style: theme.textTheme.headlineSmall,
+                        ),
+                        const SizedBox(width: 8),
+                        Icon(
+                          Icons.edit,
+                          size: 18,
+                          color: theme.colorScheme.outline,
+                        ),
+                      ],
                     ),
             ),
-            SizedBox(height: 20),
-            Stack(
-              children: [
-                Container(
-                  height: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.blue),
-                    color: Colors.blue.shade50,
-                  ),
-                ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: AnimatedContainer(
-                      duration: Duration(seconds: 1),
-                      width: (characterStats.xp / currentLevelXP) * 
-                          MediaQuery.of(context).size.width * 0.9,
+            const SizedBox(height: 20),
+            // XP Progress Bar - mit LayoutBuilder für sichere Breite
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Stack(
+                  children: [
+                    Container(
+                      height: 20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue,
+                        border: Border.all(color: theme.colorScheme.primary),
+                        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
                       ),
                     ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Center(
-                    child: Text(
-                      'Glaubensfortschritt: ${characterStats.xp} / $currentLevelXP',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold
+                    AnimatedContainer(
+                      duration: const Duration(seconds: 1),
+                      height: 20,
+                      width: xpFraction * constraints.maxWidth,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: theme.colorScheme.primary,
                       ),
                     ),
-                  ),
-                ),
-              ],
+                    SizedBox(
+                      height: 20,
+                      child: Center(
+                        child: Text(
+                          '${characterStats.xp} / $currentLevelXP XP',
+                          style: TextStyle(
+                            color: theme.colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: AchievementsListWidget(
                 planId: widget.planId,

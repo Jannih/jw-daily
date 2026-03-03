@@ -6,6 +6,7 @@ import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/settings/stories/settings_story.dart';
 import 'package:nwt_reading/src/theme.dart';
 
+import 'daily_text/presentations/daily_text_page.dart';
 import 'schedules/presentations/schedule_page.dart';
 import 'plans/presentations/plans_page.dart';
 import 'profile/character_profile_page.dart';
@@ -38,12 +39,14 @@ class App extends ConsumerWidget {
               settings: routeSettings,
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
+                  case DailyTextPage.routeName:
+                    return const DailyTextPage();
                   case SettingsPage.routeName:
                     return const SettingsPage();
                   case SchedulePage.routeName:
                     return const SchedulePage();
                   case CharacterProfilePage.routeName:
-                    final args = ModalRoute.of(context)!.settings.arguments
+                    final args = routeSettings.arguments
                         as Map<String, dynamic>?;
                     final planId =
                         args?['planId'] as String? ?? 'fallback_plan_id';
