@@ -12,6 +12,7 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final plan = ref.watch(planEditProviderFamily(planId));
+    ref.watch(planEditProviderFamily(planId));
     final planEdit = ref.read(planEditProviderFamily(planId).notifier);
 
     return Container(
@@ -25,15 +26,15 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.chronological,
                   label: Text(context.loc.planEditPageChronologicalLabel),
-                  icon: const Icon(Icons.hourglass_empty)),
+                  icon: Icon(Icons.hourglass_empty)),
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.canonical,
                   label: Text(context.loc.planEditPageCanonicalLabel),
-                  icon: const Icon(Icons.menu_book)),
+                  icon: Icon(Icons.menu_book)),
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.written,
                   label: Text(context.loc.planEditPageAsWrittenLabel),
-                  icon: const Icon(Icons.edit_note)),
+                  icon: Icon(Icons.edit_note)),
             ],
             selected: {plan.scheduleKey.type},
             onSelectionChanged: (Set<ScheduleType> newSelection) {
@@ -48,11 +49,11 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.gospels,
                   label: Text(context.loc.planEditPageGospelsLabel),
-                  icon: const Icon(Icons.auto_stories)),
+                  icon: Icon(Icons.auto_stories)),
               ButtonSegment<ScheduleType>(
                   value: ScheduleType.greek_scriptures,
                   label: Text(context.loc.planEditPageGreekScripturesLabel),
-                  icon: const Icon(Icons.language)),
+                  icon: Icon(Icons.language)),
             ],
             selected: {plan.scheduleKey.type},
             onSelectionChanged: (Set<ScheduleType> newSelection) {
@@ -73,7 +74,7 @@ class PlanTypeSegmentedButton extends ConsumerWidget {
               ScheduleType.greek_scriptures =>
                 context.loc.planEditPageGreekScripturesDescription,
             },
-            style: const TextStyle(fontSize: 12),
+            style: TextStyle(fontSize: 12),
             textAlign: TextAlign.left,
           ),
         ],

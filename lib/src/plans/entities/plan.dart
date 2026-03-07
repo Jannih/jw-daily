@@ -38,9 +38,8 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
       0;
 
   void checkAndUnlockAchievements() {
-    if (schedule == null) return;
-
-    final bookmark = state.bookmark;
+    final plan = state;
+    final bookmark = plan.bookmark;
 
     // Erste Bibellesung
     if (isRead(dayIndex: 0, sectionIndex: 0)) {
@@ -48,7 +47,14 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
     }
 
     // Tage hintereinander gelesen
-    final consecutiveDays = bookmark.dayIndex;
+    int consecutiveDays = 0;
+    for (int i = bookmark.dayIndex; i >= 0; i--) {
+      if (isRead(dayIndex: i, sectionIndex: 0)) {
+        consecutiveDays++;
+      } else {
+        break;
+      }
+    }
     if (consecutiveDays >= 3) {
       unlockAchievement('3 Tage hintereinander gelesen');
     }
@@ -60,7 +66,7 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
     }
 
     // Kapitel abgeschlossen
-    final completedChapters =
+    int completedChapters =
         bookmark.dayIndex * schedule!.days[0].sections.length +
             bookmark.sectionIndex +
             1;
@@ -70,13 +76,31 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
     if (completedChapters >= 5) {
       unlockAchievement('5 Kapitel abgeschlossen');
     }
+
+    // Bücher abgeschlossen
+    int completedBooks = 0;
+    // Logik, um abgeschlossene Bücher zu zählen
+    if (completedBooks >= 1) {
+      unlockAchievement('Erstes Buch abgeschlossen');
+    }
+    if (completedBooks >= 5) {
+      unlockAchievement('5 Bücher abgeschlossen');
+    }
+
+    // Monate abgeschlossen
+    int completedMonths = 0;
+    // Logik, um abgeschlossene Monate zu zählen
+    if (completedMonths >= 1) {
+      unlockAchievement('Erster Monat abgeschlossen');
+    }
+    if (completedMonths >= 3) {
+      unlockAchievement('3 Monate abgeschlossen');
+    }
   }
 
   void unlockAchievement(String achievementTitle) {
-    final notifier = ref.read(achievementsListProvider.notifier);
-    final achievements = [...ref.read(achievementsListProvider)];
-    notifier.updateAchievement(achievements, achievementTitle, true);
-    notifier.applyAndSave(achievements);
+    ref.read(achievementsListProvider.notifier).updateAchievement(
+        ref.read(achievementsListProvider), achievementTitle, true);
   }
 
   void toggleRead(
@@ -172,6 +196,7 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
 
 class TogglingTooManyDaysException implements Exception {}
 
+// @immutable
 class Plan extends Equatable {
   const Plan(
       {required this.id,

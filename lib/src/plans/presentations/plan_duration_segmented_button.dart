@@ -12,6 +12,7 @@ class PlanDurationSegmentedButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final plan = ref.watch(planEditProviderFamily(planId));
+    ref.watch(planEditProviderFamily(planId));
     final planEdit = ref.read(planEditProviderFamily(planId).notifier);
 
     return Container(

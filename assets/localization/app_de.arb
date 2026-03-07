@@ -50,10 +50,5 @@
   "settingsPageLightLabel": "Hell",
   "settingsPageDarkLabel": "Dunkel",
   "settingsPageVersionLabel": "Version",
-  "settingsPageCopyrightLabel": "Urheberrecht",
-  "settingsPageDailyRemindersTitle": "Tägliche Erinnerungen",
-  "settingsPageDailyRemindersSubtitle": "Erinnere mich an meine tägliche Lesung",
-  "settingsPageReminderTimeTitle": "Erinnerungszeit",
-  "notificationTitle": "Tägliche Lesung",
-  "notificationBody": "Vergiss nicht deine tägliche Bibellesung!"
+  "settingsPageCopyrightLabel": "Urheberrecht"
 }

@@ -28,15 +28,15 @@ class SettingsPage extends ConsumerWidget {
               ButtonSegment<ThemeMode>(
                   value: ThemeMode.system,
                   label: Text(context.loc.settingsPageSystemLabel),
-                  icon: const Icon(Icons.auto_mode)),
+                  icon: Icon(Icons.auto_mode)),
               ButtonSegment<ThemeMode>(
                   value: ThemeMode.light,
                   label: Text(context.loc.settingsPageLightLabel),
-                  icon: const Icon(Icons.light_mode)),
+                  icon: Icon(Icons.light_mode)),
               ButtonSegment<ThemeMode>(
                   value: ThemeMode.dark,
                   label: Text(context.loc.settingsPageDarkLabel),
-                  icon: const Icon(Icons.dark_mode)),
+                  icon: Icon(Icons.dark_mode)),
             ],
             selected: {themeMode},
             onSelectionChanged: (Set<ThemeMode> newSelection) => ref
@@ -46,10 +46,10 @@ class SettingsPage extends ConsumerWidget {
         ),
 
         const Divider(),
-
+        
         SwitchListTile(
-          title: Text(context.loc.settingsPageDailyRemindersTitle),
-          subtitle: Text(context.loc.settingsPageDailyRemindersSubtitle),
+          title: const Text('Tägliche Erinnerungen'),
+          subtitle: const Text('Erinnere mich an meine tägliche Lesung'),
           value: pushNotificationsEnabled,
           onChanged: (bool value) {
             ref.read(settingsProvider.notifier).updatePushNotifications(value);
@@ -58,7 +58,7 @@ class SettingsPage extends ConsumerWidget {
 
         if (pushNotificationsEnabled)
           ListTile(
-            title: Text(context.loc.settingsPageReminderTimeTitle),
+            title: const Text('Erinnerungszeit'),
             subtitle: Text(notificationTime.format(context)),
             trailing: const Icon(Icons.access_time),
             onTap: () async {
@@ -82,19 +82,19 @@ class SettingsPage extends ConsumerWidget {
               future: PackageInfo.fromPlatform(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
+                  return CircularProgressIndicator();
+                } else {
+                  return Text(
+                    '${context.loc.settingsPageVersionLabel}: ${snapshot.data?.version}',
+                    key: Key('version'),
+                  );
                 }
-                final version = snapshot.data?.version ?? '-';
-                return Text(
-                  '${context.loc.settingsPageVersionLabel}: $version',
-                  key: const Key('version'),
-                );
               },
             ),
             Text(
               '${context.loc.settingsPageCopyrightLabel} © 2024 searchwork.org',
-              style: const TextStyle(height: 3),
-              key: const Key('copyright'),
+              style: TextStyle(height: 3),
+              key: Key('copyright'),
             ),
           ],
         )),

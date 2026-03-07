@@ -19,7 +19,7 @@ class PlanNameTile extends ConsumerWidget {
       key: const Key('plan-name'),
       autofillHints: const ['plan-name'],
       autofocus: true,
-      initialValue: planName,
+      controller: TextEditingController(text: planName),
       decoration:
           const InputDecoration(hintText: 'Enter a name for your reading plan'),
       onChanged: (name) =>
