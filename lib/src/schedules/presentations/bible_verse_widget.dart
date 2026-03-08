@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/schedules/entities/bible_verses.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,26 +17,20 @@ class BibleVersesWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final versesText = verses
-        .asMap()
-        .entries
-        .map((verse) => TextSpan(
-              text: '${verse.value.verse}: ${verse.value.question}',
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchURL(verse.value.url),
-            ))
-        .toList();
-
-    return Text.rich(
-      TextSpan(
-        children: versesText
-            .expand((span) => [
-                  span,
-                  if (versesText.last != span) const TextSpan(text: ' — '),
-                ])
-            .toList(),
-      ),
-      style: Theme.of(context).textTheme.bodySmall,
+    return Wrap(
+      children: [
+        for (var i = 0; i < verses.length; i++) ...[
+          GestureDetector(
+            onTap: () => _launchURL(verses[i].url),
+            child: Text(
+              '${verses[i].verse}: ${verses[i].question}',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+          if (i < verses.length - 1)
+            Text(' — ', style: Theme.of(context).textTheme.bodySmall),
+        ],
+      ],
     );
   }
 }

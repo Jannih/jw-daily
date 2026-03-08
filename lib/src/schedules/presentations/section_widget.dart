@@ -101,7 +101,7 @@ class SectionWidget extends ConsumerWidget {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   alignment: Alignment.centerLeft),
               child: Text(
-                  '${bibleLanguage?.books[section.bookIndex].name} ${section.ref}',
+                  '${(bibleLanguage != null && section.bookIndex < bibleLanguage.books.length) ? bibleLanguage.books[section.bookIndex].name : ''} ${section.ref}',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                   ))),

@@ -14,33 +14,13 @@ final achievementsListProvider = StateNotifierProvider<AchievementsListNotifier,
 final dailyReadingStatusProvider = Provider<bool>((ref) {
   final Plans plans = ref.watch(plansProvider);
   final Plan? firstPlan = plans.plans.firstOrNull;
-  final String? planId = firstPlan?.id;
+  if (firstPlan == null) return false;
 
-  if (planId == null) return false;
+  final plan = ref.watch(planProviderFamily(firstPlan.id));
 
-  final planNotifier = ref.read(planProviderFamily(planId).notifier);
-  final deviationDays = planNotifier.getDeviationDays();
-
-  // Wenn wir hinterher sind, ist keine Lesung gemacht
-  if (deviationDays > 0) return false;
-
-  // Prüfe den aktuellen Tag
-  final plan = ref.watch(planProviderFamily(planId));
-
-  final currentDayIndex = plan.bookmark.dayIndex;
-  final currentSectionIndex = plan.bookmark.sectionIndex;
-
-  // Prüfe ob alle Sections des heutigen Tages gelesen wurden
-  bool allSectionsRead = true;
-  for (int sectionIndex = 0; sectionIndex <= currentSectionIndex; sectionIndex++) {
-    if (!planNotifier.isRead(dayIndex: currentDayIndex, sectionIndex: sectionIndex)) {
-      allSectionsRead = false;
-      break;
-    }
-  }
-
-  // Nur true wenn wir nicht hinterher sind UND alle Sections gelesen wurden
-  return deviationDays <= 0 && allSectionsRead;
+  // Prüfe ob heute gelesen wurde anhand von lastDate
+  return plan.lastDate != null &&
+      DateUtils.isSameDay(plan.lastDate!, DateTime.now());
 });
 
 final availableRewardsProvider = Provider<int>((ref) {

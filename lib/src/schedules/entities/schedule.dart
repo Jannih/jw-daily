@@ -57,6 +57,9 @@ class ScheduleKey extends Equatable {
 
   @override
   List<Object> get props => [type, duration, version];
+
+  @override
+  String toString() => '${type.name}_${duration.name}_$version';
 }
 
 @immutable

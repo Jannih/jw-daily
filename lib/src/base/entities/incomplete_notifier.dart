@@ -8,9 +8,12 @@ class IncompleteNotifier<T> extends AsyncNotifier<T> {
   @override
   build() => _completer.future;
 
-  void init(T state) {
+  void init(T newState) {
     if (!_completer.isCompleted) {
-      _completer.complete(state);
+      _completer.complete(newState);
+    } else {
+      // Allow subsequent updates after initial completion
+      state = AsyncValue.data(newState);
     }
   }
 }

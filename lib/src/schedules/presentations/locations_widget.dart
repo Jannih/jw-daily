@@ -14,7 +14,7 @@ class LocationsWidget extends ConsumerWidget {
         .asMap()
         .entries
         .map((location) =>
-            '${context.locationsLoc.getLocation(location.value.key)} ${location.value.refs}')
+            '${context.locationsLoc.getLocation(location.value.key) ?? location.value.key} ${location.value.refs}')
         .toList()
         .join(' — ');
 

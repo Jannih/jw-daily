@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/schedules/entities/videos.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,26 +17,20 @@ class VideosWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final videosText = videos
-        .asMap()
-        .entries
-        .map((video) => TextSpan(
-              text: video.value.title,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchURL(video.value.url),
-            ))
-        .toList();
-
-    return Text.rich(
-      TextSpan(
-        children: videosText
-            .expand((span) => [
-                  span,
-                  if (videosText.last != span) const TextSpan(text: ' — '),
-                ])
-            .toList(),
-      ),
-      style: Theme.of(context).textTheme.bodySmall,
+    return Wrap(
+      children: [
+        for (var i = 0; i < videos.length; i++) ...[
+          GestureDetector(
+            onTap: () => _launchURL(videos[i].url),
+            child: Text(
+              videos[i].title,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+          if (i < videos.length - 1)
+            Text(' — ', style: Theme.of(context).textTheme.bodySmall),
+        ],
+      ],
     );
   }
 }

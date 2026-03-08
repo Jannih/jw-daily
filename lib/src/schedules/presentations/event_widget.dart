@@ -23,7 +23,7 @@ class EventWidget extends ConsumerWidget {
               style: const TextStyle(fontWeight: FontWeight.bold)),
           TextSpan(
             text:
-                ' ${context.loc.schedulePageEventCommonEraTerm(event.isCE.toString())} ${context.loc.getEvent(localizationKey)}',
+                ' ${context.loc.schedulePageEventCommonEraTerm(event.isCE.toString())} ${context.loc.getEvent(localizationKey) ?? ''}',
           ),
         ],
       ),
