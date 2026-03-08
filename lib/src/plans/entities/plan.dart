@@ -59,11 +59,14 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
       unlockAchievement('10 Tage hintereinander gelesen');
     }
 
-    // Kapitel abgeschlossen
-    final completedChapters =
-        bookmark.dayIndex * schedule!.days[0].sections.length +
-            bookmark.sectionIndex +
-            1;
+    // Kapitel abgeschlossen - zähle tatsächliche Sections über alle Tage
+    int completedChapters = 0;
+    for (var i = 0; i < bookmark.dayIndex && i < schedule!.days.length; i++) {
+      completedChapters += schedule!.days[i].sections.length;
+    }
+    if (bookmark.dayIndex < schedule!.days.length) {
+      completedChapters += bookmark.sectionIndex + 1;
+    }
     if (completedChapters >= 1) {
       unlockAchievement('Erstes Kapitel abgeschlossen');
     }
@@ -91,7 +94,10 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
 
   void setRead(
       {required int dayIndex, required int sectionIndex, bool force = false}) {
-    final sections = schedule?.days[dayIndex].sections.length;
+    if (schedule == null || dayIndex < 0 || dayIndex >= schedule!.days.length) {
+      return;
+    }
+    final sections = schedule!.days[dayIndex].sections.length;
     final newBookmark = sections != null && sectionIndex >= sections - 1
         ? Bookmark(dayIndex: dayIndex + 1, sectionIndex: -1)
         : Bookmark(dayIndex: dayIndex, sectionIndex: sectionIndex);
@@ -238,6 +244,7 @@ class Plan extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         name,
         scheduleKey,
         language,

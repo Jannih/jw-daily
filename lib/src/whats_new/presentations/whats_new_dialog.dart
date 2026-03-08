@@ -39,27 +39,28 @@ void showWhatsNewDialog(
               height: 30,
             ),
             SizedBox(height: 15),
-            Text.rich(
-              TextSpan(
-                text: whatsNewDialogOpenSourceText.split('GitHub')[0],
-                children: [
-                  TextSpan(
-                    text: 'GitHub',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
+            GestureDetector(
+              onTap: () {
+                final url = Uri.parse(
+                    'https://github.com/searchwork/nwt-reading');
+                launchUrl(url);
+              },
+              child: Text.rich(
+                TextSpan(
+                  text: whatsNewDialogOpenSourceText.split('GitHub')[0],
+                  children: [
+                    TextSpan(
+                      text: 'GitHub',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        final url = Uri.parse(
-                            'https://github.com/searchwork/nwt-reading');
-                        launchUrl(url);
-                      },
-                  ),
-                  TextSpan(
-                    text: whatsNewDialogOpenSourceText.split('GitHub')[1],
-                  ),
-                ],
+                    TextSpan(
+                      text: whatsNewDialogOpenSourceText.split('GitHub')[1],
+                    ),
+                  ],
+                ),
               ),
             ),
           ])),

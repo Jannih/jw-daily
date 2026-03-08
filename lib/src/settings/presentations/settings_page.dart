@@ -92,7 +92,7 @@ class SettingsPage extends ConsumerWidget {
               },
             ),
             Text(
-              '${context.loc.settingsPageCopyrightLabel} © 2024 searchwork.org',
+              '${context.loc.settingsPageCopyrightLabel} © ${DateTime.now().year} searchwork.org',
               style: const TextStyle(height: 3),
               key: const Key('copyright'),
             ),

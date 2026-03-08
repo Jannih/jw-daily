@@ -176,7 +176,17 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
               ],
             ),
           AsyncValue(:final error?) => Center(
-              child: Text('Ein Fehler ist aufgetreten. Bitte versuche es erneut.')),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline, size: 48, color: Theme.of(context).colorScheme.error),
+                  const SizedBox(height: 16),
+                  Text(
+                    MaterialLocalizations.of(context).alertDialogLabel,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              )),
           _ => const Center(child: CircularProgressIndicator()),
         },
         floatingActionButton: FloatingActionButton(

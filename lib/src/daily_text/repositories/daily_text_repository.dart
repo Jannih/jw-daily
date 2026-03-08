@@ -1,6 +1,13 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:nwt_reading/src/daily_text/entities/daily_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const _dailyTextCacheKey = 'daily_text_cache';
+const _dailyTextCacheDateKey = 'daily_text_cache_date';
 
 final dailyTextRepositoryProvider = Provider<DailyTextRepository>(
     (ref) => DailyTextRepository(ref),
@@ -13,9 +20,48 @@ class DailyTextRepository {
 
   Future<void> loadTodaysDailyText() async {
     final now = DateTime.now();
+    final todayString = '${now.year}-${now.month}-${now.day}';
+
+    // Versuche zuerst aus dem Cache zu laden
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final cachedDate = prefs.getString(_dailyTextCacheDateKey);
+      final cachedData = prefs.getString(_dailyTextCacheKey);
+
+      if (cachedDate == todayString && cachedData != null) {
+        final data = jsonDecode(cachedData) as Map<String, dynamic>;
+        final dailyText = DailyText(
+          date: now,
+          themeScripture: data['themeScripture'] as String,
+          themeText: data['themeText'] as String,
+          comment: data['comment'] as String,
+          source: data['source'] as String,
+        );
+        ref.read(dailyTextProvider.notifier).state = AsyncValue.data(dailyText);
+        return;
+      }
+    } catch (e) {
+      debugPrint('Cache-Lesefehler: $e');
+    }
+
+    // Lade vom Netzwerk
     try {
       final dailyText = await _fetchDailyText(now);
       ref.read(dailyTextProvider.notifier).state = AsyncValue.data(dailyText);
+
+      // Speichere im Cache
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(_dailyTextCacheDateKey, todayString);
+        await prefs.setString(_dailyTextCacheKey, jsonEncode({
+          'themeScripture': dailyText.themeScripture,
+          'themeText': dailyText.themeText,
+          'comment': dailyText.comment,
+          'source': dailyText.source,
+        }));
+      } catch (e) {
+        debugPrint('Cache-Schreibfehler: $e');
+      }
     } catch (e) {
       ref.read(dailyTextProvider.notifier).state =
           AsyncValue.error(e, StackTrace.current);
@@ -31,7 +77,7 @@ class DailyTextRepository {
           'Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
       'Accept': 'text/html,application/xhtml+xml',
       'Accept-Language': 'de-DE,de;q=0.9',
-    });
+    }).timeout(const Duration(seconds: 15));
 
     if (response.statusCode != 200) {
       throw Exception(

@@ -63,7 +63,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -131,10 +131,10 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue,
+                  color: Theme.of(context).colorScheme.primary,
                   shadows: [
                     Shadow(
-                      color: Color.fromRGBO(33, 150, 243, 0.3),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -151,7 +151,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                     'Du hast Level ${widget.newLevel} erreicht!',
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Colors.black87,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   if (_getUnlockMessage(widget.newLevel).isNotEmpty) ...[
@@ -175,7 +175,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                 onPressed: () => Navigator.of(context).pop(),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -184,7 +184,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                   'Weiter',
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
               ),

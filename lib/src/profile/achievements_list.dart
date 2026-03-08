@@ -114,29 +114,33 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
           itemBuilder: (context, index) {
             final achievement = achievements[index];
 
+            final colorScheme = Theme.of(context).colorScheme;
+            final isActive = achievement.title == 'Tägliche Bibellesung'
+                ? achievement.canClaimDailyReward(hasReadToday)
+                : (achievement.isCompleted && !achievement.isRewardClaimed);
+            final isDone = achievement.title == 'Tägliche Bibellesung'
+                ? !achievement.canClaimDailyReward(hasReadToday)
+                : (!achievement.isCompleted || achievement.isRewardClaimed);
+
             return Card(
-                color: achievement.title == 'Tägliche Bibellesung'
-                    ? (achievement.canClaimDailyReward(hasReadToday) ? Colors.white : Colors.grey[300])
-                    : (achievement.isCompleted 
-                        ? (achievement.isRewardClaimed ? Colors.grey[300] : Colors.white) 
-                        : Colors.grey[300]),
+                color: isDone
+                    ? colorScheme.surfaceContainerHighest
+                    : colorScheme.surface,
                 child: ListTile(
                   leading: Icon(
-                    achievement.isRewardClaimed 
-                        ? Icons.check_circle 
+                    achievement.isRewardClaimed
+                        ? Icons.check_circle
                         : achievement.icon,
-                    color: achievement.title == 'Tägliche Bibellesung'
-                        ? (achievement.canClaimDailyReward(hasReadToday) ? Colors.blue : Colors.grey)
-                        : (achievement.isCompleted 
-                            ? (achievement.isRewardClaimed ? Colors.grey : Colors.blue)
-                            : Colors.grey),
+                    color: isActive
+                        ? colorScheme.primary
+                        : colorScheme.outline,
                 ),
                 title: Text(
                   achievement.title,
                   style: TextStyle(
-                    color: achievement.title == 'Tägliche Bibellesung'
-                        ? (achievement.canClaimDailyReward(hasReadToday) ? Colors.black : Colors.grey)
-                        : (achievement.isRewardClaimed ? Colors.grey : Colors.black),
+                    color: isDone
+                        ? colorScheme.outline
+                        : colorScheme.onSurface,
                   ),
                 ),
                 trailing: (achievement.isCompleted && !achievement.isRewardClaimed) ||
@@ -188,68 +192,44 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
           },
         );
       },
-      loading: () => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Lade Erfolge...',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
+      loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(
         child: Card(
-          margin: EdgeInsets.all(16),
-          color: Colors.red.shade50,
+          margin: const EdgeInsets.all(16),
+          color: Theme.of(context).colorScheme.errorContainer,
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.error_outline,
-                  color: Colors.red,
+                  color: Theme.of(context).colorScheme.error,
                   size: 48,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
-                  'Ein Fehler ist aufgetreten',
+                  MaterialLocalizations.of(context).alertDialogLabel,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.onErrorContainer,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   error.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.red.shade700,
+                    color: Theme.of(context).colorScheme.onErrorContainer,
                   ),
                 ),
-                SizedBox(height: 16),
-                ElevatedButton(
+                const SizedBox(height: 16),
+                FilledButton(
                   onPressed: () {
                     ref.invalidate(scheduleProviderFamily(plan.scheduleKey));
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
-                  child: Text(
-                    'Erneut versuchen',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: const Text('Retry'),
                 ),
               ],
             ),
@@ -318,8 +298,14 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
       updateAchievement(updatedAchievements, '10 Tage hintereinander gelesen', true);
     }
 
-    // Kapitel abgeschlossen
-    final completedChapters = bookmark.dayIndex * schedule.days[0].sections.length + bookmark.sectionIndex + 1;
+    // Kapitel abgeschlossen - zähle tatsächliche Sections über alle Tage
+    int completedChapters = 0;
+    for (var i = 0; i < bookmark.dayIndex && i < schedule.days.length; i++) {
+      completedChapters += schedule.days[i].sections.length;
+    }
+    if (bookmark.dayIndex < schedule.days.length) {
+      completedChapters += bookmark.sectionIndex + 1;
+    }
     if (completedChapters >= 1) {
       updateAchievement(updatedAchievements, 'Erstes Kapitel abgeschlossen', true);
     }
