@@ -191,16 +191,43 @@ class DailyTextRepository {
   }
 
   String _cleanHtml(String text) {
-    return text
+    var cleaned = text
         .replaceAll(RegExp(r'<br\s*/?>', caseSensitive: false), '\n')
-        .replaceAll(RegExp(r'<[^>]+>'), '')
-        .replaceAll(RegExp(r'&nbsp;'), ' ')
-        .replaceAll(RegExp(r'&amp;'), '&')
-        .replaceAll(RegExp(r'&lt;'), '<')
-        .replaceAll(RegExp(r'&gt;'), '>')
-        .replaceAll(RegExp(r'&quot;'), '"')
-        .replaceAll(RegExp(r'&#39;'), "'")
-        .replaceAll(RegExp(r'\s+'), ' ')
-        .trim();
+        .replaceAll(RegExp(r'<[^>]+>'), '');
+
+    // Decode named HTML entities
+    const namedEntities = {
+      '&nbsp;': ' ',
+      '&amp;': '&',
+      '&lt;': '<',
+      '&gt;': '>',
+      '&quot;': '"',
+      '&#39;': "'",
+      '&apos;': "'",
+      '&ndash;': '\u2013',
+      '&mdash;': '\u2014',
+      '&lsquo;': '\u2018',
+      '&rsquo;': '\u2019',
+      '&ldquo;': '\u201C',
+      '&rdquo;': '\u201D',
+      '&hellip;': '\u2026',
+      '&ensp;': '\u2002',
+      '&emsp;': '\u2003',
+    };
+    for (final entry in namedEntities.entries) {
+      cleaned = cleaned.replaceAll(entry.key, entry.value);
+    }
+
+    // Decode numeric HTML entities (&#8212; &#x2014; etc.)
+    cleaned = cleaned.replaceAllMapped(
+      RegExp(r'&#x([0-9a-fA-F]+);'),
+      (m) => String.fromCharCode(int.parse(m.group(1)!, radix: 16)),
+    );
+    cleaned = cleaned.replaceAllMapped(
+      RegExp(r'&#(\d+);'),
+      (m) => String.fromCharCode(int.parse(m.group(1)!)),
+    );
+
+    return cleaned.replaceAll(RegExp(r'\s+'), ' ').trim();
   }
 }

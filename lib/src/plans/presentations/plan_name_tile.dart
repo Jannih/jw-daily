@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/base/presentation/plan.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
 
 class PlanNameTile extends ConsumerWidget {
@@ -21,7 +22,7 @@ class PlanNameTile extends ConsumerWidget {
       autofocus: true,
       initialValue: planName,
       decoration:
-          const InputDecoration(hintText: 'Enter a name for your reading plan'),
+          InputDecoration(hintText: context.loc.planNameHint),
       onChanged: (name) =>
           (name != planName) ? planEdit.changeName(name) : null,
     ));

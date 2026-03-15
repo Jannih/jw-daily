@@ -79,16 +79,16 @@ class PlansPageState extends ConsumerState<PlansPage> {
                             : null;
 
                         if (selectedPlanId != null) {
-                          Navigator.restorablePushNamed(
+                          Navigator.pushNamed(
                             context,
                             CharacterProfilePage.routeName,
                             arguments: {'planId': selectedPlanId},
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Erstelle zuerst einen Leseplan.'),
-                              duration: Duration(seconds: 2),
+                            SnackBar(
+                              content: Text(context.loc.plansPageCreatePlanFirst),
+                              duration: const Duration(seconds: 2),
                             ),
                           );
                         }
@@ -142,7 +142,7 @@ class PlansPageState extends ConsumerState<PlansPage> {
                 final selectedPlanId =
                     plans.plans.isNotEmpty ? plans.plans.first.id : null;
 
-                Navigator.restorablePushNamed(
+                Navigator.pushNamed(
                   context,
                   SettingsPage.routeName,
                   arguments: {'planId': selectedPlanId},

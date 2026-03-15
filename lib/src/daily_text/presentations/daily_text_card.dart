@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nwt_reading/src/daily_text/entities/daily_text.dart';
 import 'package:nwt_reading/src/daily_text/presentations/daily_text_page.dart';
 import 'package:nwt_reading/src/daily_text/repositories/daily_text_repository.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 
 class DailyTextCard extends ConsumerStatefulWidget {
   const DailyTextCard({super.key});
@@ -18,7 +19,7 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final state = ref.read(dailyTextProvider);
-      if (state is AsyncLoading) {
+      if (state.isLoading) {
         ref.read(dailyTextRepositoryProvider).loadTodaysDailyText();
       }
     });
@@ -79,7 +80,7 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
               color: Theme.of(context).colorScheme.error, size: 28),
           const SizedBox(height: 8),
           Text(
-            'Tagestext nicht verfügbar',
+            context.loc.dailyTextNotAvailable,
             style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
           TextButton(
@@ -88,7 +89,7 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
                   const AsyncValue.loading();
               ref.read(dailyTextRepositoryProvider).loadTodaysDailyText();
             },
-            child: const Text('Erneut versuchen'),
+            child: Text(context.loc.dailyTextRetry),
           ),
         ],
       ),
@@ -97,7 +98,8 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
 
   Widget _buildContent(BuildContext context, DailyText dailyText) {
     final colorScheme = Theme.of(context).colorScheme;
-    final dateFormat = DateFormat('EEEE, d. MMMM', 'de_DE');
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final dateFormat = DateFormat('EEEE, d. MMMM', locale);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +109,7 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
             Icon(Icons.menu_book, color: colorScheme.primary, size: 20),
             const SizedBox(width: 8),
             Text(
-              'Tagestext',
+              context.loc.dailyTextTitle,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: colorScheme.primary,
                     fontWeight: FontWeight.bold,
@@ -144,7 +146,7 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
         Align(
           alignment: Alignment.centerRight,
           child: Text(
-            'Mehr lesen ...',
+            context.loc.dailyTextReadMore,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: colorScheme.primary,
                   fontWeight: FontWeight.w500,

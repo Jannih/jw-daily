@@ -20,30 +20,10 @@ class DayCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => Card(
         child: Padding(
           padding: const EdgeInsets.only(left: 2.0, right: 10.0, bottom: 10.0),
-          child: Stack(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Positioned(
-                  right: 0,
-                  top: 5,
-                  child: date == null
-                      ? Text((dayIndex + 1).toString(),
-                          key: const Key('day-index'),
-                          style: Theme.of(context).textTheme.bodySmall)
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              date!.day.toString(),
-                              key: const Key('date'),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            Text(
-                              context.loc.schedulePageCardWeekday(date!),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            )
-                          ],
-                        )),
-              Positioned(
+              Expanded(
                 child: Column(
                   children: [
                     ...day.sections.asMap().entries.map((section) =>
@@ -55,6 +35,27 @@ class DayCard extends ConsumerWidget {
                             sectionIndex: section.key)),
                   ],
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: date == null
+                    ? Text((dayIndex + 1).toString(),
+                        key: const Key('day-index'),
+                        style: Theme.of(context).textTheme.bodySmall)
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            date!.day.toString(),
+                            key: const Key('date'),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          Text(
+                            context.loc.schedulePageCardWeekday(date!),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )
+                        ],
+                      ),
               ),
             ],
           ),

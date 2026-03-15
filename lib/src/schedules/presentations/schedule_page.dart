@@ -55,6 +55,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
     }
 
     Widget? scheduleListBuilder(Schedule schedule, int index) {
+      if (index < 0 || index >= schedule.days.length) return null;
       final day = schedule.days[index];
       final isCurrentDay = plan.bookmark.dayIndex == index;
       final isTargetDay = todayTargetIndex == index;

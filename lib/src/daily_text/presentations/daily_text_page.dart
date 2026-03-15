@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:nwt_reading/src/daily_text/entities/daily_text.dart';
 import 'package:nwt_reading/src/daily_text/repositories/daily_text_repository.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DailyTextPage extends ConsumerWidget {
@@ -16,11 +17,11 @@ class DailyTextPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tagestext'),
+        title: Text(context.loc.dailyTextTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.open_in_new),
-            tooltip: 'In JW Library öffnen',
+            tooltip: context.loc.dailyTextOpenInJwLibrary,
             onPressed: () {
               final now = DateTime.now();
               final url = Uri.parse(
@@ -50,13 +51,13 @@ class DailyTextPage extends ConsumerWidget {
                 size: 64, color: Theme.of(context).colorScheme.error),
             const SizedBox(height: 16),
             Text(
-              'Tagestext konnte nicht geladen werden',
+              context.loc.dailyTextLoadError,
               style: Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
-              'Bitte prüfe deine Internetverbindung.',
+              context.loc.dailyTextCheckConnection,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -70,7 +71,7 @@ class DailyTextPage extends ConsumerWidget {
                 ref.read(dailyTextRepositoryProvider).loadTodaysDailyText();
               },
               icon: const Icon(Icons.refresh),
-              label: const Text('Erneut versuchen'),
+              label: Text(context.loc.dailyTextRetry),
             ),
           ],
         ),
@@ -80,7 +81,8 @@ class DailyTextPage extends ConsumerWidget {
 
   Widget _buildDetailView(
       BuildContext context, DailyText dailyText, ColorScheme colorScheme) {
-    final dateFormat = DateFormat('EEEE, d. MMMM yyyy', 'de_DE');
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final dateFormat = DateFormat('EEEE, d. MMMM yyyy', locale);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),

@@ -99,7 +99,7 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
       return;
     }
     final sections = schedule!.days[dayIndex].sections.length;
-    final newBookmark = sections != null && sectionIndex >= sections - 1
+    final newBookmark = sectionIndex >= sections - 1
         ? Bookmark(dayIndex: dayIndex + 1, sectionIndex: -1)
         : Bookmark(dayIndex: dayIndex, sectionIndex: sectionIndex);
 

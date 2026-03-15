@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nwt_reading/src/base/repositories/shared_preferences_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/profile/achievements_list.dart';
 import 'package:nwt_reading/src/profile/level_up_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nwt_reading/src/profile/profile_utils.dart';
 import 'package:nwt_reading/src/plans/entities/plan.dart';
 import 'package:flame/game.dart';
@@ -21,27 +23,26 @@ class CharacterStats {
 
 // Provider für Character Stats
 final characterStatsProvider = StateNotifierProvider<CharacterStatsNotifier, CharacterStats>((ref) {
-  return CharacterStatsNotifier();
+  final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+  return CharacterStatsNotifier(prefs);
 });
 
 class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
-  CharacterStatsNotifier() : super(CharacterStats(xp: 0, level: 1)) {
+  CharacterStatsNotifier(this._prefs) : super(CharacterStats(xp: 0, level: 1)) {
     _init();
   }
 
-  SharedPreferences? _prefs;
+  final SharedPreferences _prefs;
 
-  Future<void> _init() async {
-    _prefs = await SharedPreferences.getInstance();
-    final xp = _prefs!.getInt('character_xp') ?? 0;
-    final level = _prefs!.getInt('character_level') ?? 1;
+  void _init() {
+    final xp = _prefs.getInt('character_xp') ?? 0;
+    final level = _prefs.getInt('character_level') ?? 1;
     state = CharacterStats(xp: xp, level: level);
   }
 
   Future<void> _saveStats() async {
-    final prefs = _prefs ?? await SharedPreferences.getInstance();
-    await prefs.setInt('character_xp', state.xp);
-    await prefs.setInt('character_level', state.level);
+    await _prefs.setInt('character_xp', state.xp);
+    await _prefs.setInt('character_level', state.level);
   }
 
   Future<void> increaseXP(int amount, BuildContext context) async {
@@ -105,7 +106,7 @@ class CharacterProfilePage extends ConsumerStatefulWidget {
 }
 
 class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
-  String _name = 'Dein Name';
+  late String _name;
   bool _isEditingName = false;
   late final TextEditingController _nameController;
   SheepPastureGame? _game;
@@ -114,8 +115,9 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
   @override
   void initState() {
     super.initState();
+    final prefs = ref.read(sharedPreferencesRepositoryProvider);
+    _name = prefs.getString('character_name') ?? '';
     _nameController = TextEditingController(text: _name);
-    _loadName();
     _applyDailyPenalty();
   }
 
@@ -125,10 +127,8 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
     super.dispose();
   }
 
-  Future<void> _applyDailyPenalty() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!mounted) return;
-
+  void _applyDailyPenalty() {
+    final prefs = ref.read(sharedPreferencesRepositoryProvider);
     final lastCheckString = prefs.getString('last_penalty_check');
     final now = DateTime.now();
 
@@ -146,22 +146,11 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
       ref.read(characterStatsProvider.notifier).decreaseXP(deviationDays.abs());
     }
 
-    await prefs.setString('last_penalty_check', now.toIso8601String());
-  }
-
-  Future<void> _loadName() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedName = prefs.getString('character_name');
-    if (savedName != null && mounted) {
-      setState(() {
-        _name = savedName;
-        _nameController.text = savedName;
-      });
-    }
+    prefs.setString('last_penalty_check', now.toIso8601String());
   }
 
   Future<void> _saveName(String name) async {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = ref.read(sharedPreferencesRepositoryProvider);
     await prefs.setString('character_name', name);
   }
 
@@ -182,7 +171,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Charakter Profil'),
+        title: Text(context.loc.characterProfileTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -241,7 +230,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          _name,
+                          _name.isEmpty ? context.loc.characterProfileDefaultName : _name,
                           style: theme.textTheme.headlineSmall,
                         ),
                         const SizedBox(width: 8),

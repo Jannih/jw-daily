@@ -270,6 +270,102 @@
   "@notificationBody": {
     "description": "Body text for the daily reading notification"
   },
+  "dailyTextTitle": "Daily Text",
+  "@dailyTextTitle": {
+    "description": "Title for the daily text feature"
+  },
+  "dailyTextNotAvailable": "Daily text not available",
+  "@dailyTextNotAvailable": {
+    "description": "Error message when daily text cannot be loaded"
+  },
+  "dailyTextRetry": "Try again",
+  "@dailyTextRetry": {
+    "description": "Retry button label"
+  },
+  "dailyTextReadMore": "Read more ...",
+  "@dailyTextReadMore": {
+    "description": "Read more link text"
+  },
+  "dailyTextLoadError": "Daily text could not be loaded",
+  "@dailyTextLoadError": {
+    "description": "Error title when daily text loading fails"
+  },
+  "dailyTextCheckConnection": "Please check your internet connection.",
+  "@dailyTextCheckConnection": {
+    "description": "Subtitle when daily text loading fails"
+  },
+  "dailyTextOpenInJwLibrary": "Open in JW Library",
+  "@dailyTextOpenInJwLibrary": {
+    "description": "Tooltip for opening daily text in JW Library"
+  },
+  "planStartBookTitle": "Choose starting point",
+  "@planStartBookTitle": {
+    "description": "Title for the start book selection tile"
+  },
+  "planStartBookSubtitle": "Choose the Bible book the plan should start with",
+  "@planStartBookSubtitle": {
+    "description": "Subtitle for the start book selection tile"
+  },
+  "planStartBookFromBeginning": "From beginning",
+  "@planStartBookFromBeginning": {
+    "description": "Option label for starting from the beginning"
+  },
+  "planStartBookLoadError": "Error loading Bible books",
+  "@planStartBookLoadError": {
+    "description": "Error message when Bible books cannot be loaded"
+  },
+  "planShowVideosTitle": "Introduction videos",
+  "@planShowVideosTitle": {
+    "description": "Title for the show videos toggle"
+  },
+  "planShowVideosSubtitle": "Show introduction videos in the sections.",
+  "@planShowVideosSubtitle": {
+    "description": "Subtitle for the show videos toggle"
+  },
+  "planShowBibleVersesTitle": "Bible verses explained",
+  "@planShowBibleVersesTitle": {
+    "description": "Title for the show bible verses toggle"
+  },
+  "planShowBibleVersesSubtitle": "Show Bible verse explanations in the sections.",
+  "@planShowBibleVersesSubtitle": {
+    "description": "Subtitle for the show bible verses toggle"
+  },
+  "planNameHint": "Enter a name for your reading plan",
+  "@planNameHint": {
+    "description": "Hint text for the plan name input field"
+  },
+  "characterProfileTitle": "Character Profile",
+  "@characterProfileTitle": {
+    "description": "Title for the character profile page"
+  },
+  "characterProfileDefaultName": "Your Name",
+  "@characterProfileDefaultName": {
+    "description": "Default name shown in character profile"
+  },
+  "characterProfileNewAvatar": "New avatar unlocked!",
+  "@characterProfileNewAvatar": {
+    "description": "Message when a new avatar is unlocked"
+  },
+  "characterProfileLevelReached": "You reached level {level}!",
+  "@characterProfileLevelReached": {
+    "description": "Message when user reaches a new level",
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "characterProfileContinue": "Continue",
+  "@characterProfileContinue": {
+    "description": "Continue button label"
+  },
+  "plansPageCreatePlanFirst": "Create a reading plan first.",
+  "@plansPageCreatePlanFirst": {
+    "description": "Snackbar message when user tries to access profile without a plan"
+  },
+  "@notificationBody": {
+    "description": "Body text for the daily reading notification"
+  },
   "event_4026_BCE": "Adam’s creation",
   "event_a_4026_BCE": "Edenic covenant made, first prophecy",
   "event_b_3896_BCE": "Cain slays Abel",

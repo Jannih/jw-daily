@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
 
 class PlanStartBookTile extends ConsumerWidget {
@@ -13,22 +14,22 @@ class PlanStartBookTile extends ConsumerWidget {
     final plan = ref.watch(planEditProviderFamily(planId));
     final planEdit = ref.read(planEditProviderFamily(planId).notifier);
     final bibleLanguages = ref.watch(bibleLanguagesProvider);
-    
+
     return bibleLanguages.when(
       data: (languages) {
         final language = languages.bibleLanguages[plan.language];
         final books = language?.books ?? <Book>[];
-        
+
         return ListTile(
-          title: const Text('Startpunkt wählen'),
-          subtitle: const Text('Wähle das Bibelbuch, mit dem der Plan beginnen soll'),
+          title: Text(context.loc.planStartBookTitle),
+          subtitle: Text(context.loc.planStartBookSubtitle),
           trailing: DropdownButton<String>(
             value: planEdit.startBook,
-            hint: const Text('Von Anfang'),
+            hint: Text(context.loc.planStartBookFromBeginning),
             items: [
-              const DropdownMenuItem<String>(
+              DropdownMenuItem<String>(
                 value: null,
-                child: Text('Von Anfang'),
+                child: Text(context.loc.planStartBookFromBeginning),
               ),
               ...books.map((Book book) => DropdownMenuItem<String>(
                 value: book.name,
@@ -39,13 +40,13 @@ class PlanStartBookTile extends ConsumerWidget {
           ),
         );
       },
-      loading: () => const ListTile(
-        title: Text('Startpunkt wählen'),
-        trailing: CircularProgressIndicator(),
+      loading: () => ListTile(
+        title: Text(context.loc.planStartBookTitle),
+        trailing: const CircularProgressIndicator(),
       ),
-      error: (_, __) => const ListTile(
-        title: Text('Startpunkt wählen'),
-        subtitle: Text('Fehler beim Laden der Bibelbücher'),
+      error: (_, __) => ListTile(
+        title: Text(context.loc.planStartBookTitle),
+        subtitle: Text(context.loc.planStartBookLoadError),
       ),
     );
   }

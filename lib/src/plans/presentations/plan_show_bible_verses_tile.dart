@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
 
 class PlanShowBibleVersesTile extends ConsumerWidget {
@@ -13,9 +14,8 @@ class PlanShowBibleVersesTile extends ConsumerWidget {
     final planEdit = ref.read(planEditProviderFamily(planId).notifier);
 
     return ListTile(
-      title: const Text('Bibelverse erklärt'),
-      subtitle:
-          const Text('Zeige in den Abschnitten die Bibelvers Erklärung an.'),
+      title: Text(context.loc.planShowBibleVersesTitle),
+      subtitle: Text(context.loc.planShowBibleVersesSubtitle),
       trailing: Switch(
         key: const Key('show-bible-verses'),
         value: plan.showBibleVerses,

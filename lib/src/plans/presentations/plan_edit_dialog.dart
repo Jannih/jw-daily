@@ -16,7 +16,7 @@ import 'package:nwt_reading/src/plans/presentations/plans_page.dart';
 import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
 
 class PlanEditDialog extends ConsumerStatefulWidget {
-  const PlanEditDialog([this.planId, Key? key]) : super(key: key);
+  const PlanEditDialog([this.planId], {super.key});
 
   final String? planId;
 

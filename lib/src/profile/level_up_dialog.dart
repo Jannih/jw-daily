@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'dart:math' as math;
 
 class LevelUpDialog extends StatefulWidget {
@@ -18,11 +19,8 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
   late Animation<double> _scaleAnimation;
   late Animation<double> _rotateAnimation;
 
-  String _getUnlockMessage(int level) {
-    if (level == 5 || level == 10) {
-      return 'Neuen Avatar erhalten!';
-    }
-    return '';
+  bool _hasNewAvatar(int level) {
+    return level == 5 || level == 10;
   }
 
   @override
@@ -148,16 +146,16 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
               child: Column(
                 children: [
                   Text(
-                    'Du hast Level ${widget.newLevel} erreicht!',
+                    context.loc.characterProfileLevelReached(widget.newLevel),
                     style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
-                  if (_getUnlockMessage(widget.newLevel).isNotEmpty) ...[
+                  if (_hasNewAvatar(widget.newLevel)) ...[
                     const SizedBox(height: 8),
                     Text(
-                      _getUnlockMessage(widget.newLevel),
+                      context.loc.characterProfileNewAvatar,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.green,
@@ -181,7 +179,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                   ),
                 ),
                 child: Text(
-                  'Weiter',
+                  context.loc.characterProfileContinue,
                   style: TextStyle(
                     fontSize: 18,
                     color: Theme.of(context).colorScheme.onPrimary,

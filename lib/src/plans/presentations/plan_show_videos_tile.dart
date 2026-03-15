@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
 
 class PlanShowVideosTile extends ConsumerWidget {
@@ -13,9 +14,8 @@ class PlanShowVideosTile extends ConsumerWidget {
     final planEdit = ref.read(planEditProviderFamily(planId).notifier);
 
     return ListTile(
-      title: const Text('Einführungsvideos'),
-      subtitle:
-          const Text('Zeige in den Abschnitten die Einführungsvideos an.'),
+      title: Text(context.loc.planShowVideosTitle),
+      subtitle: Text(context.loc.planShowVideosSubtitle),
       trailing: Switch(
         key: const Key('show-videos'),
         value: plan.showVideos,
