@@ -13,12 +13,15 @@ class PlanLanguageTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final plan = ref.watch(planEditProviderFamily(planId));
     final planEdit = ref.read(planEditProviderFamily(planId).notifier);
-    Future.microtask(() {
-      if (plan.language == null && context.mounted) {
-        planEdit.updateLanguage(Localizations.localeOf(context).languageCode);
-      }
-    });
     final bibleLanguages = ref.watch(bibleLanguagesProvider).valueOrNull;
+
+    // Set default language once if not yet set
+    if (plan.language == null) {
+      final defaultLang = Localizations.localeOf(context).languageCode;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        planEdit.updateLanguage(defaultLang);
+      });
+    }
 
     return ListTile(
       title: Text(context.loc.planEditPageLanguageLabel),

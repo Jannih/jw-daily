@@ -149,7 +149,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                 children: [
                   Text(
                     'Du hast Level ${widget.newLevel} erreicht!',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
@@ -180,7 +180,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'Weiter',
                   style: TextStyle(
                     fontSize: 18,

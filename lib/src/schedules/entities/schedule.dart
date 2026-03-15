@@ -6,13 +6,7 @@ import 'package:nwt_reading/src/schedules/entities/schedules.dart';
 final scheduleProviderFamily =
     FutureProviderFamily<Schedule?, ScheduleKey>((ref, scheduleKey) async {
   final schedules = await ref.watch(schedulesProvider.future);
-  final schedule = schedules.schedules[scheduleKey];
-
-  if (schedule == null) {
-    throw Exception('Schedule does not exist');
-  }
-
-  return schedule;
+  return schedules.schedules[scheduleKey];
 }, name: 'scheduleProviderFamily');
 
 enum ScheduleType {

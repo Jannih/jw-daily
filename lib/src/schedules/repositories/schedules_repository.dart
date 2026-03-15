@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,8 +19,12 @@ class SchedulesRepository {
   final Ref ref;
 
   void _setSchedulesFromJsonFiles() async {
-    final schedules = await _getSchedulesFromJsonFiles();
-    ref.read(schedulesProvider.notifier).init(schedules);
+    try {
+      final schedules = await _getSchedulesFromJsonFiles();
+      ref.read(schedulesProvider.notifier).init(schedules);
+    } catch (e) {
+      debugPrint('Error loading schedules: $e');
+    }
   }
 
   Future<void> saveCustomSchedule(ScheduleKey key, Schedule schedule) async {

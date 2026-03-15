@@ -47,15 +47,16 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
       unlockAchievement('Erste Bibellesung');
     }
 
-    // Tage hintereinander gelesen
-    final consecutiveDays = bookmark.dayIndex;
-    if (consecutiveDays >= 3) {
+    // TODO: dayIndex tracks schedule position, not actual consecutive calendar days.
+    // A proper implementation would need a List<DateTime> of reading dates in the Plan entity.
+    final readingDaysCompleted = bookmark.dayIndex;
+    if (readingDaysCompleted >= 3) {
       unlockAchievement('3 Tage hintereinander gelesen');
     }
-    if (consecutiveDays >= 7) {
+    if (readingDaysCompleted >= 7) {
       unlockAchievement('7 Tage hintereinander gelesen');
     }
-    if (consecutiveDays >= 10) {
+    if (readingDaysCompleted >= 10) {
       unlockAchievement('10 Tage hintereinander gelesen');
     }
 

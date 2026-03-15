@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/schedules/entities/locations.dart';
@@ -15,9 +16,13 @@ class LocationsRepository {
   final Ref ref;
 
   void _setLocationsFromJsonFiles() async {
-    final json =
-        await rootBundle.loadString('assets/repositories/locations.json');
-    final locations = LocationsDeserializer().convertJsonToLocations(json);
-    ref.read(locationsProvider.notifier).init(locations);
+    try {
+      final json =
+          await rootBundle.loadString('assets/repositories/locations.json');
+      final locations = LocationsDeserializer().convertJsonToLocations(json);
+      ref.read(locationsProvider.notifier).init(locations);
+    } catch (e) {
+      debugPrint('Error loading locations: $e');
+    }
   }
 }

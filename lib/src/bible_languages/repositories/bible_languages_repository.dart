@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
@@ -15,10 +16,14 @@ class BibleLanguagesRepository {
   final Ref ref;
 
   void _setBibleLanguagesFromJsonFiles() async {
-    final json =
-        await rootBundle.loadString('assets/repositories/bible_languages.json');
-    final bibleLanguages =
-        BibleLanguagesDeserializer().convertJsonToBibleLanguages(json);
-    ref.read(bibleLanguagesProvider.notifier).init(bibleLanguages);
+    try {
+      final json =
+          await rootBundle.loadString('assets/repositories/bible_languages.json');
+      final bibleLanguages =
+          BibleLanguagesDeserializer().convertJsonToBibleLanguages(json);
+      ref.read(bibleLanguagesProvider.notifier).init(bibleLanguages);
+    } catch (e) {
+      debugPrint('Error loading bible languages: $e');
+    }
   }
 }

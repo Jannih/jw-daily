@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/schedules/entities/bible_verses.dart';
@@ -15,9 +16,13 @@ class BibleVersesRepository {
   final Ref ref;
 
   void _setBibleVersesFromJsonFiles() async {
-    final json =
-        await rootBundle.loadString('assets/repositories/bible_verses.json');
-    final verses = BibleVersesDeserializer().convertJsonToBibleVerses(json);
-    ref.read(bibleVersesProvider.notifier).init(verses);
+    try {
+      final json =
+          await rootBundle.loadString('assets/repositories/bible_verses.json');
+      final verses = BibleVersesDeserializer().convertJsonToBibleVerses(json);
+      ref.read(bibleVersesProvider.notifier).init(verses);
+    } catch (e) {
+      debugPrint('Error loading bible verses: $e');
+    }
   }
 }

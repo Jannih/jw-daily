@@ -265,16 +265,16 @@ class AchievementsListNotifier extends StateNotifier<List<Achievement>> {
       updateAchievement(updatedAchievements, 'Erste Bibellesung', true);
     }
 
-    // Tage hintereinander gelesen
-    final consecutiveDays = bookmark.dayIndex;
+    // TODO: dayIndex tracks schedule position, not actual consecutive calendar days.
+    final readingDaysCompleted = bookmark.dayIndex;
 
-    if (consecutiveDays >= 3) {
+    if (readingDaysCompleted >= 3) {
       updateAchievement(updatedAchievements, '3 Tage hintereinander gelesen', true);
     }
-    if (consecutiveDays >= 7) {
+    if (readingDaysCompleted >= 7) {
       updateAchievement(updatedAchievements, '7 Tage hintereinander gelesen', true);
     }
-    if (consecutiveDays >= 10) {
+    if (readingDaysCompleted >= 10) {
       updateAchievement(updatedAchievements, '10 Tage hintereinander gelesen', true);
     }
 

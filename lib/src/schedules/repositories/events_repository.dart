@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nwt_reading/src/schedules/entities/events.dart';
@@ -15,8 +16,12 @@ class EventsRepository {
   final Ref ref;
 
   void _setEventsFromJsonFiles() async {
-    final json = await rootBundle.loadString('assets/repositories/events.json');
-    final events = EventsDeserializer().convertJsonToEvents(json);
-    ref.read(eventsProvider.notifier).init(events);
+    try {
+      final json = await rootBundle.loadString('assets/repositories/events.json');
+      final events = EventsDeserializer().convertJsonToEvents(json);
+      ref.read(eventsProvider.notifier).init(events);
+    } catch (e) {
+      debugPrint('Error loading events: $e');
+    }
   }
 }

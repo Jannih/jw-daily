@@ -7,6 +7,26 @@ import 'package:nwt_reading/src/settings/stories/settings_story.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+TextSpan _buildGitHubTextSpan(BuildContext context, String text) {
+  final parts = text.split('GitHub');
+  if (parts.length < 2) {
+    return TextSpan(text: text);
+  }
+  return TextSpan(
+    text: parts[0],
+    children: [
+      TextSpan(
+        text: 'GitHub',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
+      TextSpan(text: parts[1]),
+    ],
+  );
+}
+
 void showWhatsNewDialog(
     BuildContext context, WidgetRef ref, String? seenWhatsNewVersion) async {
   final version = (await PackageInfo.fromPlatform()).version;
@@ -46,21 +66,8 @@ void showWhatsNewDialog(
                 launchUrl(url);
               },
               child: Text.rich(
-                TextSpan(
-                  text: whatsNewDialogOpenSourceText.split('GitHub')[0],
-                  children: [
-                    TextSpan(
-                      text: 'GitHub',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    TextSpan(
-                      text: whatsNewDialogOpenSourceText.split('GitHub')[1],
-                    ),
-                  ],
-                ),
+                _buildGitHubTextSpan(
+                    context, whatsNewDialogOpenSourceText),
               ),
             ),
           ])),
