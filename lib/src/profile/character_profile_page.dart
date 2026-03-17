@@ -123,7 +123,6 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
 
   @override
   void dispose() {
-    _game?.onRemove();
     _nameController.dispose();
     super.dispose();
   }
@@ -166,7 +165,6 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
 
     // Nur neues Game erstellen wenn sich das Level ändert
     if (_game == null || _gameLevel != characterStats.level) {
-      _game?.onRemove();
       _gameLevel = characterStats.level;
       _game = SheepPastureGame(level: characterStats.level);
     }
@@ -180,9 +178,14 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 200,
-              child: GameWidget(game: _game!),
+            RepaintBoundary(
+              child: SizedBox(
+                height: 200,
+                child: GameWidget(
+                  key: ValueKey('sheep_game_$_gameLevel'),
+                  game: _game!,
+                ),
+              ),
             ),
             const SizedBox(height: 24),
             // Level Badge

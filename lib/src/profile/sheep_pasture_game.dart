@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
@@ -7,6 +9,9 @@ class SheepPastureGame extends FlameGame {
   final int level;
 
   SheepPastureGame({required this.level});
+
+  @override
+  Color backgroundColor() => const Color(0xFF4CAF50);
 
   @override
   Future<void> onLoad() async {
@@ -23,7 +28,7 @@ class SheepPastureGame extends FlameGame {
     final sheepIdleSheet = loadResults[1];
     final thingsSheetImg = loadResults[2];
 
-    // 1. Pixel-perfekte, lückenlose Graslandschaft
+    // 1. Pre-rendered Graslandschaft als einzelnes Bild (statt 312+ Einzelkomponenten)
     final grassSheet = SpriteSheet(image: grassTileset, srcSize: Vector2.all(16));
     final grassTile = grassSheet.getSprite(6, 0);
     final tileSize = 32.0;
@@ -31,20 +36,30 @@ class SheepPastureGame extends FlameGame {
     final tilesX = (size.x / tileSize).ceil();
     final totalWidth = tilesX * tileSize;
     final xOffset = (totalWidth - size.x) / 2;
-
     final tilesY = (size.y / tileSize).ceil();
 
+    // Rendere alle Gras-Tiles in ein einzelnes Bild
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder);
     for (var y = 0; y < tilesY; y++) {
       for (var x = 0; x < tilesX; x++) {
-        add(
-          SpriteComponent(
-            sprite: grassTile,
-            size: Vector2.all(tileSize),
-            position: Vector2((x * tileSize) - xOffset, y * tileSize),
-          )..priority = 0,
+        grassTile.render(
+          canvas,
+          position: Vector2((x * tileSize) - xOffset, y * tileSize),
+          size: Vector2.all(tileSize),
         );
       }
     }
+    final picture = recorder.endRecording();
+    final grassImage = await picture.toImage(size.x.ceil(), size.y.ceil());
+
+    add(
+      SpriteComponent(
+        sprite: Sprite(grassImage),
+        size: size,
+        position: Vector2.zero(),
+      )..priority = 0,
+    );
 
     // 2. Animiertes Schaf
     final sheepAnimation = SpriteAnimation.fromFrameData(
