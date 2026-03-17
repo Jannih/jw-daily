@@ -30,7 +30,10 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
     final asyncDailyText = ref.watch(dailyTextProvider);
     final colorScheme = Theme.of(context).colorScheme;
 
-    return GestureDetector(
+    return Semantics(
+      button: true,
+      label: context.loc.dailyTextTitle,
+      child: GestureDetector(
       onTap: () {
         final dailyText = asyncDailyText.valueOrNull;
         if (dailyText != null) {
@@ -60,6 +63,7 @@ class _DailyTextCardState extends ConsumerState<DailyTextCard> {
           ),
         ),
       ),
+    ),
     );
   }
 

@@ -77,5 +77,6 @@
   "characterProfileNewAvatar": "Neuen Avatar erhalten!",
   "characterProfileLevelReached": "Du hast Level {level} erreicht!",
   "characterProfileContinue": "Weiter",
-  "plansPageCreatePlanFirst": "Erstelle zuerst einen Leseplan."
+  "plansPageCreatePlanFirst": "Erstelle zuerst einen Leseplan.",
+  "claimReward": "Belohnung abholen"
 }

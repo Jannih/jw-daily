@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'dart:math';
@@ -126,18 +127,7 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                 trailing: (achievement.isCompleted && !achievement.isRewardClaimed) ||
                           achievement.canClaimDailyReward(hasReadToday)
                     ? Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.green.shade400,
-                              Colors.green.shade700,
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ElevatedButton(
+                        FilledButton(
                           onPressed: () {
                             if (achievement.title == 'Tägliche Bibellesung') {
                               ref.read(achievementsListProvider.notifier)
@@ -152,20 +142,13 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                               );
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                          ),
-                          child: const Text(
-                            'Belohnung abholen',
-                            style: TextStyle(
-                              color: Colors.white,
+                          child: Text(
+                            context.loc.claimReward,
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      )
+                        )
                     : null,
               ),
             );

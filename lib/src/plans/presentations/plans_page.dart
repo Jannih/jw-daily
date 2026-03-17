@@ -51,10 +51,13 @@ class PlansPageState extends ConsumerState<PlansPage> {
                 final hasReadToday = ref.watch(dailyReadingStatusProvider);
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Icon(
-                    hasReadToday ? Icons.local_fire_department : Icons.local_fire_department_outlined,
-                    color: hasReadToday ? Colors.orange : Theme.of(context).colorScheme.outline,
-                    size: 28,
+                  child: Semantics(
+                    label: hasReadToday ? 'Read today' : 'Not read today',
+                    child: Icon(
+                      hasReadToday ? Icons.local_fire_department : Icons.local_fire_department_outlined,
+                      color: hasReadToday ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.outline,
+                      size: 28,
+                    ),
                   ),
                 );
               },
@@ -104,28 +107,31 @@ class PlansPageState extends ConsumerState<PlansPage> {
                       return Positioned(
                         right: 8,
                         top: 8,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 2,
+                        child: Semantics(
+                          label: 'Available rewards: $availableRewards',
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.error,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.onError,
+                                width: 2,
+                              ),
                             ),
-                          ),
-                          constraints: const BoxConstraints(
-                            minWidth: 16,
-                            minHeight: 16,
-                          ),
-                          child: Text(
-                            '$availableRewards',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
+                            constraints: const BoxConstraints(
+                              minWidth: 16,
+                              minHeight: 16,
                             ),
-                            textAlign: TextAlign.center,
+                            child: Text(
+                              '$availableRewards',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onError,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       );

@@ -363,8 +363,9 @@
   "@plansPageCreatePlanFirst": {
     "description": "Snackbar message when user tries to access profile without a plan"
   },
-  "@notificationBody": {
-    "description": "Body text for the daily reading notification"
+  "claimReward": "Claim reward",
+  "@claimReward": {
+    "description": "Button label for claiming achievement rewards"
   },
   "event_4026_BCE": "Adam’s creation",
   "event_a_4026_BCE": "Edenic covenant made, first prophecy",

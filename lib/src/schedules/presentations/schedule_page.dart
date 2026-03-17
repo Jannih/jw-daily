@@ -48,7 +48,8 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
     const Key centerKey = ValueKey<String>('today');
     final deviationDays = planNotifier.getDeviationDays();
     final todayTargetIndex = planNotifier.todayTargetIndex();
-    final badgeColor = deviationDays >= 0 ? Colors.green : Colors.red;
+    final colorScheme = Theme.of(context).colorScheme;
+    final badgeColor = deviationDays >= 0 ? colorScheme.primary : colorScheme.error;
     if (scheduleKey != plan.scheduleKey) {
       scheduleKey = plan.scheduleKey;
       resetTopDayIndex(plan.bookmark);
@@ -123,7 +124,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
               : Badge(
                   label: Text('${deviationDays.abs()}'),
                   backgroundColor: badgeColor,
-                  offset: Offset(23, -5),
+                  offset: const Offset(23, -5),
                   child: Text(getPlanName(context, plan)),
                 ),
           actions: [
@@ -183,8 +184,9 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                   Icon(Icons.error_outline, size: 48, color: Theme.of(context).colorScheme.error),
                   const SizedBox(height: 16),
                   Text(
-                    MaterialLocalizations.of(context).alertDialogLabel,
+                    error.toString(),
                     style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.center,
                   ),
                 ],
               )),

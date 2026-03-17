@@ -35,11 +35,11 @@ class PlanCard extends ConsumerWidget {
             size: 56,
             shadows: [
               Shadow(
-                  offset: Offset(-1, -1),
+                  offset: const Offset(-1, -1),
                   color: Theme.of(context).colorScheme.primary,
                   blurRadius: 2),
               Shadow(
-                  offset: Offset(1, 1),
+                  offset: const Offset(1, 1),
                   color: Theme.of(context).colorScheme.onPrimary,
                   blurRadius: 2)
             ],
@@ -62,7 +62,7 @@ class PlanCard extends ConsumerWidget {
         );
 
     buildRemainingDaysStatus() => isFinished
-        ? Icon(Icons.verified, color: Colors.green, size: 72)
+        ? Icon(Icons.verified, color: Theme.of(context).colorScheme.primary, size: 72)
         : Stack(alignment: Alignment.center, children: [
             Text(
                 style:
@@ -98,7 +98,7 @@ class PlanCard extends ConsumerWidget {
             : Badge(
                 key: Key('badge-$planId'),
                 label: Text('${deviationDays.abs()}'),
-                backgroundColor: deviationDays > 0 ? Colors.green : Colors.red,
+                backgroundColor: deviationDays > 0 ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.error,
                 child: card));
   }
 }

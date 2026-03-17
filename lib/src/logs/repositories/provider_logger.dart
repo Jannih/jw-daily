@@ -1,22 +1,31 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProviderLogger extends ProviderObserver {
+  static String _truncate(Object? value, [int maxLen = 70]) {
+    final str = value.toString();
+    return str.length > maxLen ? '${str.substring(0, maxLen)}...' : str;
+  }
+
   @override
   void didAddProvider(
     ProviderBase<dynamic> provider,
     Object? value,
     ProviderContainer container,
   ) {
-    debugPrint(
-        'didAddProvider: ${provider.name ?? provider.runtimeType} -- value: ${value.toString().characters.take(70)}');
+    if (kDebugMode) {
+      debugPrint(
+          'didAddProvider: ${provider.name ?? provider.runtimeType} -- value: ${_truncate(value)}');
+    }
   }
 
   @override
   void providerDidFail(ProviderBase<dynamic> provider, Object error,
       StackTrace stackTrace, ProviderContainer container) {
-    debugPrint(
-        'providerDidFail: ${provider.name ?? provider.runtimeType} -- error: ${error.toString()}');
+    if (kDebugMode) {
+      debugPrint(
+          'providerDidFail: ${provider.name ?? provider.runtimeType} -- error: ${_truncate(error)}');
+    }
   }
 
   @override
@@ -24,7 +33,10 @@ class ProviderLogger extends ProviderObserver {
     ProviderBase<dynamic> provider,
     ProviderContainer container,
   ) {
-    debugPrint('didDisposeProvider: ${provider.name ?? provider.runtimeType}');
+    if (kDebugMode) {
+      debugPrint(
+          'didDisposeProvider: ${provider.name ?? provider.runtimeType}');
+    }
   }
 
   @override
@@ -34,7 +46,9 @@ class ProviderLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    debugPrint(
-        'didUpdateProvider: ${provider.name ?? provider.runtimeType} -- newValue: ${newValue.toString().characters.take(70)}');
+    if (kDebugMode) {
+      debugPrint(
+          'didUpdateProvider: ${provider.name ?? provider.runtimeType} -- newValue: ${_truncate(newValue)}');
+    }
   }
 }

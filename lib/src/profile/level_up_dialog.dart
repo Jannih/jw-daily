@@ -63,9 +63,9 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: const Color.fromRGBO(255, 235, 59, 0.3),
+              color: Color.fromRGBO(255, 235, 59, 0.3),
               blurRadius: 20,
               spreadRadius: 5,
             ),
@@ -82,42 +82,48 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                 children: [
                   // Hintere rotierende Sterne
                   ...List.generate(8, (index) {
-                    return AnimatedBuilder(
-                      animation: _controller,
-                      builder: (context, child) {
-                        return Transform.rotate(
-                          angle: _rotateAnimation.value + (index * math.pi / 4),
-                          child: Transform.translate(
-                            offset: Offset(
-                              math.cos(index * math.pi / 4) * 60,
-                              math.sin(index * math.pi / 4) * 60,
-                            ),
-                            child: Transform.scale(
-                              scale: _scaleAnimation.value,
-                              child: Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 24,
+                    return RepaintBoundary(
+                      child: AnimatedBuilder(
+                        animation: _controller,
+                        builder: (context, child) {
+                          return Transform.rotate(
+                            angle: _rotateAnimation.value + (index * math.pi / 4),
+                            child: Transform.translate(
+                              offset: Offset(
+                                math.cos(index * math.pi / 4) * 60,
+                                math.sin(index * math.pi / 4) * 60,
+                              ),
+                              child: Transform.scale(
+                                scale: _scaleAnimation.value,
+                                child: child,
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                        child: const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 24,
+                        ),
+                      ),
                     );
                   }),
                   // Zentraler großer Stern
-                  AnimatedBuilder(
-                    animation: _scaleAnimation,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: _scaleAnimation.value,
-                        child: Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 80,
-                        ),
-                      );
-                    },
+                  RepaintBoundary(
+                    child: AnimatedBuilder(
+                      animation: _scaleAnimation,
+                      builder: (context, child) {
+                        return Transform.scale(
+                          scale: _scaleAnimation.value,
+                          child: child,
+                        );
+                      },
+                      child: const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 80,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -156,9 +162,9 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                     const SizedBox(height: 8),
                     Text(
                       context.loc.characterProfileNewAvatar,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
-                        color: Colors.green,
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

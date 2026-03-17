@@ -48,8 +48,8 @@ class App extends ConsumerWidget {
                   case CharacterProfilePage.routeName:
                     final args = routeSettings.arguments
                         as Map<String, dynamic>?;
-                    final planId =
-                        args?['planId'] as String? ?? 'fallback_plan_id';
+                    final planId = args?['planId'] as String?;
+                    if (planId == null) return const PlansPage();
                     return CharacterProfilePage(planId: planId);
                   case PlansPage.routeName:
                   default:

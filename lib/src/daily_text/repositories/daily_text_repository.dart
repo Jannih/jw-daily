@@ -32,10 +32,10 @@ class DailyTextRepository {
         final data = jsonDecode(cachedData) as Map<String, dynamic>;
         final dailyText = DailyText(
           date: now,
-          themeScripture: data['themeScripture'] as String,
-          themeText: data['themeText'] as String,
-          comment: data['comment'] as String,
-          source: data['source'] as String,
+          themeScripture: (data['themeScripture'] as String?) ?? '',
+          themeText: (data['themeText'] as String?) ?? '',
+          comment: (data['comment'] as String?) ?? '',
+          source: (data['source'] as String?) ?? '',
         );
         ref.read(dailyTextProvider.notifier).state = AsyncValue.data(dailyText);
         return;
@@ -63,6 +63,23 @@ class DailyTextRepository {
         debugPrint('Cache-Schreibfehler: $e');
       }
     } catch (e) {
+      // Fallback: show yesterday's cached text if available
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        final cachedData = prefs.getString(_dailyTextCacheKey);
+        if (cachedData != null) {
+          final data = jsonDecode(cachedData) as Map<String, dynamic>;
+          final dailyText = DailyText(
+            date: now,
+            themeScripture: (data['themeScripture'] as String?) ?? '',
+            themeText: (data['themeText'] as String?) ?? '',
+            comment: (data['comment'] as String?) ?? '',
+            source: (data['source'] as String?) ?? '',
+          );
+          ref.read(dailyTextProvider.notifier).state = AsyncValue.data(dailyText);
+          return;
+        }
+      } catch (_) {}
       ref.read(dailyTextProvider.notifier).state =
           AsyncValue.error(e, StackTrace.current);
     }
@@ -183,7 +200,10 @@ class DailyTextRepository {
     final startIndex = html.indexOf(startMarker);
     if (startIndex == -1) return '';
 
-    final contentStart = html.indexOf('>', startIndex) + 1;
+    final closingBracket = html.indexOf('>', startIndex);
+    if (closingBracket == -1) return '';
+
+    final contentStart = closingBracket + 1;
     final contentEnd = html.indexOf(endMarker, contentStart);
     if (contentEnd == -1) return '';
 
@@ -221,11 +241,27 @@ class DailyTextRepository {
     // Decode numeric HTML entities (&#8212; &#x2014; etc.)
     cleaned = cleaned.replaceAllMapped(
       RegExp(r'&#x([0-9a-fA-F]+);'),
-      (m) => String.fromCharCode(int.parse(m.group(1)!, radix: 16)),
+      (m) {
+        try {
+          final code = int.parse(m.group(1)!, radix: 16);
+          if (code > 0x10FFFF || code < 0) return m.group(0)!;
+          return String.fromCharCode(code);
+        } catch (_) {
+          return m.group(0)!;
+        }
+      },
     );
     cleaned = cleaned.replaceAllMapped(
       RegExp(r'&#(\d+);'),
-      (m) => String.fromCharCode(int.parse(m.group(1)!)),
+      (m) {
+        try {
+          final code = int.parse(m.group(1)!);
+          if (code > 0x10FFFF || code < 0) return m.group(0)!;
+          return String.fromCharCode(code);
+        } catch (_) {
+          return m.group(0)!;
+        }
+      },
     );
 
     return cleaned.replaceAll(RegExp(r'\s+'), ' ').trim();

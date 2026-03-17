@@ -123,6 +123,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
 
   @override
   void dispose() {
+    _game?.onRemove();
     _nameController.dispose();
     super.dispose();
   }
@@ -165,6 +166,7 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
 
     // Nur neues Game erstellen wenn sich das Level ändert
     if (_game == null || _gameLevel != characterStats.level) {
+      _game?.onRemove();
       _gameLevel = characterStats.level;
       _game = SheepPastureGame(level: characterStats.level);
     }
