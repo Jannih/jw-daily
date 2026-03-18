@@ -43,8 +43,28 @@ class SectionWidget extends ConsumerWidget {
 
     void toggleRead() {
       try {
+        final wasRead = isRead == true;
         planNotifier.toggleRead(dayIndex: dayIndex, sectionIndex: sectionIndex);
         HapticFeedback.lightImpact();
+
+        // XP Toast anzeigen wenn als gelesen markiert
+        if (!wasRead && context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.star, color: Colors.amber, size: 20),
+                  SizedBox(width: 8),
+                  Text('+10 XP', style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+              duration: const Duration(milliseconds: 1500),
+              behavior: SnackBarBehavior.floating,
+              width: 120,
+            ),
+          );
+        }
       } on TogglingTooManyDaysException {
         showDialog<String>(
           context: context,

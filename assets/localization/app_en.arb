@@ -367,6 +367,18 @@
   "@claimReward": {
     "description": "Button label for claiming achievement rewards"
   },
+  "sheepOnboardingTitle": "Welcome to Your Pasture!",
+  "@sheepOnboardingTitle": {
+    "description": "Title for the sheep onboarding dialog"
+  },
+  "sheepOnboardingBody": "Your sheep grows stronger as you read Scripture. Level up to unlock new pasture features and watch your meadow flourish!",
+  "@sheepOnboardingBody": {
+    "description": "Body text for the sheep onboarding dialog"
+  },
+  "sheepOnboardingTip": "Tip: Each reading milestone grants bonus XP.",
+  "@sheepOnboardingTip": {
+    "description": "Tip text for the sheep onboarding dialog"
+  },
   "event_4026_BCE": "Adam’s creation",
   "event_a_4026_BCE": "Edenic covenant made, first prophecy",
   "event_b_3896_BCE": "Cain slays Abel",

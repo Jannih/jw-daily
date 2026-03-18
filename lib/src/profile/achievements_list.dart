@@ -71,6 +71,38 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
     });
   }
 
+  String? _getProgressText(Achievement achievement, Plan plan, Schedule schedule) {
+    if (achievement.isCompleted) return null;
+
+    final readingDays = plan.bookmark.dayIndex;
+
+    // Streak-Fortschritt
+    if (achievement.title == '3 Tage hintereinander gelesen') {
+      return '$readingDays / 3';
+    }
+    if (achievement.title == '7 Tage hintereinander gelesen') {
+      return '$readingDays / 7';
+    }
+    if (achievement.title == '10 Tage hintereinander gelesen') {
+      return '$readingDays / 10';
+    }
+
+    // Kapitel-Fortschritt
+    int completedChapters = 0;
+    for (var i = 0; i < plan.bookmark.dayIndex && i < schedule.days.length; i++) {
+      completedChapters += schedule.days[i].sections.length;
+    }
+    if (plan.bookmark.dayIndex < schedule.days.length) {
+      completedChapters += plan.bookmark.sectionIndex + 1;
+    }
+
+    if (achievement.title == '5 Kapitel abgeschlossen') {
+      return '$completedChapters / 5';
+    }
+
+    return null;
+  }
+
   void _updateAchievements() {
     final plan = ref.read(planProviderFamily(widget.planId));
     final schedule = ref.read(scheduleProviderFamily(plan.scheduleKey)).valueOrNull;
@@ -103,6 +135,9 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                 ? !achievement.canClaimDailyReward(hasReadToday)
                 : (!achievement.isCompleted || achievement.isRewardClaimed);
 
+            // Fortschrittstext für Streak-Achievements
+            final progressText = _getProgressText(achievement, plan, schedule);
+
             return Card(
                 color: isDone
                     ? colorScheme.surfaceContainerHighest
@@ -124,6 +159,15 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                         : colorScheme.onSurface,
                   ),
                 ),
+                subtitle: progressText != null && !achievement.isRewardClaimed
+                    ? Text(
+                        progressText,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: colorScheme.outline,
+                        ),
+                      )
+                    : null,
                 trailing: (achievement.isCompleted && !achievement.isRewardClaimed) ||
                           achievement.canClaimDailyReward(hasReadToday)
                     ? Container(
@@ -143,7 +187,7 @@ class _AchievementsListWidgetState extends ConsumerState<AchievementsListWidget>
                             }
                           },
                           child: Text(
-                            context.loc.claimReward,
+                            '+${achievement.title == 'Tägliche Bibellesung' ? 10 : achievementXP[achievement.title] ?? 0} XP',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),

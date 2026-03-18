@@ -70,7 +70,9 @@ class CharacterStatsNotifier extends StateNotifier<CharacterStats> {
   Future<void> decreaseXP(int daysInactive) async {
     if (daysInactive <= 0) return;
 
-    var newXP = state.xp - (daysInactive * 10);
+    // Sanftere Strafe: erste 2 Tage straffrei, danach -5 XP/Tag
+    final penaltyDays = daysInactive <= 2 ? 0 : daysInactive - 2;
+    var newXP = state.xp - (penaltyDays * 5);
     var newLevel = state.level;
 
     while (newXP < 0) {
@@ -119,6 +121,53 @@ class _CharacterProfilePageState extends ConsumerState<CharacterProfilePage> {
     _name = prefs.getString('character_name') ?? '';
     _nameController = TextEditingController(text: _name);
     _applyDailyPenalty();
+    _showOnboardingIfNeeded();
+  }
+
+  void _showOnboardingIfNeeded() {
+    final prefs = ref.read(sharedPreferencesRepositoryProvider);
+    final hasSeenOnboarding = prefs.getBool('sheep_onboarding_seen') ?? false;
+    if (!hasSeenOnboarding) {
+      prefs.setBool('sheep_onboarding_seen', true);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            icon: const Icon(Icons.pets, size: 48, color: Colors.green),
+            title: Text(context.loc.sheepOnboardingTitle),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(context.loc.sheepOnboardingBody),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.lightbulb_outline, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(context.loc.sheepOnboardingTip,
+                          style: const TextStyle(fontSize: 13))),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(context.loc.characterProfileContinue),
+              ),
+            ],
+          ),
+        );
+      });
+    }
   }
 
   @override

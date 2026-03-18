@@ -78,5 +78,8 @@
   "characterProfileLevelReached": "Du hast Level {level} erreicht!",
   "characterProfileContinue": "Weiter",
   "plansPageCreatePlanFirst": "Erstelle zuerst einen Leseplan.",
-  "claimReward": "Belohnung abholen"
+  "claimReward": "Belohnung abholen",
+  "sheepOnboardingTitle": "Willkommen auf deiner Weide!",
+  "sheepOnboardingBody": "Dein Schaf wird stärker, wenn du die Bibel liest. Steige im Level auf, um neue Weide-Elemente freizuschalten und deine Wiese erblühen zu sehen!",
+  "sheepOnboardingTip": "Tipp: Jeder Lese-Meilenstein bringt Bonus-XP."
 }

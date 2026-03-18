@@ -18,17 +18,21 @@ class SheepPastureGame extends FlameGame {
     images.prefix = 'assets/images/';
     await super.onLoad();
 
-    // Lade alle Bilder parallel statt sequentiell
+    // Lade alle Bilder parallel
     final loadResults = await Future.wait([
       images.load('lands/Tilesets/Grass.png'),
       images.load('sheep/SheepIdle.png'),
       images.load('lands/Objects/Basic_Grass_Biom_things.png'),
+      images.load('lands/Objects/Basic_Plants.png'),
+      images.load('lands/Objects/Paths.png'),
     ]);
     final grassTileset = loadResults[0];
     final sheepIdleSheet = loadResults[1];
     final thingsSheetImg = loadResults[2];
+    final plantsSheetImg = loadResults[3];
+    final pathsSheetImg = loadResults[4];
 
-    // 1. Pre-rendered Graslandschaft als einzelnes Bild (statt 312+ Einzelkomponenten)
+    // 1. Pre-rendered Graslandschaft als einzelnes Bild
     final grassSheet = SpriteSheet(image: grassTileset, srcSize: Vector2.all(16));
     final grassTile = grassSheet.getSprite(6, 0);
     final tileSize = 32.0;
@@ -38,7 +42,6 @@ class SheepPastureGame extends FlameGame {
     final xOffset = (totalWidth - size.x) / 2;
     final tilesY = (size.y / tileSize).ceil();
 
-    // Rendere alle Gras-Tiles in ein einzelnes Bild
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
     for (var y = 0; y < tilesY; y++) {
@@ -61,7 +64,7 @@ class SheepPastureGame extends FlameGame {
       )..priority = 0,
     );
 
-    // 2. Animiertes Schaf
+    // 2. Animiertes Schaf (immer zentriert, priority 2)
     final sheepAnimation = SpriteAnimation.fromFrameData(
       sheepIdleSheet,
       SpriteAnimationData.sequenced(
@@ -79,149 +82,128 @@ class SheepPastureGame extends FlameGame {
     )..priority = 2;
     add(sheep);
 
-    // 3. Dekorative Elemente
+    // 3. Sprite Sheets vorbereiten
     final thingsSheet = SpriteSheet(image: thingsSheetImg, srcSize: Vector2.all(16));
+    final plantsSheet = SpriteSheet(image: plantsSheetImg, srcSize: Vector2.all(16));
+    final pathsSheet = SpriteSheet(image: pathsSheetImg, srcSize: Vector2.all(16));
 
+    // ============================================================
+    // LEVEL PROGRESSION: "Leere Weide → Gepflegter Garten → Blühendes Ökosystem"
+    // Jedes Level bringt etwas Neues! Keine Dead Zones.
+    // ============================================================
+
+    // Level 2-3: Erster kleiner Baumsetzling (links unten)
     if (level == 2 || level == 3) {
-      final treeX = size.x * 0.25;
-      final treeY = size.y - 64;
-
-      final treeStart = SpriteComponent(
-        sprite: thingsSheet.getSprite(2, 4),
-        size: Vector2.all(32),
-        position: Vector2(treeX, treeY),
-      )..priority = 1;
-      add(treeStart);
+      _addSprite(thingsSheet.getSprite(2, 4), size.x * 0.25, size.y - 64, 32, 1);
     }
 
+    // Level 4+: Erster voller Baum (links unten, 2x2)
     if (level >= 4) {
-      final tileSize = 32.0;
-      final treeX = size.x * 0.25;
-      final treeY = size.y - 64;
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(0, 1),
-        size: Vector2.all(tileSize),
-        position: Vector2(treeX, treeY),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(0, 2),
-        size: Vector2.all(tileSize),
-        position: Vector2(treeX + tileSize, treeY),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(1, 1),
-        size: Vector2.all(tileSize),
-        position: Vector2(treeX, treeY + tileSize),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(1, 2),
-        size: Vector2.all(tileSize),
-        position: Vector2(treeX + tileSize, treeY + tileSize),
-      )..priority = 1);
+      _addTree(thingsSheet, 0, 1, size.x * 0.25, size.y - 64, tileSize);
     }
 
+    // Level 5: Vordergrund-Grasbüschel (Tiefe erzeugen)
+    if (level >= 5) {
+      _addSprite(plantsSheet.getSprite(0, 0), size.x * 0.15, size.y - 24, 24, 3);
+      _addSprite(plantsSheet.getSprite(0, 1), size.x * 0.85, size.y - 20, 24, 3);
+    }
+
+    // Level 6+: Beerenbusch (rechts unten)
     if (level >= 6) {
-      final berryBush = SpriteComponent(
-        sprite: thingsSheet.getSprite(3, 0),
-        size: Vector2.all(32),
-        anchor: Anchor.bottomRight,
-        position: Vector2(size.x * 0.95, size.y - 10),
-      )..priority = 1;
-      add(berryBush);
+      _addSprite(thingsSheet.getSprite(3, 0), size.x * 0.95, size.y - 10, 32, 1,
+          anchor: Anchor.bottomRight);
     }
 
+    // Level 7: Kleiner Pfad (zeigt: "Das Schaf hat einen Weg getrampelt")
+    if (level >= 7) {
+      _addSprite(pathsSheet.getSprite(0, 0), size.x * 0.45, size.y * 0.7, 32, 1);
+      _addSprite(pathsSheet.getSprite(1, 0), size.x * 0.45 + 32, size.y * 0.7, 32, 1);
+    }
+
+    // Level 8-9: Zweiter Baumsetzling (rechts mitte)
     if (level == 8 || level == 9) {
-      final tree2X = size.x * 0.75;
-      final tree2Y = size.y / 2;
-      final treeStart2 = SpriteComponent(
-        sprite: thingsSheet.getSprite(2, 4),
-        size: Vector2.all(32),
-        position: Vector2(tree2X, tree2Y),
-      )..priority = 1;
-      add(treeStart2);
+      _addSprite(thingsSheet.getSprite(2, 4), size.x * 0.75, size.y / 2, 32, 1);
     }
 
+    // Level 9: Kleine Pflanze rechts unten (Pilze/Busch)
+    if (level >= 9) {
+      _addSprite(plantsSheet.getSprite(0, 2), size.x * 0.88, size.y * 0.8, 24, 1);
+    }
+
+    // Level 10+: Zweiter voller Baum (rechts mitte, 2x2)
     if (level >= 10) {
-      final tree2X = size.x * 0.75;
-      final tree2Y = size.y / 2;
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(0, 1),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree2X, tree2Y),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(0, 2),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree2X + tileSize, tree2Y),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(1, 1),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree2X, tree2Y + tileSize),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(1, 2),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree2X + tileSize, tree2Y + tileSize),
-      )..priority = 1);
+      _addTree(thingsSheet, 0, 1, size.x * 0.75, size.y / 2, tileSize);
     }
 
+    // Level 11-13: Dritter Baumsetzling (links oben)
     if (level == 11 || level == 12 || level == 13) {
-      final tree3X = size.x * 0.1;
-      final tree3Y = size.y / 4;
-      final treeStart3 = SpriteComponent(
-        sprite: thingsSheet.getSprite(2, 4),
-        size: Vector2.all(32),
-        position: Vector2(tree3X, tree3Y),
-      )..priority = 1;
-      add(treeStart3);
+      _addSprite(thingsSheet.getSprite(2, 4), size.x * 0.1, size.y / 4, 32, 1);
     }
 
+    // Level 13: Kleiner Stein / Deko-Element (Zentrum-rechts)
+    if (level >= 13) {
+      _addSprite(plantsSheet.getSprite(0, 3), size.x * 0.6, size.y * 0.75, 24, 1);
+    }
+
+    // Level 14+: Dritter voller Baum (links oben, 2x2 - anderer Baum-Typ)
     if (level >= 14) {
-      final tree3X = size.x * 0.1;
-      final tree3Y = size.y / 4;
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(0, 3),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree3X, tree3Y),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(0, 4),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree3X + tileSize, tree3Y),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(1, 3),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree3X, tree3Y + tileSize),
-      )..priority = 1);
-
-      add(SpriteComponent(
-        sprite: thingsSheet.getSprite(1, 4),
-        size: Vector2.all(tileSize),
-        position: Vector2(tree3X + tileSize, tree3Y + tileSize),
-      )..priority = 1);
+      _addTree(thingsSheet, 0, 3, size.x * 0.1, size.y / 4, tileSize);
     }
 
+    // Level 15: Blühender Busch (links mitte - Vorbote der Blume)
+    if (level >= 15) {
+      _addSprite(plantsSheet.getSprite(0, 4), size.x * 0.2, size.y * 0.45, 28, 1);
+    }
+
+    // Level 16: Zweiter Blumen-Akzent (rechts oben)
+    if (level >= 16) {
+      _addSprite(plantsSheet.getSprite(0, 5), size.x * 0.8, size.y * 0.35, 28, 1);
+    }
+
+    // Level 17: Mehr Vordergrund-Pflanzen (Weide füllt sich)
+    if (level >= 17) {
+      _addSprite(plantsSheet.getSprite(0, 0), size.x * 0.55, size.y - 20, 24, 3);
+      _addSprite(plantsSheet.getSprite(0, 1), size.x * 0.35, size.y - 28, 20, 3);
+    }
+
+    // Level 18+: Blume (Highlight, neben Schaf)
     if (level >= 18) {
-      final flower = SpriteComponent(
-        sprite: thingsSheet.getSprite(2, 7),
-        size: Vector2.all(32),
-        anchor: Anchor.bottomRight,
-        position: Vector2(size.x / 2 + 40, size.y / 2 + 40),
-      )..priority = 1;
-      add(flower);
+      _addSprite(thingsSheet.getSprite(2, 7), size.x / 2 + 40, size.y / 2 + 40, 32, 1,
+          anchor: Anchor.bottomRight);
+    }
+
+    // Level 20+: Pfad-Erweiterung (die Weide hat einen Rundweg)
+    if (level >= 20) {
+      _addSprite(pathsSheet.getSprite(0, 1), size.x * 0.45, size.y * 0.7 + 32, 32, 1);
+      _addSprite(pathsSheet.getSprite(1, 1), size.x * 0.45 + 32, size.y * 0.7 + 32, 32, 1);
+    }
+  }
+
+  /// Hilfsmethode: Einzelnes Sprite hinzufügen
+  void _addSprite(Sprite sprite, double x, double y, double spriteSize, int priority,
+      {Anchor anchor = Anchor.topLeft}) {
+    add(
+      SpriteComponent(
+        sprite: sprite,
+        size: Vector2.all(spriteSize),
+        position: Vector2(x, y),
+        anchor: anchor,
+      )..priority = priority,
+    );
+  }
+
+  /// Hilfsmethode: 2x2 Baum hinzufügen (4 Tiles)
+  void _addTree(SpriteSheet sheet, int startRow, int startCol, double x, double y, double tileSize) {
+    for (var row = 0; row < 2; row++) {
+      for (var col = 0; col < 2; col++) {
+        add(
+          SpriteComponent(
+            sprite: sheet.getSprite(startRow + row, startCol + col),
+            size: Vector2.all(tileSize),
+            position: Vector2(x + col * tileSize, y + row * tileSize),
+          )..priority = 1,
+        );
+      }
     }
   }
 }
