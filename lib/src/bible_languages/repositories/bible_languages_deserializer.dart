@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
+import 'package:jw_daily/src/bible_languages/entities/bible_languages.dart';
 
 class BibleLanguagesDeserializer {
   BibleLanguages convertJsonToBibleLanguages(String json) {

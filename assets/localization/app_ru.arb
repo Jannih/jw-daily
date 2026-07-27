@@ -1,10 +1,10 @@
 {
   "@@locale": "ru",
   "@@comment": "(c) searchwork.org",
-  "appTitle": "Чтение NWT",
-  "whatsNewDialogTitle": "Что нового в NWT Reading",
+  "appTitle": "JW Daily",
+  "whatsNewDialogTitle": "Что нового в JW Daily",
   "whatsNewDialogPlans": "Ты можешь использовать несколько планов чтения Библии параллельно.",
-  "whatsNewDialogOpenSource": "NWT Reading теперь с открытым исходным кодом. Найди нас на GitHub и внеси свой вклад.",
+  "whatsNewDialogOpenSource": "JW Daily теперь с открытым исходным кодом. Найди нас на GitHub и внеси свой вклад.",
   "whatsNewDialogLaterButtonText": "Позже",
   "whatsNewDialogGotItButtonText": "Понял",
   "plansPageTitle": "Планы чтения Библии",

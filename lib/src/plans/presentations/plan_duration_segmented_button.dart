@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
-import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
+import 'package:jw_daily/src/plans/stories/plan_edit_story.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
 
 class PlanDurationSegmentedButton extends ConsumerWidget {
   const PlanDurationSegmentedButton(this.planId, {super.key});

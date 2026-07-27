@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nwt_reading/src/base/repositories/shared_preferences_repository.dart';
-import 'package:nwt_reading/src/settings/repositories/settings_repository.dart';
-import 'package:nwt_reading/src/settings/stories/settings_story.dart';
+import 'package:jw_daily/src/base/repositories/shared_preferences_repository.dart';
+import 'package:jw_daily/src/settings/repositories/settings_repository.dart';
+import 'package:jw_daily/src/settings/stories/settings_story.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../notifier_tester.dart';

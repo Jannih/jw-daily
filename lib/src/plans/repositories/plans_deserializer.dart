@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/plans/entities/plans.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/plans/entities/plan.dart';
+import 'package:jw_daily/src/plans/entities/plans.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
 
 class PlansDeserializer {
   Plans convertStringListToPlans(List<String>? plansStringList) =>
@@ -43,8 +43,10 @@ class PlansDeserializer {
     final withTargetDate = planMap['withTargetDate'] as bool;
     final showEvents = planMap['showEvents'] as bool;
     final showLocations = planMap['showLocations'] as bool;
-    final showBibleVerses = planMap['showBibleVerses'] as bool;
-    final showVideos = planMap['showVideos'] as bool;
+    // Plans stored before these toggles existed have no such key. Fall back to
+    // the defaults of a new plan instead of throwing away the whole plan.
+    final showBibleVerses = planMap['showBibleVerses'] as bool? ?? true;
+    final showVideos = planMap['showVideos'] as bool? ?? true;
 
     return Plan(
         id: id,

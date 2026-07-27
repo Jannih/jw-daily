@@ -1,10 +1,10 @@
 {
   "@@locale": "pl",
   "@@comment": "(c) searchwork.org",
-  "appTitle": "Czytanie NWT",
-  "whatsNewDialogTitle": "Nowości w NWT Reading",
+  "appTitle": "JW Daily",
+  "whatsNewDialogTitle": "Nowości w JW Daily",
   "whatsNewDialogPlans": "Możesz używać wielu planów czytania Biblii równolegle.",
-  "whatsNewDialogOpenSource": "NWT Reading jest teraz open source. Znajdź nas na GitHubie i przyczyń się.",
+  "whatsNewDialogOpenSource": "JW Daily jest teraz open source. Znajdź nas na GitHubie i przyczyń się.",
   "whatsNewDialogLaterButtonText": "Później",
   "whatsNewDialogGotItButtonText": "Zrozumiano",
   "plansPageTitle": "Plany Czytania Biblii",

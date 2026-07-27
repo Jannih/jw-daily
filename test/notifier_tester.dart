@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart' as mocktail;
-import 'package:nwt_reading/src/base/entities/incomplete_notifier.dart';
-import 'package:nwt_reading/src/logs/repositories/provider_logger.dart';
+import 'package:jw_daily/src/base/entities/incomplete_notifier.dart';
+import 'package:jw_daily/src/logs/repositories/provider_logger.dart';
 
 class Listener<T> extends mocktail.Mock {
   void call(T? previous, T next);

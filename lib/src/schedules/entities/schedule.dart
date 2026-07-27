@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/schedules/entities/schedules.dart';
+import 'package:jw_daily/src/schedules/entities/schedules.dart';
 
 final scheduleProviderFamily =
     FutureProviderFamily<Schedule?, ScheduleKey>((ref, scheduleKey) async {
@@ -20,6 +20,10 @@ enum ScheduleType {
   canonical,
   written,
   gospels,
+  // The name is used verbatim to build the asset path
+  // (assets/repositories/schedule_greek_scriptures_*.json), so it has to stay
+  // snake_case.
+  // ignore: constant_identifier_names
   greek_scriptures,
 }
 

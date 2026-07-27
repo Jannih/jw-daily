@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gen/gen_l10n/locations_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
-import 'package:nwt_reading/src/settings/stories/settings_story.dart';
-import 'package:nwt_reading/src/theme.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
+import 'package:jw_daily/src/settings/stories/settings_story.dart';
+import 'package:jw_daily/src/theme.dart';
 
 import 'schedules/presentations/schedule_page.dart';
 import 'plans/presentations/plans_page.dart';

@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
 
 class LevelUpDialog extends StatefulWidget {
   final int newLevel;
@@ -13,17 +15,15 @@ class LevelUpDialog extends StatefulWidget {
   State<LevelUpDialog> createState() => _LevelUpDialogState();
 }
 
-class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProviderStateMixin {
+class _LevelUpDialogState extends State<LevelUpDialog>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _rotateAnimation;
 
-  String _getUnlockMessage(int level) {
-    if (level == 5 || level == 10) {
-      return 'Neuen Avatar erhalten!';
-    }
-    return '';
-  }
+  /// A new avatar becomes available at these levels — see
+  /// getSheepImageForLevel.
+  bool get _unlocksAvatar => widget.newLevel == 5 || widget.newLevel == 10;
 
   @override
   void initState() {
@@ -63,7 +63,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -96,7 +96,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                             ),
                             child: Transform.scale(
                               scale: _scaleAnimation.value,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.star,
                                 color: Colors.amber,
                                 size: 24,
@@ -113,7 +113,7 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
                     builder: (context, child) {
                       return Transform.scale(
                         scale: _scaleAnimation.value,
-                        child: Icon(
+                        child: const Icon(
                           Icons.star,
                           color: Colors.amber,
                           size: 80,
@@ -127,11 +127,11 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
             ScaleTransition(
               scale: _scaleAnimation,
               child: Text(
-                'Level Up!',
+                context.loc.levelUpDialogTitle,
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue,
+                  color: Theme.of(context).colorScheme.primary,
                   shadows: [
                     Shadow(
                       color: Color.fromRGBO(33, 150, 243, 0.3),
@@ -148,19 +148,19 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
               child: Column(
                 children: [
                   Text(
-                    'Du hast Level ${widget.newLevel} erreicht!',
-                    style: const TextStyle(
+                    context.loc.levelUpDialogMessage(widget.newLevel),
+                    style: TextStyle(
                       fontSize: 18,
-                      color: Colors.black87,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
-                  if (_getUnlockMessage(widget.newLevel).isNotEmpty) ...[
+                  if (_unlocksAvatar) ...[
                     const SizedBox(height: 8),
                     Text(
-                      _getUnlockMessage(widget.newLevel),
-                      style: const TextStyle(
+                      context.loc.levelUpDialogAvatarUnlocked,
+                      style: TextStyle(
                         fontSize: 16,
-                        color: Colors.green,
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -171,21 +171,18 @@ class _LevelUpDialogState extends State<LevelUpDialog> with SingleTickerProvider
             const SizedBox(height: 24),
             ScaleTransition(
               scale: _scaleAnimation,
-              child: ElevatedButton(
+              child: FilledButton(
                 onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  backgroundColor: Colors.blue,
+                style: FilledButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
-                  'Weiter',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
+                child: Text(
+                  context.loc.levelUpDialogContinueButton,
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),

@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nwt_reading/src/base/repositories/shared_preferences_repository.dart';
-import 'package:nwt_reading/src/plans/entities/plans.dart';
-import 'package:nwt_reading/src/plans/repositories/plans_repository.dart';
+import 'package:jw_daily/src/base/repositories/shared_preferences_repository.dart';
+import 'package:jw_daily/src/plans/entities/plans.dart';
+import 'package:jw_daily/src/plans/repositories/plans_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../notifier_tester.dart';
@@ -68,7 +68,7 @@ void main() async {
     expect(deepCollectionEquals(result.plans, testPlans.plans), true);
   });
 
-  test('Resolves to updated value', () async {
+  test('Adding a plan replaces the previous one', () async {
     final tester = await getTester();
     tester.container.read(plansRepositoryProvider);
     List<Plans> results = [await tester.container.read(plansProvider)];
@@ -77,7 +77,10 @@ void main() async {
       results.add(await tester.container.read(plansProvider));
     }
 
-    expect(deepCollectionEquals(results[4].plans, testPlans.plans), true);
+    // Only a single plan is supported, so the last one added is the only one
+    // that survives.
+    expect(
+        deepCollectionEquals(results[4].plans, [testPlans.plans.last]), true);
     verifyInOrder([
       () => tester.listener(null, results[0]),
       () => tester.listener(results[0], results[1]),
@@ -86,6 +89,17 @@ void main() async {
       () => tester.listener(results[3], results[4]),
     ]);
     verifyNoMoreInteractions(tester.listener);
+  });
+
+  test('Setting plans keeps all of them', () async {
+    final tester = await getTester();
+    tester.container.read(plansRepositoryProvider);
+    tester.container.read(plansProvider.notifier).setPlans(testPlans);
+
+    expect(
+        deepCollectionEquals(
+            tester.container.read(plansProvider).plans, testPlans.plans),
+        true);
   });
 
   test('Shared Preferences are set to updated value', () async {
@@ -98,6 +112,6 @@ void main() async {
         .read(sharedPreferencesRepositoryProvider)
         .getStringList(plansPreferenceKey);
 
-    expect(actualPlansSerialized, testPlansSerialized);
+    expect(actualPlansSerialized, [testPlansSerialized.last]);
   });
 }

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:nwt_reading/src/schedules/entities/bible_verses.dart';
+import 'package:jw_daily/src/schedules/entities/bible_verses.dart';
 
 class BibleVersesDeserializer {
   BibleVerses convertJsonToBibleVerses(String json) {

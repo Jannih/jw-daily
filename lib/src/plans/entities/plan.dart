@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/plans/entities/plans.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
-import 'package:nwt_reading/src/profile/achievements_list.dart';
+import 'package:jw_daily/src/plans/entities/plans.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/profile/achievements.dart';
 
 final planProviderFamily =
     AutoDisposeNotifierProviderFamily<PlanNotifier, Plan, String>(
@@ -37,85 +37,33 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
           Bookmark(dayIndex: dayIndex, sectionIndex: sectionIndex)) >=
       0;
 
-  void checkAndUnlockAchievements() {
-    final plan = state;
-    final bookmark = plan.bookmark;
-
-    // Erste Bibellesung
-    if (isRead(dayIndex: 0, sectionIndex: 0)) {
-      unlockAchievement('Erste Bibellesung');
-    }
-
-    // Tage hintereinander gelesen
-    int consecutiveDays = 0;
-    for (int i = bookmark.dayIndex; i >= 0; i--) {
-      if (isRead(dayIndex: i, sectionIndex: 0)) {
-        consecutiveDays++;
-      } else {
-        break;
-      }
-    }
-    if (consecutiveDays >= 3) {
-      unlockAchievement('3 Tage hintereinander gelesen');
-    }
-    if (consecutiveDays >= 7) {
-      unlockAchievement('7 Tage hintereinander gelesen');
-    }
-    if (consecutiveDays >= 10) {
-      unlockAchievement('10 Tage hintereinander gelesen');
-    }
-
-    // Kapitel abgeschlossen
-    int completedChapters =
-        bookmark.dayIndex * schedule!.days[0].sections.length +
-            bookmark.sectionIndex +
-            1;
-    if (completedChapters >= 1) {
-      unlockAchievement('Erstes Kapitel abgeschlossen');
-    }
-    if (completedChapters >= 5) {
-      unlockAchievement('5 Kapitel abgeschlossen');
-    }
-
-    // Bücher abgeschlossen
-    int completedBooks = 0;
-    // Logik, um abgeschlossene Bücher zu zählen
-    if (completedBooks >= 1) {
-      unlockAchievement('Erstes Buch abgeschlossen');
-    }
-    if (completedBooks >= 5) {
-      unlockAchievement('5 Bücher abgeschlossen');
-    }
-
-    // Monate abgeschlossen
-    int completedMonths = 0;
-    // Logik, um abgeschlossene Monate zu zählen
-    if (completedMonths >= 1) {
-      unlockAchievement('Erster Monat abgeschlossen');
-    }
-    if (completedMonths >= 3) {
-      unlockAchievement('3 Monate abgeschlossen');
-    }
-  }
-
-  void unlockAchievement(String achievementTitle) {
-    ref.read(achievementsListProvider.notifier).updateAchievement(
-        ref.read(achievementsListProvider), achievementTitle, true);
-  }
-
   void toggleRead(
       {required int dayIndex, required int sectionIndex, bool force = false}) {
+    final achievements = ref.read(achievementsProvider.notifier);
+
     if (isRead(dayIndex: dayIndex, sectionIndex: sectionIndex)) {
-      setUnread(dayIndex: dayIndex, sectionIndex: sectionIndex, force: force);
+      final plan = setUnread(
+          dayIndex: dayIndex, sectionIndex: sectionIndex, force: force);
+      // Un-marking a section is not a reading, so it must neither extend the
+      // streak nor count towards the daily reward.
+      achievements.recompute(plan, schedule);
     } else {
-      setRead(dayIndex: dayIndex, sectionIndex: sectionIndex, force: force);
+      final plan =
+          setRead(dayIndex: dayIndex, sectionIndex: sectionIndex, force: force);
+      achievements.registerReading(plan, schedule);
     }
-    checkAndUnlockAchievements();
   }
 
-  void setRead(
+  /// Marks everything up to and including the given section as read and returns
+  /// the updated plan. The notifier's own [state] is only refreshed once the
+  /// plans provider has rebuilt, so callers that need the new bookmark right
+  /// away have to use the return value.
+  Plan setRead(
       {required int dayIndex, required int sectionIndex, bool force = false}) {
-    final sections = schedule?.days[dayIndex].sections.length;
+    final days = schedule?.days;
+    final sections = days != null && dayIndex >= 0 && dayIndex < days.length
+        ? days[dayIndex].sections.length
+        : null;
     final newBookmark = sections != null && sectionIndex >= sections - 1
         ? Bookmark(dayIndex: dayIndex + 1, sectionIndex: -1)
         : Bookmark(dayIndex: dayIndex, sectionIndex: sectionIndex);
@@ -124,15 +72,18 @@ class PlanNotifier extends AutoDisposeFamilyNotifier<Plan, String> {
       throw TogglingTooManyDaysException();
     }
 
-    plansNotifier?.updatePlan(state.copyWith(
+    final plan = state.copyWith(
       bookmark: newBookmark,
       startDate: getStartDate(newBookmark),
       lastDate: DateUtils.dateOnly(DateTime.now()),
       targetDate: state.targetDate ?? calcTargetDate(newBookmark),
-    ));
+    );
+    plansNotifier?.updatePlan(plan);
+
+    return plan;
   }
 
-  void setUnread(
+  Plan setUnread(
           {required int dayIndex,
           required int sectionIndex,
           bool force = false}) =>

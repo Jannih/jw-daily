@@ -1,10 +1,10 @@
 {
   "@@locale": "ro",
   "@@comment": "(c) searchwork.org",
-  "appTitle": "Citire NWT",
-  "whatsNewDialogTitle": "Ce e nou în NWT Reading",
+  "appTitle": "JW Daily",
+  "whatsNewDialogTitle": "Ce e nou în JW Daily",
   "whatsNewDialogPlans": "Poți folosi mai multe planuri de citire a Bibliei în paralel.",
-  "whatsNewDialogOpenSource": "NWT Reading este acum open source. Găsește-ne pe GitHub și contribuie.",
+  "whatsNewDialogOpenSource": "JW Daily este acum open source. Găsește-ne pe GitHub și contribuie.",
   "whatsNewDialogLaterButtonText": "Mai târziu",
   "whatsNewDialogGotItButtonText": "Înțeles",
   "plansPageTitle": "Planuri de citire a Bibliei",

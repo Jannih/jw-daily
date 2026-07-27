@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
-import 'package:nwt_reading/src/bible_languages/repositories/bible_languages_deserializer.dart';
+import 'package:jw_daily/src/bible_languages/entities/bible_languages.dart';
+import 'package:jw_daily/src/bible_languages/repositories/bible_languages_deserializer.dart';
 
 final bibleLanguagesRepositoryProvider = Provider<BibleLanguagesRepository>(
     (ref) => BibleLanguagesRepository(ref),

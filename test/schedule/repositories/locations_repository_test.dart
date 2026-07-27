@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:nwt_reading/src/base/repositories/shared_preferences_repository.dart';
-import 'package:nwt_reading/src/schedules/entities/locations.dart';
-import 'package:nwt_reading/src/schedules/repositories/locations_repository.dart';
+import 'package:jw_daily/src/base/repositories/shared_preferences_repository.dart';
+import 'package:jw_daily/src/schedules/entities/locations.dart';
+import 'package:jw_daily/src/schedules/repositories/locations_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../notifier_tester.dart';

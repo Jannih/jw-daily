@@ -1,10 +1,10 @@
 {
   "@@locale": "nl",
   "@@comment": "(c) searchwork.org",
-  "appTitle": "NWT Reading",
-  "whatsNewDialogTitle": "Wat is nieuw in NWT Reading",
+  "appTitle": "JW Daily",
+  "whatsNewDialogTitle": "Wat is nieuw in JW Daily",
   "whatsNewDialogPlans": "Je kunt meerdere Bijbelleesplannen parallel gebruiken.",
-  "whatsNewDialogOpenSource": "NWT Reading is nu open source. Vind ons op GitHub en draag bij.",
+  "whatsNewDialogOpenSource": "JW Daily is nu open source. Vind ons op GitHub en draag bij.",
   "whatsNewDialogLaterButtonText": "Later",
   "whatsNewDialogGotItButtonText": "Begrepen",
   "plansPageTitle": "Bijbelleesplannen",

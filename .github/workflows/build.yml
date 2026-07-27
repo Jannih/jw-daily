@@ -20,6 +20,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.27.4'
 
       - env:
           ANDROID_STORE_KEY_PROPERTIES: |
@@ -53,6 +54,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.27.4'
           architecture: x64
 
       - run: flutter --version
@@ -74,6 +76,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.27.4'
       - run: flutter --version
       - run: flutter pub get
       - run: ./gen-i10n.sh
@@ -93,6 +96,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.27.4'
       - run: flutter --version
       - run: flutter pub get
       - run: cmd /c win-gen-i10n.bat
@@ -113,6 +117,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.27.4'
 
       - run: |
           sudo apt-get update -y
@@ -137,6 +142,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.27.4'
           architecture: x64
 
       - run: flutter --version

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:nwt_reading/src/schedules/entities/videos.dart';
+import 'package:jw_daily/src/schedules/entities/videos.dart';
 
 class VideosDeserializer {
   Videos convertJsonToVideos(String json) {

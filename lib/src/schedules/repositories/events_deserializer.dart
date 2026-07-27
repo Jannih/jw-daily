@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nwt_reading/src/schedules/entities/events.dart';
+import 'package:jw_daily/src/schedules/entities/events.dart';
 
 class EventsDeserializer {
   Events convertJsonToEvents(String json) {

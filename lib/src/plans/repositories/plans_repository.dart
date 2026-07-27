@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/base/repositories/shared_preferences_repository.dart';
-import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/plans/entities/plans.dart';
-import 'package:nwt_reading/src/plans/repositories/plans_deserializer.dart';
-import 'package:nwt_reading/src/plans/repositories/plans_serializer.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/base/repositories/shared_preferences_repository.dart';
+import 'package:jw_daily/src/plans/entities/plan.dart';
+import 'package:jw_daily/src/plans/entities/plans.dart';
+import 'package:jw_daily/src/plans/repositories/plans_deserializer.dart';
+import 'package:jw_daily/src/plans/repositories/plans_serializer.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -110,8 +110,6 @@ class PlansRepository {
     } catch (e) {
       debugPrint('Import from legacy failed with error $e');
     }
-    for (Plan plan in plans.plans) {
-      plansNotifier.addPlan(plan);
-    }
+    plansNotifier.setPlans(plans);
   }
 }

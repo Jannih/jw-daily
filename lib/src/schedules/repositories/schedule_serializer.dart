@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
 
 class ScheduleSerializer {
   String convertScheduleToJson(Schedule schedule) {
@@ -11,7 +11,9 @@ class ScheduleSerializer {
   }
 
   List<Map<String, dynamic>> _convertDayToMap(Day day) {
-    return day.sections.map((section) => _convertSectionToMap(section)).toList();
+    return day.sections
+        .map((section) => _convertSectionToMap(section))
+        .toList();
   }
 
   Map<String, dynamic> _convertSectionToMap(Section section) {

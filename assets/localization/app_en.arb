@@ -1,11 +1,11 @@
 {
   "@@locale": "en",
   "@@comment": "(c) searchwork.org",
-  "appTitle": "NWT Reading",
+  "appTitle": "JW Daily",
   "@appTitle": {
     "description": "Title of the application"
   },
-  "whatsNewDialogTitle": "What''s New in NWT Reading",
+  "whatsNewDialogTitle": "What''s New in JW Daily",
   "@whatsNewDialogTitle": {
     "description": "Title of the what's new dialog"
   },
@@ -13,7 +13,7 @@
   "@whatsNewDialogPlans": {
     "description": "Description of the what's new dialog"
   },
-  "whatsNewDialogOpenSource": "NWT Reading is now open source. Find us on GitHub and contribute.",
+  "whatsNewDialogOpenSource": "JW Daily is now open source. Find us on GitHub and contribute.",
   "@whatsNewDialogOpenSource": {
     "description": "Description of the what's new dialog. Must contain the word GitHub, which will be rendered as a link"
   },
@@ -226,6 +226,38 @@
   "@planEditDeleteDialogText": {
     "description": "Text of the delete confirmation dialog on the plan edit page"
   },
+  "planEditPageShowBibleVersesTitle": "Bible verses explained",
+  "@planEditPageShowBibleVersesTitle": {
+    "description": "Show Bible verses title on the plan edit page"
+  },
+  "planEditPageShowBibleVersesSubtitle": "Show the explanation of the Bible verses in the sections.",
+  "@planEditPageShowBibleVersesSubtitle": {
+    "description": "Show Bible verses subtitle on the plan edit page"
+  },
+  "planEditPageShowVideosTitle": "Introduction videos",
+  "@planEditPageShowVideosTitle": {
+    "description": "Show videos title on the plan edit page"
+  },
+  "planEditPageShowVideosSubtitle": "Show the introduction videos in the sections.",
+  "@planEditPageShowVideosSubtitle": {
+    "description": "Show videos subtitle on the plan edit page"
+  },
+  "planEditPageStartBookTitle": "Choose starting point",
+  "@planEditPageStartBookTitle": {
+    "description": "Start book title on the plan edit page"
+  },
+  "planEditPageStartBookSubtitle": "Choose the Bible book the plan starts with.",
+  "@planEditPageStartBookSubtitle": {
+    "description": "Start book subtitle on the plan edit page"
+  },
+  "planEditPageStartBookFromBeginning": "From the beginning",
+  "@planEditPageStartBookFromBeginning": {
+    "description": "Start book option on the plan edit page for starting at the first book"
+  },
+  "planEditPageStartBookError": "The Bible books could not be loaded",
+  "@planEditPageStartBookError": {
+    "description": "Shown on the plan edit page when the Bible books fail to load"
+  },
   "settingsPageTitle": "Settings",
   "@settingsPageTitle": {
     "description": "Title of the settings page"
@@ -249,6 +281,139 @@
   "settingsPageCopyrightLabel": "Copyright",
   "@settingsPageCopyrightLabel": {
     "description": "Copyright label on the settings page"
+  },
+  "settingsPageDailyRemindersTitle": "Daily reminders",
+  "@settingsPageDailyRemindersTitle": {
+    "description": "Title of the daily reminder switch on the settings page"
+  },
+  "settingsPageDailyRemindersSubtitle": "Remind me about my daily reading",
+  "@settingsPageDailyRemindersSubtitle": {
+    "description": "Subtitle of the daily reminder switch on the settings page"
+  },
+  "settingsPageReminderTimeTitle": "Reminder time",
+  "@settingsPageReminderTimeTitle": {
+    "description": "Title of the reminder time picker on the settings page"
+  },
+  "settingsPageBasedOnLabel": "Based on NWT Reading by searchwork.org",
+  "@settingsPageBasedOnLabel": {
+    "description": "Upstream attribution shown on the settings page"
+  },
+  "notificationDailyReadingTitle": "Daily reading",
+  "@notificationDailyReadingTitle": {
+    "description": "Title of the daily reading reminder notification"
+  },
+  "notificationDailyReadingBody": "Do not forget your daily Bible reading!",
+  "@notificationDailyReadingBody": {
+    "description": "Body of the daily reading reminder notification"
+  },
+  "notificationChannelName": "Daily reading",
+  "@notificationChannelName": {
+    "description": "Name of the Android notification channel"
+  },
+  "notificationChannelDescription": "Reminders for the daily Bible reading",
+  "@notificationChannelDescription": {
+    "description": "Description of the Android notification channel"
+  },
+  "profilePageTitle": "Character profile",
+  "@profilePageTitle": {
+    "description": "Title of the character profile page"
+  },
+  "profilePageDefaultName": "Your name",
+  "@profilePageDefaultName": {
+    "description": "Placeholder shown before the character has been named"
+  },
+  "profilePageProgressLabel": "Faith progress: {current} / {required}",
+  "@profilePageProgressLabel": {
+    "description": "Experience progress towards the next level",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "required": {
+        "type": "int"
+      }
+    }
+  },
+  "levelUpDialogTitle": "Level up!",
+  "@levelUpDialogTitle": {
+    "description": "Headline of the level up dialog"
+  },
+  "levelUpDialogMessage": "You reached level {level}!",
+  "@levelUpDialogMessage": {
+    "description": "Message of the level up dialog",
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "levelUpDialogAvatarUnlocked": "New avatar unlocked!",
+  "@levelUpDialogAvatarUnlocked": {
+    "description": "Shown in the level up dialog when a new avatar becomes available"
+  },
+  "levelUpDialogContinueButton": "Continue",
+  "@levelUpDialogContinueButton": {
+    "description": "Dismiss button of the level up dialog"
+  },
+  "achievementsListLoading": "Loading achievements...",
+  "@achievementsListLoading": {
+    "description": "Shown while the achievement list is loading"
+  },
+  "errorGenericMessage": "Something went wrong",
+  "@errorGenericMessage": {
+    "description": "Shown when the achievement list fails to load"
+  },
+  "errorRetryButton": "Try again",
+  "@errorRetryButton": {
+    "description": "Retry button of the achievement list"
+  },
+  "achievementsListClaimRewardButton": "Claim reward",
+  "@achievementsListClaimRewardButton": {
+    "description": "Button to claim the reward of a completed achievement"
+  },
+  "achievementFirstReading": "First Bible reading",
+  "@achievementFirstReading": {
+    "description": "Achievement for the first completed reading"
+  },
+  "achievementDailyReading": "Daily Bible reading",
+  "@achievementDailyReading": {
+    "description": "Achievement that can be claimed once per day"
+  },
+  "achievementStreak3": "3 days in a row",
+  "@achievementStreak3": {
+    "description": "Achievement for a three day reading streak"
+  },
+  "achievementStreak7": "7 days in a row",
+  "@achievementStreak7": {
+    "description": "Achievement for a seven day reading streak"
+  },
+  "achievementStreak10": "10 days in a row",
+  "@achievementStreak10": {
+    "description": "Achievement for a ten day reading streak"
+  },
+  "achievementFirstChapter": "First chapter completed",
+  "@achievementFirstChapter": {
+    "description": "Achievement for the first completed chapter"
+  },
+  "achievementChapters5": "5 chapters completed",
+  "@achievementChapters5": {
+    "description": "Achievement for five completed chapters"
+  },
+  "achievementFirstBook": "First book completed",
+  "@achievementFirstBook": {
+    "description": "Achievement for the first completed Bible book"
+  },
+  "achievementBooks5": "5 books completed",
+  "@achievementBooks5": {
+    "description": "Achievement for five completed Bible books"
+  },
+  "achievementFirstMonth": "First month completed",
+  "@achievementFirstMonth": {
+    "description": "Achievement for the first completed month of reading"
+  },
+  "achievementMonths3": "3 months completed",
+  "@achievementMonths3": {
+    "description": "Achievement for three completed months of reading"
   },
   "event_4026_BCE": "Adam’s creation",
   "event_a_4026_BCE": "Edenic covenant made, first prophecy",

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/schedules/entities/bible_verses.dart';
+import 'package:jw_daily/src/schedules/entities/bible_verses.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BibleVersesWidget extends ConsumerWidget {

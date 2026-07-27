@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/base/entities/incomplete_notifier.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/base/entities/incomplete_notifier.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
 
 final schedulesProvider =
     AsyncNotifierProvider<IncompleteNotifier<Schedules>, Schedules>(

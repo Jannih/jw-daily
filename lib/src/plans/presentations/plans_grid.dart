@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
-import 'package:nwt_reading/src/plans/entities/plans.dart';
-import 'package:nwt_reading/src/plans/presentations/plan_card.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
+import 'package:jw_daily/src/plans/entities/plans.dart';
+import 'package:jw_daily/src/plans/presentations/plan_card.dart';
 
 class PlansGrid extends ConsumerWidget {
   const PlansGrid({super.key});

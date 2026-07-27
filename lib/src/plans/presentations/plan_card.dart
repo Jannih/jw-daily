@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/base/presentation/plan.dart';
-import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
-import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
-import 'package:nwt_reading/src/schedules/presentations/schedule_page.dart';
+import 'package:jw_daily/src/base/presentation/plan.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
+import 'package:jw_daily/src/plans/entities/plan.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/schedules/presentations/schedule_page.dart';
 
 class PlanCard extends ConsumerWidget {
   const PlanCard(this.planId, {super.key});
+
+  static const _planTypeIcons = {
+    ScheduleType.chronological: Icons.hourglass_empty,
+    ScheduleType.canonical: Icons.menu_book,
+    ScheduleType.written: Icons.edit_note,
+    ScheduleType.gospels: Icons.book_online,
+    ScheduleType.greek_scriptures: Icons.auto_stories,
+  };
 
   final String planId;
 
@@ -19,22 +27,14 @@ class PlanCard extends ConsumerWidget {
     final remainingDays = planNotifier.getRemainingDays();
     final isFinished = planNotifier.isFinished();
     final progress = planNotifier.getProgress();
-    const planTypeIcons = {
-      ScheduleType.chronological: Icons.hourglass_empty,
-      ScheduleType.canonical: Icons.menu_book,
-      ScheduleType.written: Icons.edit_note,
-      ScheduleType.gospels: Icons.book_online,
-      ScheduleType.greek_scriptures: Icons.auto_stories,
-    };
-
     buildNameTitle() => Row(children: [
           Icon(
-            planTypeIcons[plan.scheduleKey.type],
+            _planTypeIcons[plan.scheduleKey.type],
             color: Theme.of(context).colorScheme.surface,
             size: 56,
             shadows: [
               Shadow(
-                  offset: Offset(-1, -1),
+                  offset: const Offset(-1, -1),
                   color: Theme.of(context).colorScheme.primary,
                   blurRadius: 2),
               Shadow(

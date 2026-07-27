@@ -16,6 +16,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.27.4'
 
       - run: ./check.sh
 
@@ -36,6 +37,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: '3.27.4'
 
       - run: ./gen-i10n.sh
       - run: flutter test integration_test --timeout 2x

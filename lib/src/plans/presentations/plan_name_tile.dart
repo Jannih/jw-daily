@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/base/presentation/plan.dart';
-import 'package:nwt_reading/src/plans/stories/plan_edit_story.dart';
+import 'package:jw_daily/src/base/presentation/plan.dart';
+import 'package:jw_daily/src/plans/stories/plan_edit_story.dart';
 
 class PlanNameTile extends ConsumerWidget {
   const PlanNameTile(this.planId, {super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/plans/entities/plan.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
 import 'package:uuid/uuid.dart';
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
@@ -38,12 +38,18 @@ class PlansNotifier extends Notifier<Plans> {
         showVideos: true);
   }
 
+  /// The app deliberately supports a single reading plan, so adding one
+  /// replaces whatever is there. Callers must not offer this when a plan
+  /// already exists — the replaced plan's progress cannot be recovered.
   void addPlan(Plan plan) {
-    if (state.plans.isNotEmpty) {
-      state = Plans([plan]);
-      return;
-    }
     state = Plans([plan]);
+  }
+
+  /// Replaces every plan at once. Used when restoring from storage, where
+  /// [addPlan] would collapse the stored plans down to the last one and write
+  /// back to the preferences once per plan.
+  void setPlans(Plans plans) {
+    state = plans;
   }
 
   void removePlan(String planId) {

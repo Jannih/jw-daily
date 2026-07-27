@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nwt_reading/main.dart' as app;
+import 'package:jw_daily/main.dart' as app;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettledTester {

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nwt_reading/src/base/entities/incomplete_notifier.dart';
+import 'package:jw_daily/src/base/entities/incomplete_notifier.dart';
 
 void main() {
   test('Stays on isLoading before init', () async {

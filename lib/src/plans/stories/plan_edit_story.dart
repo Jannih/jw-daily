@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/plans/entities/plans.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
-import 'package:nwt_reading/src/schedules/repositories/schedules_repository.dart';
-import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
+import 'package:jw_daily/src/plans/entities/plan.dart';
+import 'package:jw_daily/src/plans/entities/plans.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/schedules/repositories/schedules_repository.dart';
+import 'package:jw_daily/src/bible_languages/entities/bible_languages.dart';
 
 final planEditProviderFamily =
     AutoDisposeNotifierProviderFamily<PlanEdit, Plan, String?>(PlanEdit.new,
@@ -34,11 +34,11 @@ class PlanEdit extends AutoDisposeFamilyNotifier<Plan, String?> {
     }
   }
 
-    // Neue Methode zum Aktualisieren des Startbuchs
+  // Neue Methode zum Aktualisieren des Startbuchs
   void updateStartBook(String? bookName) async {
     if (bookName == _startBook) return;
     _startBook = bookName;
-    
+
     if (bookName == null) {
       // Wenn kein Startbuch gewählt wurde, Original-Schedule verwenden
       state = state.copyWith(
@@ -49,17 +49,16 @@ class PlanEdit extends AutoDisposeFamilyNotifier<Plan, String?> {
     }
 
     // Originalen Schedule laden
-    final originalSchedule = await ref.read(
-      scheduleProviderFamily(state.scheduleKey).future
-    );
-    
+    final originalSchedule =
+        await ref.read(scheduleProviderFamily(state.scheduleKey).future);
+
     if (originalSchedule == null) return;
 
     // Hole die Bibelbücher für die aktuelle Sprache
     final bibleLanguagesAsync = await ref.read(bibleLanguagesProvider.future);
     final language = bibleLanguagesAsync.bibleLanguages[state.language];
     if (language == null) return;
-    
+
     // Finde den Index des gewählten Buchs
     final books = language.books;
     final bookIndex = books.indexWhere((book) => book.name == bookName);
@@ -79,7 +78,7 @@ class PlanEdit extends AutoDisposeFamilyNotifier<Plan, String?> {
       if (found) break;
     }
 
-        // Erstelle einen neuen Schedule, der beim gewählten Buch beginnt
+    // Erstelle einen neuen Schedule, der beim gewählten Buch beginnt
     final adjustedSchedule = Schedule([
       ...originalSchedule.days.sublist(startDayIndex),
       if (startDayIndex > 0) ...originalSchedule.days.sublist(0, startDayIndex)
@@ -87,13 +86,12 @@ class PlanEdit extends AutoDisposeFamilyNotifier<Plan, String?> {
 
     // Speichere den angepassten Schedule
     final newScheduleKey = state.scheduleKey.copyWith(
-      version: '${state.scheduleKey.version}_${bookName.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '_')}'
-    );
-    
-    await ref.read(schedulesRepositoryProvider).saveCustomSchedule(
-      newScheduleKey,
-      adjustedSchedule
-    );
+        version:
+            '${state.scheduleKey.version}_${bookName.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '_')}');
+
+    await ref
+        .read(schedulesRepositoryProvider)
+        .saveCustomSchedule(newScheduleKey, adjustedSchedule);
 
     // Aktualisiere den Plan
     state = state.copyWith(

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
-import 'package:nwt_reading/src/schedules/entities/videos.dart';
-import 'package:nwt_reading/src/schedules/repositories/videos_deserializer.dart';
+import 'package:jw_daily/src/schedules/entities/videos.dart';
+import 'package:jw_daily/src/schedules/repositories/videos_deserializer.dart';
 
 final videosRepositoryProvider = Provider<VideosRepository>(
     (ref) => VideosRepository(ref),

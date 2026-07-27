@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/base/repositories/shared_preferences_repository.dart';
-import 'package:nwt_reading/src/bible_languages/repositories/bible_languages_repository.dart';
-import 'package:nwt_reading/src/logs/repositories/provider_logger.dart';
-import 'package:nwt_reading/src/plans/repositories/plans_repository.dart';
-import 'package:nwt_reading/src/schedules/repositories/events_repository.dart';
-import 'package:nwt_reading/src/schedules/repositories/locations_repository.dart';
-import 'package:nwt_reading/src/schedules/repositories/bible_verses_repository.dart';
-import 'package:nwt_reading/src/schedules/repositories/videos_repository.dart';
-import 'package:nwt_reading/src/schedules/repositories/schedules_repository.dart';
-import 'package:nwt_reading/src/settings/repositories/settings_repository.dart';
-import 'package:nwt_reading/src/notifications/notifications_service.dart';
+import 'package:jw_daily/src/base/repositories/shared_preferences_repository.dart';
+import 'package:jw_daily/src/bible_languages/repositories/bible_languages_repository.dart';
+import 'package:jw_daily/src/logs/repositories/provider_logger.dart';
+import 'package:jw_daily/src/plans/repositories/plans_repository.dart';
+import 'package:jw_daily/src/schedules/repositories/events_repository.dart';
+import 'package:jw_daily/src/schedules/repositories/locations_repository.dart';
+import 'package:jw_daily/src/schedules/repositories/bible_verses_repository.dart';
+import 'package:jw_daily/src/schedules/repositories/videos_repository.dart';
+import 'package:jw_daily/src/schedules/repositories/schedules_repository.dart';
+import 'package:jw_daily/src/settings/repositories/settings_repository.dart';
+import 'package:jw_daily/src/notifications/notifications_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'src/app.dart';

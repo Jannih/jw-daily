@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/base/presentation/plan.dart';
-import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
-import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/plans/presentations/plan_edit_dialog.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
-import 'package:nwt_reading/src/schedules/presentations/day_card.dart';
+import 'package:jw_daily/src/base/presentation/plan.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
+import 'package:jw_daily/src/plans/entities/plan.dart';
+import 'package:jw_daily/src/plans/presentations/plan_edit_dialog.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/schedules/presentations/day_card.dart';
 
 class SchedulePage extends ConsumerStatefulWidget {
   const SchedulePage({super.key});
@@ -21,6 +21,13 @@ class SchedulePage extends ConsumerStatefulWidget {
 class _SchedulePageState extends ConsumerState<SchedulePage> {
   int topDayIndex = 0;
   ScheduleKey? scheduleKey;
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   void resetTopDayIndex(Bookmark? bookmark) =>
       setState(() => topDayIndex = bookmark == null
@@ -33,13 +40,18 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    final planId = ModalRoute.of(context)!.settings.arguments as String;
+    final planId = ModalRoute.of(context)?.settings.arguments as String?;
+    if (planId == null) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: Center(child: Text(context.loc.errorGenericMessage)),
+      );
+    }
     final plan = ref.watch(planProviderFamily(planId));
     final planNotifier = ref.read(planProviderFamily(planId).notifier);
     final asyncSchedule = ref.watch(scheduleProviderFamily(plan.scheduleKey));
     final progress = planNotifier.getProgress();
     const Key centerKey = ValueKey<String>('today');
-    final controller = ScrollController();
     final deviationDays = planNotifier.getDeviationDays();
     final todayTargetIndex = planNotifier.todayTargetIndex();
     final badgeColor = deviationDays >= 0 ? Colors.green : Colors.red;
@@ -96,7 +108,6 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
 
       return date != null && plan.withTargetDate && isBeginningOfMonth
           ? Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
                 Text(
@@ -117,7 +128,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
               : Badge(
                   label: Text('${deviationDays.abs()}'),
                   backgroundColor: badgeColor,
-                  offset: Offset(23, -5),
+                  offset: const Offset(23, -5),
                   child: Text(getPlanName(context, plan)),
                 ),
           actions: [
@@ -146,7 +157,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                   ),
                 Flexible(
                   child: CustomScrollView(
-                    controller: controller,
+                    controller: _scrollController,
                     center: centerKey,
                     slivers: <Widget>[
                       SliverList(
@@ -170,14 +181,32 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                 ),
               ],
             ),
-          AsyncValue(:final error?) => Text('Error: $error'),
+          AsyncValue(hasError: true) => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(context.loc.errorGenericMessage),
+                    const SizedBox(height: 12),
+                    FilledButton(
+                      onPressed: () => ref
+                          .invalidate(scheduleProviderFamily(plan.scheduleKey)),
+                      child: Text(context.loc.errorRetryButton),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           _ => const Center(child: CircularProgressIndicator()),
         },
         floatingActionButton: FloatingActionButton(
           tooltip: context.loc.schedulePageJumpToBookmarkTooltip,
           onPressed: () {
             resetTopDayIndex(plan.bookmark);
-            controller.jumpTo(0.0);
+            if (_scrollController.hasClients) {
+              _scrollController.jumpTo(0.0);
+            }
           },
           child: const Icon(Icons.bookmark),
         ));

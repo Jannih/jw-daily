@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
-import 'package:nwt_reading/src/settings/stories/settings_story.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
+import 'package:jw_daily/src/settings/stories/settings_story.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -51,8 +51,8 @@ void showWhatsNewDialog(
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        final url = Uri.parse(
-                            'https://github.com/searchwork/nwt-reading');
+                        final url =
+                            Uri.parse('https://github.com/Jannih/jw-daily');
                         launchUrl(url);
                       },
                   ),

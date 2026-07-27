@@ -1,5 +1,5 @@
-name: nwt_reading
-description: "Bible reading schedule of the New World  Translation for Jehovah's Witnesses."
+name: jw_daily
+description: "Daily Bible reading schedules for the New World Translation."
 
 # Prevent accidental publishing to pub.dev.
 publish_to: "none"

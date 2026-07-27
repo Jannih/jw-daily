@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
-import 'package:flutter/material.dart';
 
 class SheepPastureGame extends FlameGame {
   final int level;
@@ -15,7 +14,8 @@ class SheepPastureGame extends FlameGame {
 
     // 1. Pixel-perfekte, lückenlose Graslandschaft
     final grassTileset = await images.load('lands/Tilesets/Grass.png');
-    final grassSheet = SpriteSheet(image: grassTileset, srcSize: Vector2.all(16));
+    final grassSheet =
+        SpriteSheet(image: grassTileset, srcSize: Vector2.all(16));
     final grassTile = grassSheet.getSprite(6, 0);
     final tileSize = 32.0;
 
@@ -60,8 +60,10 @@ class SheepPastureGame extends FlameGame {
     add(sheep);
 
     // 3. Dekorative Elemente aus "Basic_Grass_Biom_things.png"
-    final thingsSheetImg = await images.load('lands/Objects/Basic_Grass_Biom_things.png');
-    final thingsSheet = SpriteSheet(image: thingsSheetImg, srcSize: Vector2.all(16));
+    final thingsSheetImg =
+        await images.load('lands/Objects/Basic_Grass_Biom_things.png');
+    final thingsSheet =
+        SpriteSheet(image: thingsSheetImg, srcSize: Vector2.all(16));
 
     // Ab Level 2 erscheinen verschiedene Dekorationen zum Testen
     if (level == 2 || level == 3) {
@@ -83,7 +85,7 @@ class SheepPastureGame extends FlameGame {
       final treeX = size.x * 0.25;
       final treeY = size.y - 64; // Platz für 2 Reihen
 
-            // Obere linke Ecke (0,1)
+      // Obere linke Ecke (0,1)
       add(SpriteComponent(
         sprite: thingsSheet.getSprite(0, 1),
         size: Vector2.all(tileSize),
@@ -226,4 +228,4 @@ class SheepPastureGame extends FlameGame {
       add(flower);
     }
   }
-} 
+}

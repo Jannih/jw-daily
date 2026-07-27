@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nwt_reading/src/bible_languages/entities/bible_languages.dart';
-import 'package:nwt_reading/src/localization/app_localizations_getter.dart';
-import 'package:nwt_reading/src/plans/entities/plan.dart';
-import 'package:nwt_reading/src/schedules/entities/events.dart';
-import 'package:nwt_reading/src/schedules/entities/locations.dart';
-import 'package:nwt_reading/src/schedules/entities/bible_verses.dart';
-import 'package:nwt_reading/src/schedules/entities/videos.dart';
-import 'package:nwt_reading/src/schedules/entities/schedule.dart';
-import 'package:nwt_reading/src/schedules/presentations/event_widget.dart';
-import 'package:nwt_reading/src/schedules/presentations/locations_widget.dart';
-import 'package:nwt_reading/src/schedules/presentations/bible_verse_widget.dart';
-import 'package:nwt_reading/src/schedules/presentations/videos_widget.dart';
+import 'package:jw_daily/src/bible_languages/entities/bible_languages.dart';
+import 'package:jw_daily/src/localization/app_localizations_getter.dart';
+import 'package:jw_daily/src/plans/entities/plan.dart';
+import 'package:jw_daily/src/schedules/entities/events.dart';
+import 'package:jw_daily/src/schedules/entities/locations.dart';
+import 'package:jw_daily/src/schedules/entities/bible_verses.dart';
+import 'package:jw_daily/src/schedules/entities/videos.dart';
+import 'package:jw_daily/src/schedules/entities/schedule.dart';
+import 'package:jw_daily/src/schedules/presentations/event_widget.dart';
+import 'package:jw_daily/src/schedules/presentations/locations_widget.dart';
+import 'package:jw_daily/src/schedules/presentations/bible_verse_widget.dart';
+import 'package:jw_daily/src/schedules/presentations/videos_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SectionWidget extends ConsumerWidget {
